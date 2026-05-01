@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+:root {
+  --background: #F2F4F7;
+  --foreground: #101828;
+  --primary: #046CDE;
+  --primary-foreground: #FFFFFF;
+  --secondary: #01318F;
+  --secondary-foreground: #FFFFFF;
+  --muted: #667085;
+  --muted-foreground: #667085;
+  --accent: #00C7FE;
+  --accent-foreground: #020D4C;
+  --card: #FFFFFF;
+  --card-foreground: #3C4554;
+  --border: #E4E7EC;
+  --ring: #046CDE;
+  --radius: 0.5rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: "Poppins", "Inter", system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+}
+
+body {
+  font-family: var(--font-sans);
+}
