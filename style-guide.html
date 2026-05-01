@@ -1,0 +1,1921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uncountable Design System</title>
+
+  <!-- Fonts: Poppins (brand) + Material Symbols Rounded (iconography) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ======================================================
+       Uncountable Design System — foundation tokens
+       Palette v2 (post-rebrand). See JS constants below for
+       semantic role mapping. WCAG ratings against intended
+       surface (white or midnight) — all foreground roles
+       pass AA or higher; tints and decorative backgrounds
+       are dark-surface-only.
+       ====================================================== */
+    :root {
+      /* Primary */
+      --uc-white:        #FFFFFF;            /* bg fill */
+      --uc-midnight:     #020D4C;            /* bg fill (dark) */
+      --uc-royal-blue:   #01318F;            /* logo / headlines  AAA on white */
+
+      /* Secondary */
+      --uc-mist:         #EAF2F9;            /* bg fill (cool light) */
+      --uc-fog:          #DFE3EA;            /* bg fill (neutral light) */
+      --uc-azure:        #046CDE;            /* primary CTA / buttons  AA on white */
+
+      /* Extended */
+      --uc-sky-cyan:     #00C7FE;            /* secondary CTA on dark  AAA on midnight */
+      --uc-emerald:      #018744;            /* extended accent  AA on white */
+      --uc-amber:        #FFAF0F;            /* extended accent — DARK-SURFACE ONLY */
+      --uc-slate:        #3C4554;            /* paragraph text  AAA on white */
+
+      /* Tints — limited use for gradients and decorative backgrounds */
+      --uc-tint-sky:     #80E3FE;
+      --uc-tint-mint:    #80D4AA;
+      --uc-tint-ice:     #BFF1FF;
+      --uc-tint-seafoam: #BFE9D4;
+
+      /* Functional / status (outside brand palette — kept for in-product UI) */
+      --uc-status-red:        #E53935;
+      --uc-status-red-bg:     #FDECEA;
+      --uc-status-green-bg:   #E8F5E9;
+
+      /* Type */
+      --uc-font-sans: "Poppins", "Inter", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--uc-font-sans);
+      color: var(--uc-slate);
+      background: #fff;
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Material Symbols base sizing is controlled by inline font-size */
+    .material-symbols-rounded {
+      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+    }
+
+    button { font-family: inherit; }
+    input { font-family: inherit; }
+
+    /* ======================================================
+       Animations — minimal, brand-appropriate
+       Uncountable brand rule: short fades (120–200ms base,
+       up to 500ms for entrances), ease-out, no springs.
+       ====================================================== */
+    @keyframes uc-fade-in {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes uc-fade-up {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes uc-fade-down {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes uc-fade {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* Above-the-fold entrance — plays on mount with cubic ease-out */
+    .uc-enter     { animation: uc-fade-up 900ms cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+    .uc-enter-nav { animation: uc-fade-down 700ms cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+    .uc-enter-d0  { animation-delay:    0ms; }
+    .uc-enter-d1  { animation-delay:  140ms; }
+    .uc-enter-d2  { animation-delay:  280ms; }
+    .uc-enter-d3  { animation-delay:  420ms; }
+    .uc-enter-d4  { animation-delay:  560ms; }
+    .uc-enter-d5  { animation-delay:  720ms; }
+    .uc-enter-d6  { animation-delay:  900ms; }
+    .uc-enter-d7  { animation-delay: 1080ms; }
+
+    /* Below-the-fold reveal — driven by IntersectionObserver adding .is-visible */
+    .uc-reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition:
+        opacity 900ms cubic-bezier(0.22, 0.61, 0.36, 1),
+        transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1);
+      will-change: opacity, transform;
+    }
+    .uc-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger container — children animate in sequence when the parent becomes visible */
+    .uc-stagger > * {
+      opacity: 0;
+      transform: translateY(12px);
+      transition:
+        opacity 800ms cubic-bezier(0.22, 0.61, 0.36, 1),
+        transform 800ms cubic-bezier(0.22, 0.61, 0.36, 1);
+      will-change: opacity, transform;
+    }
+    .uc-stagger.is-visible > * { opacity: 1; transform: translateY(0); }
+    .uc-stagger.is-visible > *:nth-child(1) { transition-delay:   0ms; }
+    .uc-stagger.is-visible > *:nth-child(2) { transition-delay: 120ms; }
+    .uc-stagger.is-visible > *:nth-child(3) { transition-delay: 240ms; }
+    .uc-stagger.is-visible > *:nth-child(4) { transition-delay: 360ms; }
+    .uc-stagger.is-visible > *:nth-child(5) { transition-delay: 480ms; }
+    .uc-stagger.is-visible > *:nth-child(6) { transition-delay: 600ms; }
+
+    /* Respect user preference — no motion if requested */
+    @media (prefers-reduced-motion: reduce) {
+      .uc-enter, .uc-enter-nav,
+      .uc-reveal, .uc-reveal.is-visible,
+      .uc-stagger > *, .uc-stagger.is-visible > * {
+        animation: none !important;
+        transition: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+
+    /* Marketing: hover transitions */
+    .uc-feature-card {
+      transition: box-shadow 150ms ease, border-color 150ms ease, transform 150ms ease;
+    }
+    .uc-feature-card:hover {
+      box-shadow: 0 10px 24px -10px rgba(2, 13, 76, 0.18);
+      border-color: rgba(60, 69, 84, 0.2);
+    }
+    .uc-nav-link {
+      transition: opacity 120ms ease;
+    }
+    .uc-nav-link:hover { opacity: 0.65; }
+
+    .uc-cta-primary {
+      transition: background 120ms ease, transform 80ms ease;
+    }
+    .uc-cta-primary:hover { opacity: 0.92; }
+    .uc-cta-primary:active { transform: translateY(1px); }
+
+    .uc-cta-ghost {
+      transition: background 120ms ease, border-color 120ms ease;
+    }
+    .uc-cta-ghost:hover { background: rgba(255, 255, 255, 0.08); }
+
+    .uc-resource-card {
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+    .uc-resource-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px -12px rgba(2, 13, 76, 0.22);
+    }
+
+    /* Scrollbar styling inside platform panels */
+    .uc-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+    .uc-scroll::-webkit-scrollbar-track { background: transparent; }
+    .uc-scroll::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 999px; }
+    .uc-scroll::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.22); }
+
+    /* ======================================================
+       Landing v2 — responsive collapse rules
+       Inline-style grids on the new sections need !important
+       to override at narrow viewports.
+       ====================================================== */
+
+    /* StyleGuide responsive: at tablet and narrower, the sticky sidebar
+       collapses above the content, becoming a horizontal scroll-tab strip.
+       Anti-pattern do/dont 2-col rows and Copy & Voice 3-col rows stack to
+       single column at the same breakpoint. The asset matrix and button-label
+       grids are already breakpoint-free via auto-fit minmax(). */
+    @media (max-width: 900px) {
+      .uc-sg-grid {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+      }
+      .uc-sg-sidebar {
+        position: static !important;
+        top: auto !important;
+        padding-top: 24px !important;
+        overflow-x: auto;
+      }
+      .uc-sg-sidebar nav {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        gap: 4px !important;
+      }
+      .uc-sg-sidebar nav a {
+        white-space: nowrap;
+        border-left: 0 !important;
+      }
+    }
+    @media (max-width: 760px) {
+      .uc-ap-row {
+        grid-template-columns: 1fr !important;
+      }
+      .uc-voice-rule {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    /* Typography rows have a fixed 120/1fr/240px desktop layout that
+       can't fit a 320px viewport. Stack the columns under 600px. */
+    @media (max-width: 600px) {
+      .uc-sg-type-row {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+      }
+    }
+
+    /* Focus-visible: keyboard users get an Azure outline on every clickable
+       Style Guide chip / asset / row. Cancels the browser default ring. */
+    .uc-sg button:focus-visible,
+    .uc-sg a:focus-visible {
+      outline: 2px solid #046CDE;
+      outline-offset: 2px;
+    }
+
+    /* Reduced motion: cancel hover-driven transforms on the JS-driven
+       onMouseEnter lifts (AssetTile, ColorSwatch) so the page snaps to the
+       new state instead of animating into it. */
+    @media (prefers-reduced-motion: reduce) {
+      .uc-sg button,
+      .uc-sg a {
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+
+  <!-- React + Babel (matches prototype loading pattern) -->
+  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" data-presets="env,react">
+    const { useState, useMemo, useRef, useEffect } = React;
+
+    /* =====================================================================
+       Animation primitives
+       ===================================================================== */
+
+    /* Reveal-on-scroll hook — returns [ref, isVisible]. Triggers once. */
+    function useReveal(options = {}) {
+      const ref = useRef(null);
+      const [visible, setVisible] = useState(false);
+      useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+        // Respect reduced-motion: show immediately
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          setVisible(true);
+          return;
+        }
+        // If IntersectionObserver is unavailable, degrade to instant reveal
+        if (typeof IntersectionObserver === 'undefined') {
+          setVisible(true);
+          return;
+        }
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                setVisible(true);
+                io.disconnect();
+              }
+            });
+          },
+          { threshold: 0.15, rootMargin: '0px 0px -60px 0px', ...options },
+        );
+        io.observe(el);
+        return () => io.disconnect();
+      }, []);
+      return [ref, visible];
+    }
+
+    /* Reveal wrapper — adds .uc-reveal and toggles .is-visible on scroll into view.
+       stagger=true applies the .uc-stagger class instead so children animate in sequence. */
+    function Reveal({ as: Tag = 'div', stagger = false, className = '', style, children, ...rest }) {
+      const [ref, visible] = useReveal();
+      const base = stagger ? 'uc-stagger' : 'uc-reveal';
+      return (
+        <Tag
+          ref={ref}
+          className={`${base}${visible ? ' is-visible' : ''}${className ? ' ' + className : ''}`}
+          style={style}
+          {...rest}
+        >
+          {children}
+        </Tag>
+      );
+    }
+
+    /* Counter — animates a number from 0 to target on mount, with cubic ease-out. */
+    function Counter({ value, duration = 1800, decimals = 0, prefix = '', suffix = '' }) {
+      const [display, setDisplay] = useState(decimals > 0 ? (0).toFixed(decimals) : '0');
+      useEffect(() => {
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          setDisplay(decimals > 0 ? value.toFixed(decimals) : String(Math.round(value)));
+          return;
+        }
+        let start = null;
+        let raf;
+        const step = (ts) => {
+          if (start === null) start = ts;
+          const t = Math.min(1, (ts - start) / duration);
+          const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+          const v = eased * value;
+          setDisplay(decimals > 0 ? v.toFixed(decimals) : String(Math.round(v)));
+          if (t < 1) raf = requestAnimationFrame(step);
+        };
+        raf = requestAnimationFrame(step);
+        return () => cancelAnimationFrame(raf);
+      }, [value, duration, decimals]);
+      return <>{prefix}{display}{suffix}</>;
+    }
+
+    /* =====================================================================
+       Brand constants — Palette v2
+       Mirrors the CSS :root tokens above. Roles are explicit per palette
+       documentation; see contrast notes for which surface each works on.
+       ===================================================================== */
+
+    // Primary
+    const MIDNIGHT    = '#020D4C';   // dark surface (hero, footer)
+    const ROYAL_BLUE  = '#01318F';   // logo, headlines, accent text on white  (AAA)
+
+    // Secondary
+    const MIST        = '#EAF2F9';   // bg fill (cool light) / chip backgrounds
+    const FOG         = '#DFE3EA';   // bg fill (neutral light)
+    const AZURE       = '#046CDE';   // primary CTA / buttons  (AA on white)
+
+    // Extended
+    const SKY_CYAN    = '#00C7FE';   // secondary CTA on dark  (AAA on midnight)
+    const EMERALD     = '#018744';   // success accent  (AA on white)
+    const AMBER       = '#FFAF0F';   // accent — DARK-SURFACE ONLY (chart thresholds, badges)
+    const SLATE       = '#3C4554';   // paragraph text  (AAA on white)
+
+    // Tints — gradients and decorative backgrounds only
+    const TINT_SKY     = '#80E3FE';
+    const TINT_MINT    = '#80D4AA';
+    const TINT_ICE     = '#BFF1FF';
+    const TINT_SEAFOAM = '#BFE9D4';
+
+    // Functional / status (outside brand palette — kept for in-product UI)
+    const STATUS_RED      = '#E53935';
+    const STATUS_RED_BG   = '#FDECEA';
+    const STATUS_GREEN_BG = '#E8F5E9';
+
+    // Platform UI scaffolding (canvas, dividers, body text)
+    const CANVAS      = '#F2F4F7';
+    const DIVIDER     = '#E4E7EC';
+    const TEXT        = '#101828';
+    const TEXT_MUTED  = '#667085';
+
+    /* =====================================================================
+       Icon helpers
+       ===================================================================== */
+    function MI({ name, size = 20, fill = 0, weight = 400, style = {}, label }) {
+      const decorative = !label;
+      return (
+        <span
+          className="material-symbols-rounded"
+          aria-hidden={decorative ? 'true' : undefined}
+          aria-label={label}
+          role={label ? 'img' : undefined}
+          style={{
+            fontSize: size,
+            lineHeight: 1,
+            fontVariationSettings: `"FILL" ${fill}, "wght" ${weight}, "GRAD" 0, "opsz" 24`,
+            ...style,
+          }}
+        >
+          {name}
+        </span>
+      );
+    }
+
+    /* =====================================================================
+       Uncountable logo — inlined from assets/logos/uncountable-logo-dark.svg
+       Uses currentColor so it works on light (ink) or dark (white) surfaces.
+       ===================================================================== */
+    function UncountableLogo({ height = 26, style = {} }) {
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 147.915 32"
+          fill="none"
+          height={height}
+          style={{ width: 'auto', display: 'block', ...style }}
+          aria-label="Uncountable"
+        >
+          <path d="M13.875 0 0 7.999v16.002L13.875 32l13.874-7.999V7.999L13.875 0Zm11.947 22.888L13.875 29.776 1.927 22.888V9.113l11.948-6.889 11.947 6.889v13.775Z" fill="currentColor"/>
+          <path d="M18.876 9.197h-1.89v7.229c0 1.67.016 2.793.046 3.37v.012c-.645.447-1.366.801-2.163 1.058a10.68 10.68 0 0 1-1.133.279c-.376.065-.765.096-1.167.096-.402 0-.749-.055-1.041-.165-.293-.11-.545-.323-.758-.638-.212-.315-.318-1.018-.318-2.112V9.195H8.539v9.438c0 1.625.277 2.744.832 3.359.303.341.711.59 1.224.745.512.156 1.093.234 1.742.234.648 0 1.208-.065 1.679-.194 1.184-.326 2.22-.857 3.108-1.594l.274 1.606 1.696-.136c-.144-1.412-.216-3.37-.216-5.875V9.196Z" fill="currentColor"/>
+          <path d="M40.938 10.507h-1.562v5.974c0 1.38.013 2.309.038 2.786v.009c-.533.37-1.129.662-1.788.875a6.2 6.2 0 0 1-.936.231c-.31.053-.631.08-.964.08-.332 0-.619-.046-.861-.137-.242-.091-.45-.266-.625-.527-.176-.26-.264-.842-.264-1.745v-7.546h-1.581v7.8c0 1.342.23 2.268.687 2.776.252.282.589.487 1.012.616.423.128.903.192 1.439.192.536 0 .999-.053 1.388-.159.979-.27 1.835-.709 2.569-1.318l.226 1.327 1.401-.113c-.118-1.166-.178-2.785-.178-4.855v-6.266Z" fill="currentColor"/>
+          <path d="M50.083 11.923c.241.091.449.267.625.527.175.26.263.842.263 1.745v7.509h1.581v-7.8c0-1.343-.229-2.268-.687-2.776a2.3 2.3 0 0 0-1.016-.616c-.427-.129-.92-.193-1.477-.193-.558 0-1.045.05-1.459.151-1.016.238-1.866.637-2.55 1.195l-.151-1.157h-1.374v11.196h1.562v-8.835c1.267-.721 2.513-1.082 3.736-1.082.389 0 .704.046.945.137l.002-.001Z" fill="currentColor"/>
+          <path d="M62.655 19.935c-1.091.401-2.216.602-3.374.602-1.158 0-1.921-.401-2.291-1.204-.175-.389-.286-.855-.329-1.398-.045-.542-.066-1.143-.066-1.802 0-1.643.169-2.772.508-3.387.201-.358.481-.624.842-.8.36-.175.925-.263 1.693-.263.769 0 1.755.232 2.96.696l.47-1.392c-.119-.069-.296-.141-.527-.216-.866-.301-1.813-.452-2.842-.452-1.399 0-2.472.289-3.217.865-.346.277-.619.598-.819.965-.201.367-.35.764-.447 1.19a9 9 0 0 0-.183 1.331c-.026.461-.038.933-.038 1.417s.019 1.076.057 1.778c.037.702.172 1.358.404 1.967.333.872 1.036 1.49 2.108 1.853.42.138 1.079.207 1.976.207 1.518 0 2.713-.229 3.585-.687l-.47-1.27Z" fill="currentColor"/>
+          <path d="M66.774 19.418c-.129-.257-.226-.561-.292-.909a6 6 0 0 1-.123-1.176 16 16 0 0 1-.023-1.595c0-.626.028-1.207.085-1.74.057-.533.188-.972.395-1.318.415-.677 1.309-1.016 2.682-1.016 1.299 0 2.136.339 2.512 1.016.188.346.307.781.353 1.309.046.527.07 1.185.07 1.976 0 .791-.026 1.483-.079 2.079-.054.596-.183 1.08-.386 1.454a1.77 1.77 0 0 1-.913.814c-.405.169-.903.254-1.496.254-.593 0-1.06-.042-1.402-.127a2.4 2.4 0 0 1-.852-.381 1.74 1.74 0 0 1-.531-.64Zm-1.981-1.553c.062 1.098.285 1.951.668 2.56.621.978 1.923 1.467 3.905 1.467 1.323 0 2.33-.213 3.02-.64.351-.22.634-.49.847-.814.213-.323.379-.701.498-1.134.119-.433.199-.92.24-1.463.041-.543.061-1.127.061-1.755s-.009-1.201-.028-1.722c-.05-1.097-.248-1.948-.593-2.55-.577-.997-1.875-1.496-3.895-1.496-1.399 0-2.456.223-3.171.668-.358.22-.641.494-.852.824a3.6 3.6 0 0 0-.532 1.341c-.144.564-.216 1.559-.216 2.982 0 .628.015 1.204.047 1.731l.001.001Z" fill="currentColor"/>
+          <path d="M85.039 10.507h-1.562v5.974c0 1.38.012 2.309.038 2.786v.009c-.533.37-1.129.662-1.788.875a6 6 0 0 1-.936.231c-.31.053-.632.08-.964.08-.332 0-.62-.046-.861-.137-.242-.091-.451-.266-.626-.527-.175-.26-.263-.842-.263-1.745v-7.546h-1.581v7.8c0 1.342.229 2.268.687 2.776.251.282.589.487 1.012.616.423.128.903.192 1.439.192.536 0 .999-.053 1.388-.159.979-.27 1.835-.709 2.569-1.318l.226 1.327 1.401-.113c-.119-1.166-.178-2.785-.178-4.855v-6.266Z" fill="currentColor"/>
+          <path d="M94.183 11.923c.242.091.45.267.626.527.175.26.263.842.263 1.745v7.509h1.581v-7.8c0-1.343-.229-2.268-.687-2.776a2.3 2.3 0 0 0-1.017-.616c-.426-.129-.919-.193-1.477-.193-.558 0-1.044.05-1.458.151-1.016.238-1.866.637-2.55 1.195l-.151-1.157h-1.374v11.196h1.562v-8.835c1.267-.721 2.512-1.082 3.736-1.082.388 0 .704.046.945.137l.001-.001Z" fill="currentColor"/>
+          <path d="M104.788 19.944c-.765.383-1.458.574-2.079.574-.621 0-1.036-.194-1.242-.583-.113-.213-.169-.706-.169-1.477v-6.643h3.264v-1.308h-3.264v-2.56H99.99l-.245 2.56-1.355.151v1.157h1.355v6.671c0 .609.025 1.072.076 1.392.213 1.342 1.104 2.014 2.672 2.014.865 0 1.809-.242 2.832-.725l-.536-1.223-.001-.001v.001Z" fill="currentColor"/>
+          <path d="M114.104 19.201a4.5 4.5 0 0 1-.866.546c-1.041.545-2.092.818-3.152.818-.678 0-1.164-.166-1.458-.498a1.53 1.53 0 0 1-.325-.668c-.066-.27-.098-.706-.098-1.308 0-.603.084-1.058.254-1.365.251-.439.758-.659 1.524-.659 1.242 0 2.596.185 4.065.555 0 1.041.019 1.901.056 2.579Zm1.524-4.977c0-1.393-.377-2.4-1.129-3.021-.37-.313-.834-.539-1.392-.677a6.8 6.8 0 0 0-1.708-.207 11 11 0 0 0-1.492.075c-1.311.169-2.126.361-2.446.574l.348 1.355c1.154-.426 2.268-.639 3.34-.639.471 0 .888.04 1.252.122 1.123.251 1.684 1.057 1.684 2.418v1.224c-1.43-.477-2.776-.716-4.037-.716s-2.158.292-2.691.875c-.27.295-.463.663-.579 1.106-.116.442-.174 1.063-.174 1.863 0 .799.16 1.485.48 2.056.151.27.325.486.526.649.201.164.419.291.654.381.235.091.48.153.734.184.254.031.547.047.88.047.333 0 .712-.041 1.139-.123 1.311-.251 2.365-.696 3.161-1.336l.235 1.308 1.393-.113c-.119-1.349-.179-2.648-.179-3.895v-3.51l.001-.02Z" fill="currentColor"/>
+          <path d="M119.989 12.822a5 5 0 0 1 .668-.329c1.035-.465 1.945-.697 2.729-.697h.235c.878 0 1.474.242 1.788.725.319.483.479 1.424.479 2.823v1.355c0 .678-.019 1.258-.057 1.741-.037.483-.137.874-.301 1.176-.307.596-.997.893-2.069.893h-.114c-.909 0-2.029-.36-3.359-1.081V12.823l.001-.001Zm3.435 9.07c1.192 0 2.107-.257 2.747-.771.295-.232.527-.503.697-.814.169-.311.309-.682.418-1.115.11-.433.165-1.079.165-1.939v-.753c0-.683-.007-1.311-.019-1.882-.038-1.179-.197-2.095-.48-2.747-.452-1.036-1.518-1.553-3.199-1.553-1.211 0-2.465.42-3.764 1.261V5.539l-1.562.15V21.704h1.327l.197-1.045c1.123.822 2.281 1.233 3.473 1.233Z" fill="currentColor"/>
+          <path d="M130.153 21.704h1.534V5.577l-1.553.131.019 15.996Z" fill="currentColor"/>
+          <path d="M135.941 15.381c0-1.411.219-2.378.658-2.898.458-.545 1.314-.818 2.569-.818 1.048 0 1.785.235 2.212.706.382.42.574 1.123.574 2.107v.904h-6.013v-.001Zm7.028 4.385a9.2 9.2 0 0 1-3.82.78c-1.33 0-2.217-.348-2.663-1.044-.364-.571-.545-1.578-.545-3.021.853.138 2.07.207 3.65.207h1.515c.703 0 1.496-.019 2.381-.056.037-.452.056-1.089.056-1.911 0-.526-.048-1.08-.146-1.66-.097-.581-.296-1.075-.597-1.483-.621-.84-1.782-1.261-3.482-1.261s-2.989.358-3.736 1.073c-.828.803-1.242 2.199-1.242 4.187v.479c0 1.662.154 2.917.462 3.764.332.903 1.003 1.5 2.013 1.788.633.188 1.405.282 2.314.282 1.568 0 3.002-.26 4.3-.781l-.46-1.345v.002Z" fill="currentColor"/>
+          <path d="M146.641 20.917a2 2 0 0 1-.197.01h-.21a4 4 0 0 1-.18-.004v-.517c.15-.011.294-.016.431-.016s.225.011.262.032c.065.036.098.094.098.174 0 .081-.005.142-.015.183a.3.3 0 0 1-.06.105c-.031.022-.073.037-.128.043Zm-.879.794h.292v-.554c.046.003.102.005.166.007.065.001.125.003.181.004.018.018.039.042.061.07l.379.472h.339l-.381-.474a.8.8 0 0 0-.075-.079c.16-.021.272-.08.337-.175a.5.5 0 0 0 .067-.177c.014-.069.02-.164.02-.284s-.038-.21-.115-.272a.5.5 0 0 0-.177-.083 1.7 1.7 0 0 0-.363-.028c-.167 0-.41.012-.731.034v1.539Zm-.454-1.574c.064-.186.183-.312.355-.377.153-.057.404-.086.754-.086.369 0 .63.029.784.086.09.033.163.079.219.139.056.059.098.137.13.232.03.096.052.212.063.348.011.136.016.337.016.602 0 .266-.025.476-.077.633a.7.7 0 0 1-.127.231.6.6 0 0 1-.218.15 1 1 0 0 1-.329.082c-.129.016-.301.024-.513.024s-.396-.021-.552-.062a.8.8 0 0 1-.365-.205.6.6 0 0 1-.179-.376c-.033-.156-.049-.388-.049-.7 0-.311.029-.551.088-.721Zm-.177 1.874c.198.306.624.459 1.281.459.469 0 .821-.067 1.052-.201a.7.7 0 0 0 .258-.23c.061-.089.106-.189.134-.3.029-.111.046-.23.051-.359.005-.128.008-.335.008-.619 0-.284-.019-.505-.059-.663a.7.7 0 0 0-.395-.478 2 2 0 0 0-1.055-.172c-.455 0-.796.066-1.023.197a.7.7 0 0 0-.253.233.9.9 0 0 0-.134.313 2 2 0 0 0-.053.383 6 6 0 0 0-.009.422c0 .143.003.276.009.4.014.266.076.486.187.659l.001-.001.001-.003Z" fill="currentColor"/>
+        </svg>
+      );
+    }
+
+    /* =====================================================================
+       MARKETING COMPONENTS
+       ===================================================================== */
+
+
+    /* =====================================================================
+       STYLE GUIDE PAGE
+       Living documentation of the design system — typography, colors,
+       components, motion, spacing, etc.
+       ===================================================================== */
+
+    /* Curated palette data with WCAG contrast info, grouped by role */
+    const PALETTE = [
+      { group: 'Primary',   name: 'White',      hex: '#FFFFFF', role: 'Background fill',           surface: 'midnight', ratio: 18.03, grade: 'AAA' },
+      { group: 'Primary',   name: 'Midnight',   hex: '#020D4C', role: 'Background fill (dark)',    surface: 'white',    ratio: 18.03, grade: 'AAA' },
+      { group: 'Primary',   name: 'Royal Blue', hex: '#01318F', role: 'Logo / Headlines',          surface: 'white',    ratio: 11.43, grade: 'AAA' },
+      { group: 'Secondary', name: 'Mist',       hex: '#EAF2F9', role: 'Background fill (cool)',    surface: null,       ratio: null,  grade: null },
+      { group: 'Secondary', name: 'Fog',        hex: '#DFE3EA', role: 'Background fill (neutral)', surface: null,       ratio: null,  grade: null },
+      { group: 'Secondary', name: 'Azure',      hex: '#046CDE', role: 'Primary CTA / Buttons',     surface: 'white',    ratio: 4.99,  grade: 'AA' },
+      { group: 'Extended',  name: 'Sky Cyan',   hex: '#00C7FE', role: 'Secondary CTA on dark',     surface: 'midnight', ratio: 9.10,  grade: 'AAA' },
+      { group: 'Extended',  name: 'Emerald',    hex: '#018744', role: 'Success accent',            surface: 'white',    ratio: 4.62,  grade: 'AA' },
+      { group: 'Extended',  name: 'Amber',      hex: '#FFAF0F', role: 'Accent: dark surfaces only', surface: 'midnight', ratio: 9.78, grade: 'AAA' },
+      { group: 'Extended',  name: 'Slate',      hex: '#3C4554', role: 'Paragraph text',            surface: 'white',    ratio: 9.67,  grade: 'AAA' },
+      { group: 'Tints',     name: 'Pale Sky',   hex: '#80E3FE', role: 'Tint, gradients',          surface: null,       ratio: null,  grade: null },
+      { group: 'Tints',     name: 'Mint',       hex: '#80D4AA', role: 'Tint, gradients',          surface: null,       ratio: null,  grade: null },
+      { group: 'Tints',     name: 'Ice',        hex: '#BFF1FF', role: 'Tint, gradients',          surface: null,       ratio: null,  grade: null },
+      { group: 'Tints',     name: 'Seafoam',    hex: '#BFE9D4', role: 'Tint, gradients',          surface: null,       ratio: null,  grade: null },
+      { group: 'Status',    name: 'Status Red', hex: '#E53935', role: 'Error / overdue (in-product)',     surface: 'white',    ratio: 4.51, grade: 'AA' },
+      { group: 'Status',    name: 'Red Tint',   hex: '#FDECEA', role: 'Overdue row background',    surface: null,       ratio: null,  grade: null },
+      { group: 'Status',    name: 'Green Tint', hex: '#E8F5E9', role: 'On-track row background',   surface: null,       ratio: null,  grade: null },
+    ];
+
+    /* Click-to-copy color swatch */
+    /* Hexagon-only mark, extracted from the wordmark SVG (paths 1-2 only) */
+    function HexagonMark({ height = 32, style = {} }) {
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 28 32"
+          fill="none"
+          height={height}
+          style={{ width: 'auto', display: 'block', ...style }}
+          aria-label="Uncountable mark"
+        >
+          <path d="M13.875 0 0 7.999v16.002L13.875 32l13.874-7.999V7.999L13.875 0Zm11.947 22.888L13.875 29.776 1.927 22.888V9.113l11.948-6.889 11.947 6.889v13.775Z" fill="currentColor"/>
+          <path d="M18.876 9.197h-1.89v7.229c0 1.67.016 2.793.046 3.37v.012c-.645.447-1.366.801-2.163 1.058a10.68 10.68 0 0 1-1.133.279c-.376.065-.765.096-1.167.096-.402 0-.749-.055-1.041-.165-.293-.11-.545-.323-.758-.638-.212-.315-.318-1.018-.318-2.112V9.195H8.539v9.438c0 1.625.277 2.744.832 3.359.303.341.711.59 1.224.745.512.156 1.093.234 1.742.234.648 0 1.208-.065 1.679-.194 1.184-.326 2.22-.857 3.108-1.594l.274 1.606 1.696-.136c-.144-1.412-.216-3.37-.216-5.875V9.196Z" fill="currentColor"/>
+        </svg>
+      );
+    }
+
+    /* Named-rule callout. Used inside SGSection to surface the system's doctrine. */
+    function SGRule({ name, children }) {
+      return (
+        <div style={{
+          marginTop: 18,
+          padding: '14px 18px',
+          background: MIST,
+          border: `1px solid ${FOG}`,
+          borderRadius: 8,
+          fontSize: 13,
+          color: SLATE,
+          lineHeight: 1.6,
+        }}>
+          <strong style={{ color: ROYAL_BLUE, fontWeight: 600 }}>The {name} Rule.</strong>{' '}
+          {children}
+        </div>
+      );
+    }
+
+    /* Clickable token chip — copies value to clipboard with momentary feedback. */
+    function SGCopyValue({ value, label, width }) {
+      const [copied, setCopied] = useState(false);
+      return (
+        <button
+          onClick={async () => {
+            try { await navigator.clipboard.writeText(label || value); } catch (e) { /* ignore */ }
+            setCopied(true);
+            setTimeout(() => setCopied(false), 1100);
+          }}
+          title={`Copy ${label || value}`}
+          style={{
+            fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace',
+            fontSize: 12,
+            background: copied ? STATUS_GREEN_BG : MIST,
+            color: copied ? EMERALD : ROYAL_BLUE,
+            padding: '3px 8px',
+            borderRadius: 3,
+            border: `1px solid ${copied ? EMERALD : FOG}`,
+            cursor: 'pointer',
+            whiteSpace: 'nowrap',
+            transition: 'background 120ms ease, color 120ms ease, border-color 120ms ease',
+            display: 'inline-block',
+            minWidth: width || 'auto',
+            textAlign: 'left',
+          }}
+        >
+          {copied ? 'Copied' : value}
+        </button>
+      );
+    }
+
+    /* Brand asset tile: clickable, copies its component reference. */
+    function AssetTile({ bg, ink, mark, label, copyText }) {
+      const [copied, setCopied] = useState(false);
+      const dark = bg !== '#fff' && bg !== '#FFFFFF' && bg !== 'white';
+      return (
+        <button
+          onClick={async () => {
+            try { await navigator.clipboard.writeText(copyText); } catch (e) { /* ignore */ }
+            setCopied(true);
+            setTimeout(() => setCopied(false), 1200);
+          }}
+          title={`Copy ${copyText}`}
+          style={{
+            background: '#fff',
+            border: `1px solid ${FOG}`,
+            borderRadius: 8,
+            padding: 0,
+            overflow: 'hidden',
+            cursor: 'pointer',
+            textAlign: 'left',
+            font: 'inherit',
+            color: 'inherit',
+            display: 'flex',
+            flexDirection: 'column',
+            transition: 'transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 10px 24px -10px rgba(2,13,76,0.18)';
+            e.currentTarget.style.borderColor = 'rgba(60,69,84,0.18)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = '';
+            e.currentTarget.style.boxShadow = '';
+            e.currentTarget.style.borderColor = FOG;
+          }}
+        >
+          <div style={{
+            background: bg,
+            color: ink,
+            height: 110,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'relative',
+            border: bg === '#fff' || bg === '#FFFFFF' ? `1px solid ${FOG}` : 'none',
+          }}>
+            {mark}
+            {copied && (
+              <span style={{
+                position: 'absolute', bottom: 10, right: 10,
+                background: 'rgba(0,0,0,0.7)', color: '#fff',
+                fontSize: 11, fontWeight: 500, padding: '3px 8px', borderRadius: 4,
+              }}>Copied</span>
+            )}
+          </div>
+          <div style={{ padding: '12px 14px 14px' }}>
+            <div style={{ fontSize: 14, fontWeight: 600, color: ROYAL_BLUE, marginBottom: 4 }}>
+              {label}
+            </div>
+            <code style={{
+              fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace',
+              fontSize: 11,
+              color: 'rgba(60,69,84,0.7)',
+            }}>{copyText}</code>
+          </div>
+        </button>
+      );
+    }
+
+    function AssetTilePlaceholder({ label, body }) {
+      return (
+        <div style={{
+          background: '#fff',
+          border: `1px dashed ${DIVIDER}`,
+          borderRadius: 8,
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+        }}>
+          <div style={{
+            height: 110,
+            background: 'repeating-linear-gradient(45deg, #fff, #fff 8px, #F2F4F7 8px, #F2F4F7 9px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: TEXT_MUTED,
+            fontSize: 11,
+            textTransform: 'uppercase',
+            letterSpacing: '.06em',
+          }}>
+            Asset pending
+          </div>
+          <div style={{ padding: '12px 14px 14px' }}>
+            <div style={{ fontSize: 14, fontWeight: 600, color: ROYAL_BLUE, marginBottom: 4 }}>
+              {label}
+            </div>
+            <div style={{ fontSize: 12, color: 'rgba(60,69,84,0.7)' }}>{body}</div>
+          </div>
+        </div>
+      );
+    }
+
+    /* Anti-pattern row: do (left) vs don't (right), with rule below. */
+    function AntiPatternRow({ rule, doNode, dontNode }) {
+      return (
+        <div className="uc-ap-row" style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: 16,
+          alignItems: 'stretch',
+        }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              fontSize: 11, fontWeight: 600, color: EMERALD,
+              textTransform: 'uppercase', letterSpacing: '.08em',
+            }}>
+              <MI name="check" size={14} fill={1} /> Do
+            </div>
+            <div style={{
+              border: `1px solid ${FOG}`, borderRadius: 8, padding: 20, background: '#fff',
+              flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              {doNode}
+            </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              fontSize: 11, fontWeight: 600, color: STATUS_RED,
+              textTransform: 'uppercase', letterSpacing: '.08em',
+            }}>
+              <MI name="close" size={14} fill={1} /> Don't
+            </div>
+            <div style={{
+              border: `1px solid ${FOG}`, borderRadius: 8, padding: 20, background: '#fff',
+              flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
+              position: 'relative',
+            }}>
+              {dontNode}
+            </div>
+          </div>
+          <div style={{
+            gridColumn: '1 / -1',
+            fontSize: 13,
+            color: SLATE,
+            lineHeight: 1.6,
+            paddingTop: 4,
+          }}>
+            <strong style={{ color: ROYAL_BLUE, fontWeight: 600 }}>{rule.name}.</strong> {rule.body}
+          </div>
+        </div>
+      );
+    }
+
+    function ColorSwatch({ entry }) {
+      const [copied, setCopied] = useState(false);
+      const isLight = ['#FFFFFF', '#EAF2F9', '#DFE3EA', '#80E3FE', '#80D4AA', '#BFF1FF', '#BFE9D4', '#FDECEA', '#E8F5E9', '#FFAF0F'].includes(entry.hex);
+      const onCopy = async () => {
+        try {
+          await navigator.clipboard.writeText(entry.hex);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1200);
+        } catch (e) { /* ignore — clipboard may be blocked */ }
+      };
+      const gradeColor = {
+        'AAA': EMERALD,
+        'AA':  EMERALD,
+        'AA Large': AMBER,
+      }[entry.grade] || SLATE;
+      return (
+        <button
+          onClick={onCopy}
+          title={`Click to copy ${entry.hex}`}
+          style={{
+            background: '#fff',
+            border: `1px solid ${FOG}`,
+            borderRadius: 8,
+            padding: 0,
+            overflow: 'hidden',
+            cursor: 'pointer',
+            textAlign: 'left',
+            font: 'inherit',
+            color: 'inherit',
+            display: 'flex',
+            flexDirection: 'column',
+            transition: 'transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 10px 24px -10px rgba(2,13,76,0.18)';
+            e.currentTarget.style.borderColor = 'rgba(60,69,84,0.18)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = '';
+            e.currentTarget.style.boxShadow = '';
+            e.currentTarget.style.borderColor = FOG;
+          }}
+        >
+          <div style={{
+            background: entry.hex,
+            height: 96,
+            position: 'relative',
+            border: entry.hex === '#FFFFFF' ? `1px solid ${FOG}` : 'none',
+            display: 'flex',
+            alignItems: 'flex-end',
+            justifyContent: 'flex-end',
+            padding: 10,
+          }}>
+            {copied && (
+              <span style={{
+                background: 'rgba(0,0,0,0.7)',
+                color: '#fff',
+                fontSize: 11,
+                fontWeight: 500,
+                padding: '3px 8px',
+                borderRadius: 4,
+              }}>
+                Copied
+              </span>
+            )}
+          </div>
+          <div style={{ padding: '12px 14px 14px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+              <span style={{ fontSize: 14, fontWeight: 600, color: ROYAL_BLUE }}>{entry.name}</span>
+              {entry.grade && (
+                <span style={{
+                  fontSize: 10,
+                  fontWeight: 600,
+                  letterSpacing: '.04em',
+                  color: '#fff',
+                  background: gradeColor,
+                  padding: '2px 6px',
+                  borderRadius: 3,
+                }}>
+                  {entry.grade}
+                </span>
+              )}
+            </div>
+            <div style={{
+              fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace',
+              fontSize: 12,
+              color: SLATE,
+              marginBottom: 6,
+            }}>
+              {entry.hex}
+            </div>
+            <div style={{ fontSize: 12, color: 'rgba(60,69,84,0.78)', lineHeight: 1.4 }}>
+              {entry.role}
+            </div>
+            {entry.surface && entry.ratio && (
+              <div style={{ fontSize: 11, color: 'rgba(60,69,84,0.6)', marginTop: 6 }}>
+                {entry.ratio.toFixed(2)}:1 on {entry.surface}
+              </div>
+            )}
+          </div>
+        </button>
+      );
+    }
+
+    /* Token chip — click-to-copy mono-styled label for code-level identifiers */
+    function Token({ children }) {
+      const [copied, setCopied] = useState(false);
+      const renderToString = (c) => {
+        if (c == null || typeof c === 'boolean') return '';
+        if (typeof c === 'string' || typeof c === 'number') return String(c);
+        if (Array.isArray(c)) return c.map(renderToString).join('');
+        if (c && c.props && 'children' in c.props) return renderToString(c.props.children);
+        return '';
+      };
+      const text = renderToString(children);
+      return (
+        <button
+          onClick={async () => {
+            try { await navigator.clipboard.writeText(text); } catch (e) { /* ignore */ }
+            setCopied(true);
+            setTimeout(() => setCopied(false), 1100);
+          }}
+          title={`Copy ${text}`}
+          style={{
+            fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace',
+            fontSize: 12,
+            background: copied ? STATUS_GREEN_BG : MIST,
+            color: copied ? EMERALD : ROYAL_BLUE,
+            padding: '2px 7px',
+            borderRadius: 3,
+            border: `1px solid ${copied ? EMERALD : FOG}`,
+            whiteSpace: 'nowrap',
+            cursor: 'pointer',
+            transition: 'background 120ms ease, color 120ms ease, border-color 120ms ease',
+            display: 'inline-block',
+            verticalAlign: 'baseline',
+            lineHeight: 1.4,
+          }}
+        >
+          {copied ? 'Copied' : children}
+        </button>
+      );
+    }
+
+    /* Section wrapper with anchor + heading */
+    function SGSection({ id, title, lead, children }) {
+      return (
+        <section id={id} style={{
+          paddingTop: 56,
+          paddingBottom: 56,
+          borderBottom: `1px solid ${FOG}`,
+          scrollMarginTop: 24,
+        }}>
+          <h2 style={{
+            fontSize: 32,
+            fontWeight: 500,
+            letterSpacing: '-0.01em',
+            margin: '0 0 12px',
+            color: ROYAL_BLUE,
+          }}>
+            {title}
+          </h2>
+          {lead && (
+            <p style={{ fontSize: 15, color: SLATE, lineHeight: 1.6, maxWidth: 640, margin: '0 0 32px' }}>
+              {lead}
+            </p>
+          )}
+          {children}
+        </section>
+      );
+    }
+
+    function StyleGuide() {
+      const sections = [
+        { id: 'colors',       label: 'Colors' },
+        { id: 'typography',   label: 'Typography' },
+        { id: 'buttons',      label: 'Buttons' },
+        { id: 'cards',        label: 'Cards & Surfaces' },
+        { id: 'pills',        label: 'Pills & Badges' },
+        { id: 'iconography',  label: 'Iconography' },
+        { id: 'elevation',    label: 'Elevation' },
+        { id: 'motion',       label: 'Motion' },
+        { id: 'radii',        label: 'Radii & Spacing' },
+        { id: 'brand',        label: 'Logo & Brand' },
+        { id: 'dont',         label: "Anti-Patterns" },
+        { id: 'voice',        label: 'Copy & Voice' },
+      ];
+      const [active, setActive] = useState('colors');
+
+      // Track which section is in view to highlight the sidebar item
+      useEffect(() => {
+        const observers = [];
+        sections.forEach((s) => {
+          const el = document.getElementById(s.id);
+          if (!el) return;
+          const io = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((e) => {
+                if (e.isIntersecting) setActive(s.id);
+              });
+            },
+            { rootMargin: '-30% 0px -60% 0px', threshold: 0 },
+          );
+          io.observe(el);
+          observers.push(io);
+        });
+        return () => observers.forEach((o) => o.disconnect());
+      }, []);
+
+      const grouped = useMemo(() => {
+        const out = {};
+        PALETTE.forEach((c) => { (out[c.group] = out[c.group] || []).push(c); });
+        return out;
+      }, []);
+
+      return (
+        <div className="uc-sg" style={{ background: '#fff', minHeight: '100vh', color: SLATE }}>
+          {/* Page header */}
+          <header style={{
+            borderBottom: `1px solid ${FOG}`,
+            background: '#fff',
+            position: 'sticky',
+            top: 0,
+            zIndex: 5,
+          }}>
+            <div style={{
+              maxWidth: 1312,
+              margin: '0 auto',
+              padding: '20px 32px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 16,
+            }}>
+              <span style={{ color: ROYAL_BLUE }}>
+                <UncountableLogo height={26} />
+              </span>
+              <div style={{ width: 1, height: 18, background: FOG }} />
+              <span style={{
+                fontSize: 13,
+                color: SLATE,
+                textTransform: 'uppercase',
+                letterSpacing: '.08em',
+                fontWeight: 500,
+              }}>
+                Design System
+              </span>
+              <div style={{ flex: 1 }} />
+              <span style={{ fontSize: 13, color: 'rgba(60,69,84,0.6)' }}>v2 · Apr 2026</span>
+            </div>
+          </header>
+
+          <div className="uc-sg-grid" style={{
+            maxWidth: 1312,
+            margin: '0 auto',
+            padding: '0 32px',
+            display: 'grid',
+            gridTemplateColumns: '220px 1fr',
+            gap: 56,
+            alignItems: 'flex-start',
+          }}>
+            {/* Sticky sidebar */}
+            <aside className="uc-sg-sidebar" style={{ position: 'sticky', top: 96, paddingTop: 56 }}>
+              <div style={{
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: '.08em',
+                color: 'rgba(60,69,84,0.6)',
+                textTransform: 'uppercase',
+                marginBottom: 12,
+              }}>
+                On this page
+              </div>
+              <nav style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                {sections.map((s) => (
+                  <a
+                    key={s.id}
+                    href={`#${s.id}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const el = document.getElementById(s.id);
+                      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }}
+                    style={{
+                      display: 'block',
+                      padding: '6px 10px',
+                      fontSize: 14,
+                      borderRadius: 4,
+                      color: active === s.id ? ROYAL_BLUE : SLATE,
+                      background: active === s.id ? MIST : 'transparent',
+                      fontWeight: active === s.id ? 500 : 400,
+                      borderLeft: `2px solid ${active === s.id ? ROYAL_BLUE : 'transparent'}`,
+                      paddingLeft: 12,
+                      cursor: 'pointer',
+                      textDecoration: 'none',
+                      transition: 'background 120ms ease, color 120ms ease',
+                    }}
+                  >
+                    {s.label}
+                  </a>
+                ))}
+              </nav>
+            </aside>
+
+            {/* Main content */}
+            <main style={{ paddingTop: 24, minWidth: 0 }}>
+              {/* Intro */}
+              <div style={{ paddingTop: 56, paddingBottom: 24 }}>
+                <h1 style={{
+                  fontSize: 48,
+                  fontWeight: 500,
+                  letterSpacing: '-0.015em',
+                  lineHeight: 1.1,
+                  margin: '0 0 16px',
+                  color: ROYAL_BLUE,
+                }}>
+                  Uncountable Style Guide
+                </h1>
+                <p style={{ fontSize: 18, lineHeight: 1.6, color: SLATE, maxWidth: 640, margin: 0 }}>
+                  The visual foundation behind every Uncountable surface — color, type, components, and motion. Use this as a reference when extending the system.
+                </p>
+              </div>
+
+              {/* COLORS */}
+              <SGSection
+                id="colors"
+                title="Colors"
+                lead="Every brand color carries a role. WCAG contrast ratios are computed against the surface each color is meant to appear on. Click a swatch to copy its hex."
+              >
+                {Object.entries(grouped).map(([group, colors]) => (
+                  <div key={group} style={{ marginBottom: 32 }}>
+                    <h3 style={{
+                      fontSize: 12,
+                      fontWeight: 600,
+                      letterSpacing: '.08em',
+                      textTransform: 'uppercase',
+                      color: 'rgba(60,69,84,0.6)',
+                      margin: '0 0 14px',
+                    }}>
+                      {group}
+                    </h3>
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+                      gap: 16,
+                    }}>
+                      {colors.map((c) => <ColorSwatch key={c.hex + c.name} entry={c} />)}
+                    </div>
+                  </div>
+                ))}
+                <div style={{
+                  background: MIST,
+                  border: `1px solid ${FOG}`,
+                  borderRadius: 8,
+                  padding: '14px 18px',
+                  fontSize: 13,
+                  color: SLATE,
+                  lineHeight: 1.55,
+                }}>
+                  <strong style={{ color: ROYAL_BLUE }}>Note on Amber.</strong>{' '}
+                  Saturated yellows can't reach AA on white without losing their character. Amber is therefore restricted to dark surfaces, badges, and decorative chart markers. Use Slate for body text needs.
+                </div>
+                <SGRule name="Eyebrow">
+                  The cyan-on-midnight eyebrow pill is reserved for the hero. One instance per page, at the top of the hero copy. Used elsewhere it dilutes; the rationing is what makes the cue signature.
+                </SGRule>
+                <SGRule name="Status-Pairing">
+                  Status color is never the only signal. Emerald, Amber, and Status Red always appear with an icon and a label so color-blind users get the same information. Same for chart series: pair color with shape or axis label.
+                </SGRule>
+              </SGSection>
+
+              {/* TYPOGRAPHY */}
+              <SGSection
+                id="typography"
+                title="Typography"
+                lead={<>The single typeface is <Token>Poppins</Token> across weights 300–800. Use 500 for headings, 400 for body, 600 for labels and dense UI.</>}
+              >
+                <div style={{ display: 'grid', gap: 24 }}>
+                  {[
+                    { label: 'Display',    sample: 'The AI platform for end-to-end product development.', size: 60, weight: 500, lh: 1.05, ls: '-0.015em', use: 'Hero H1' },
+                    { label: 'H1',         sample: 'One unified data layer for modern R&D',            size: 52, weight: 500, lh: 1.10, ls: '-0.015em', use: 'Section heading' },
+                    { label: 'H2',         sample: 'Latest resources',                                  size: 44, weight: 500, lh: 1.10, ls: '-0.01em',  use: 'Section heading (alt)' },
+                    { label: 'H3',         sample: 'Analysis projects done in minutes.',                size: 34, weight: 500, lh: 1.30, ls: '-0.01em',  use: 'Quotes, large statements' },
+                    { label: 'H4',         sample: 'Electronic Lab Notebook',                           size: 20, weight: 500, lh: 1.25, ls: '-0.005em', use: 'Card title' },
+                    { label: 'Body Large', sample: 'Uncountable unifies ELN, LIMS, PLM, and AI optimization.', size: 18, weight: 400, lh: 1.55, ls: '0',     use: 'Hero subhead, intro paragraphs' },
+                    { label: 'Body',       sample: 'Capture and structure experimental data in real time.', size: 15, weight: 400, lh: 1.55, ls: '0',     use: 'Default body copy' },
+                    { label: 'Small',      sample: 'View all resources →',                              size: 13, weight: 500, lh: 1.5,  ls: '0',         use: 'Inline links, captions' },
+                    { label: 'Eyebrow',    sample: 'TRUSTED BY 150+ R&D ORGANIZATIONS',                 size: 12, weight: 500, lh: 1.4,  ls: '.08em',     use: 'Section labels (UPPERCASE)' },
+                  ].map((t) => (
+                    <div key={t.label} className="uc-sg-type-row" style={{
+                      display: 'grid',
+                      gridTemplateColumns: '120px minmax(0, 1fr) 240px',
+                      gap: 24,
+                      alignItems: 'baseline',
+                      paddingBottom: 24,
+                      borderBottom: `1px dashed ${FOG}`,
+                    }}>
+                      <div>
+                        <div style={{ fontSize: 13, fontWeight: 500, color: ROYAL_BLUE }}>{t.label}</div>
+                        <div style={{ fontSize: 12, color: 'rgba(60,69,84,0.6)', marginTop: 2 }}>{t.use}</div>
+                      </div>
+                      <div style={{
+                        fontSize: t.size,
+                        fontWeight: t.weight,
+                        lineHeight: t.lh,
+                        letterSpacing: t.ls,
+                        color: t.label === 'Eyebrow' ? ROYAL_BLUE : SLATE,
+                        textTransform: t.label === 'Eyebrow' ? 'uppercase' : 'none',
+                        overflowWrap: 'break-word',
+                        minWidth: 0,
+                      }}>
+                        {t.sample}
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 12, color: 'rgba(60,69,84,0.7)' }}>
+                        <div><Token>{t.size}px</Token> / <Token>{t.weight}</Token> / <Token>{t.lh}</Token></div>
+                        {t.ls !== '0' && <div>letter-spacing <Token>{t.ls}</Token></div>}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <SGRule name="500-Is-Bold">
+                  Marketing headlines render at weight 500, not 600 or 700. The calm-authority register doesn't call for typographic shouting; weight 500 with tight negative tracking gives presence without aggression. Bumping to 600+ for hero copy reads as marketing chrome. Stay at 500 unless dense in-product UI requires 600 for chip labels and table headers.
+                </SGRule>
+                <SGRule name="Single-Face">
+                  Resist the urge to introduce a serif for "editorial warmth" or a mono for "technical credibility." The system commits to Poppins; warmth and credibility come from copy and contrast, not face changes. Material Symbols Rounded is the only sanctioned non-Poppins family.
+                </SGRule>
+              </SGSection>
+
+              {/* BUTTONS */}
+              <SGSection
+                id="buttons"
+                title="Buttons"
+                lead={<>All buttons share a 4px radius and a 14–15px label. Hover states use opacity rather than color shifts to stay quiet. Use <Token>Azure</Token> for filled CTAs on light surfaces, white-fill on dark.</>}
+              >
+                <div style={{ display: 'grid', gap: 24 }}>
+                  {/* On light */}
+                  <div style={{ background: '#fff', border: `1px solid ${FOG}`, borderRadius: 8, padding: 32 }}>
+                    <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: 'rgba(60,69,84,0.6)', marginBottom: 16 }}>
+                      On light surface
+                    </div>
+                    <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+                      <button className="uc-cta-primary" style={{
+                        background: AZURE, color: '#fff', border: 0, padding: '10px 18px',
+                        borderRadius: 4, fontSize: 14, fontWeight: 500, cursor: 'pointer',
+                        display: 'inline-flex', alignItems: 'center', gap: 6,
+                      }}>
+                        Request a Demo <MI name="arrow_forward" size={16} />
+                      </button>
+                      <button style={{
+                        background: 'transparent', color: AZURE, border: `1px solid ${AZURE}`,
+                        padding: '9px 18px', borderRadius: 4, fontSize: 14, fontWeight: 500, cursor: 'pointer',
+                      }}>
+                        Secondary
+                      </button>
+                      <button style={{
+                        background: 'transparent', color: SLATE, border: 0, padding: '10px 12px',
+                        fontSize: 14, fontWeight: 500, cursor: 'pointer',
+                        display: 'inline-flex', alignItems: 'center', gap: 4,
+                      }}>
+                        Ghost link <MI name="arrow_forward" size={14} />
+                      </button>
+                    </div>
+                  </div>
+                  {/* On dark */}
+                  <div style={{ background: MIDNIGHT, borderRadius: 8, padding: 32 }}>
+                    <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.6)', marginBottom: 16 }}>
+                      On dark surface
+                    </div>
+                    <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+                      <button className="uc-cta-primary" style={{
+                        background: '#fff', color: SLATE, border: 0, padding: '14px 22px',
+                        borderRadius: 4, fontSize: 15, fontWeight: 500, cursor: 'pointer',
+                        display: 'inline-flex', alignItems: 'center', gap: 8,
+                      }}>
+                        Request a Demo <MI name="arrow_forward" size={18} />
+                      </button>
+                      <button className="uc-cta-ghost" style={{
+                        background: 'transparent', color: '#fff', border: '1px solid rgba(255,255,255,0.55)',
+                        padding: '14px 22px', borderRadius: 4, fontSize: 15, fontWeight: 500, cursor: 'pointer',
+                        display: 'inline-flex', alignItems: 'center', gap: 8,
+                      }}>
+                        <MI name="play_circle" size={18} fill={1} /> Ghost
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </SGSection>
+
+              {/* CARDS */}
+              <SGSection
+                id="cards"
+                title="Cards & Surfaces"
+                lead="Cards use an 8px radius, a hairline 1px border, and a soft shadow only on hover. Resource cards lead with a gradient header to differentiate editorial content from product features."
+              >
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+                  {/* Feature card sample */}
+                  <div className="uc-feature-card" style={{
+                    background: '#fff',
+                    border: '1px solid rgba(60,69,84,0.10)',
+                    borderRadius: 8,
+                    padding: 28,
+                    cursor: 'pointer',
+                  }}>
+                    <div style={{
+                      width: 44, height: 44, borderRadius: 8, background: MIST,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      marginBottom: 20, color: ROYAL_BLUE,
+                    }}>
+                      <MI name="auto_awesome" size={22} />
+                    </div>
+                    <h3 style={{ fontSize: 20, fontWeight: 500, margin: '0 0 10px', letterSpacing: '-0.005em', color: SLATE }}>
+                      Feature Card
+                    </h3>
+                    <p style={{ fontSize: 15, color: 'rgba(60,69,84,0.65)', lineHeight: 1.55, margin: 0 }}>
+                      Used in 3-column grids on the marketing site. Hovers lift gently with a soft shadow.
+                    </p>
+                  </div>
+                  {/* Resource card mini */}
+                  <div className="uc-resource-card" style={{
+                    background: '#fff',
+                    border: '1px solid rgba(60,69,84,0.10)',
+                    borderRadius: 8,
+                    overflow: 'hidden',
+                    cursor: 'pointer',
+                  }}>
+                    <div style={{
+                      height: 140,
+                      background: `linear-gradient(135deg, ${MIDNIGHT}, ${ROYAL_BLUE})`,
+                      position: 'relative',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                      <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle at 20% 30%, rgba(0,199,254,0.30) 0%, transparent 40%)' }} />
+                      <MI name="article" size={40} style={{ color: 'rgba(255,255,255,0.90)', position: 'relative' }} />
+                    </div>
+                    <div style={{ padding: 20 }}>
+                      <div style={{ color: ROYAL_BLUE, fontSize: 12, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '.06em', marginBottom: 8 }}>
+                        White Paper
+                      </div>
+                      <h3 style={{ fontSize: 18, fontWeight: 500, margin: 0, color: SLATE, lineHeight: 1.25 }}>
+                        Resource Card
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+              </SGSection>
+
+              {/* PILLS */}
+              <SGSection
+                id="pills"
+                title="Pills & Badges"
+                lead="Small enclosed labels for metadata, status, and category. Pills are pill-shaped (999px); badges are rectangles with 3–4px corners."
+              >
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center', marginBottom: 24 }}>
+                  {/* Eyebrow on dark — needs dark behind */}
+                  <div style={{ background: MIDNIGHT, padding: 16, borderRadius: 8 }}>
+                    <span style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 8,
+                      padding: '6px 12px',
+                      background: 'rgba(94,224,255,0.14)',
+                      border: '1px solid rgba(94,224,255,0.45)',
+                      borderRadius: 999,
+                      fontSize: 13, fontWeight: 500, color: '#5EE0FF',
+                    }}>
+                      <MI name="bolt" size={14} fill={1} />
+                      Eyebrow Pill
+                    </span>
+                  </div>
+                  {/* Tag chip */}
+                  <span style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 4,
+                    background: MIST, color: AZURE,
+                    padding: '4px 10px', borderRadius: 3, fontSize: 12, fontWeight: 500,
+                  }}>
+                    Tag chip <MI name="close" size={12} />
+                  </span>
+                  {/* Status badges */}
+                  <span style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 4,
+                    background: STATUS_GREEN_BG, color: EMERALD,
+                    padding: '3px 9px', borderRadius: 3, fontSize: 11, fontWeight: 600,
+                    textTransform: 'uppercase', letterSpacing: '.04em',
+                  }}>
+                    <MI name="check_circle" size={12} fill={1} /> Done
+                  </span>
+                  <span style={{
+                    background: STATUS_RED_BG, color: STATUS_RED,
+                    padding: '3px 9px', borderRadius: 3, fontSize: 11, fontWeight: 600,
+                    textTransform: 'uppercase', letterSpacing: '.04em',
+                  }}>
+                    Overdue
+                  </span>
+                </div>
+                <div style={{ fontSize: 13, color: SLATE, lineHeight: 1.6 }}>
+                  Eyebrow pill is reserved for the hero — the cyan-on-midnight combination is recognizable enough that overusing it dilutes its impact.
+                </div>
+              </SGSection>
+
+              {/* ICONOGRAPHY */}
+              <SGSection
+                id="iconography"
+                title="Iconography"
+                lead={<>The system uses <Token>Material Symbols Rounded</Token>, configurable via <Token>font-variation-settings</Token> for fill, weight, and optical size. Default weight 400 with no fill; bump to 500 for emphasis or fill=1 for active states.</>}
+              >
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))',
+                  gap: 12,
+                }}>
+                  {[
+                    'bolt', 'arrow_forward', 'check', 'science', 'analytics', 'auto_awesome',
+                    'edit_note', 'inventory_2', 'account_tree', 'hub', 'play_circle', 'format_quote',
+                    'workspaces', 'article', 'menu_book', 'schedule', 'insights', 'warning',
+                  ].map((name) => (
+                    <div key={name} style={{
+                      background: '#fff',
+                      border: `1px solid ${FOG}`,
+                      borderRadius: 6,
+                      padding: '14px 12px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: 8,
+                    }}>
+                      <MI name={name} size={24} style={{ color: ROYAL_BLUE }} />
+                      <span style={{
+                        fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace',
+                        fontSize: 11,
+                        color: 'rgba(60,69,84,0.7)',
+                      }}>
+                        {name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </SGSection>
+
+              {/* ELEVATION */}
+              <SGSection
+                id="elevation"
+                title="Elevation"
+                lead="Four shadow tokens, all using a deep midnight tint instead of pure black so they read warm against the brand palette."
+              >
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 24 }}>
+                  {[
+                    { label: 'sm', value: '0 4px 8px -2px rgba(2,13,76,0.10)',  use: 'Subtle hover' },
+                    { label: 'md', value: '0 10px 24px -10px rgba(2,13,76,0.18)', use: 'Card hover' },
+                    { label: 'lg', value: '0 14px 28px -12px rgba(2,13,76,0.22)', use: 'Resource card hover' },
+                    { label: 'xl', value: '0 32px 64px -16px rgba(2,13,76,0.55)', use: 'Hero preview, callouts' },
+                  ].map((s) => (
+                    <div key={s.label} style={{
+                      background: '#fff',
+                      borderRadius: 8,
+                      padding: 24,
+                      boxShadow: s.value,
+                      border: `1px solid ${FOG}`,
+                      minWidth: 0,
+                      overflow: 'hidden',
+                    }}>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: ROYAL_BLUE, marginBottom: 4 }}>
+                        Elevation {s.label}
+                      </div>
+                      <div style={{ fontSize: 12, color: 'rgba(60,69,84,0.7)', marginBottom: 8 }}>
+                        {s.use}
+                      </div>
+                      <Token>{s.value}</Token>
+                    </div>
+                  ))}
+                </div>
+              </SGSection>
+
+              {/* MOTION */}
+              <SGSection
+                id="motion"
+                title="Motion"
+                lead={<>Brand rule: short fades with a single ease-out curve. No bounces, no springs. The same easing (<Token>cubic-bezier(0.22, 0.61, 0.36, 1)</Token>) is used everywhere.</>}
+              >
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 16, marginBottom: 24 }}>
+                  {[
+                    { name: 'duration-fast',   value: '120ms', use: 'Hover transitions' },
+                    { name: 'duration-medium', value: '500ms', use: 'CSS hovers, opacity tweens' },
+                    { name: 'duration-slow',   value: '900ms', use: 'Scroll reveals, hero entrance' },
+                  ].map((d) => (
+                    <div key={d.name} style={{
+                      background: '#fff',
+                      border: `1px solid ${FOG}`,
+                      borderRadius: 8,
+                      padding: 20,
+                    }}>
+                      <Token>{d.name}</Token>
+                      <div style={{ fontSize: 22, fontWeight: 500, color: ROYAL_BLUE, margin: '10px 0 4px', letterSpacing: '-0.01em' }}>
+                        {d.value}
+                      </div>
+                      <div style={{ fontSize: 12, color: 'rgba(60,69,84,0.7)' }}>{d.use}</div>
+                    </div>
+                  ))}
+                </div>
+                <div style={{
+                  background: MIST,
+                  border: `1px solid ${FOG}`,
+                  borderRadius: 8,
+                  padding: '14px 18px',
+                  fontSize: 13,
+                  color: SLATE,
+                  lineHeight: 1.55,
+                }}>
+                  Honor <Token>prefers-reduced-motion</Token>. The system disables all entrance animations and transitions when this media query matches — content renders instantly with full opacity.
+                </div>
+              </SGSection>
+
+              {/* RADII & SPACING */}
+              <SGSection
+                id="radii"
+                title="Radii & Spacing"
+                lead="Three radii cover every component. Spacing follows a 4px grid; the most-used steps are bolded."
+              >
+                <h3 style={{ fontSize: 13, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: 'rgba(60,69,84,0.6)', margin: '0 0 14px' }}>
+                  Radii
+                </h3>
+                <div style={{ display: 'flex', gap: 16, marginBottom: 32, flexWrap: 'wrap' }}>
+                  {[
+                    { v: 4,   use: 'Buttons, app surfaces, table cells' },
+                    { v: 8,   use: 'Cards, callouts, modals' },
+                    { v: 999, use: 'Pills, eyebrows, avatars' },
+                  ].map((r) => (
+                    <div key={r.v} style={{
+                      background: '#fff',
+                      border: `1px solid ${FOG}`,
+                      borderRadius: 8,
+                      padding: 16,
+                      width: 200,
+                    }}>
+                      <div style={{
+                        background: MIST,
+                        height: 56,
+                        borderRadius: r.v === 999 ? 999 : r.v,
+                        marginBottom: 12,
+                      }} />
+                      <div style={{ fontSize: 13, fontWeight: 500, color: ROYAL_BLUE, marginBottom: 2 }}>
+                        {r.v === 999 ? 'pill (999px)' : `${r.v}px`}
+                      </div>
+                      <div style={{ fontSize: 12, color: 'rgba(60,69,84,0.7)', lineHeight: 1.4 }}>
+                        {r.use}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <h3 style={{ fontSize: 13, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: 'rgba(60,69,84,0.6)', margin: '0 0 14px' }}>
+                  Spacing scale
+                </h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 13 }}>
+                  {[
+                    { v: 4,   common: false },
+                    { v: 8,   common: true  },
+                    { v: 12,  common: true  },
+                    { v: 16,  common: true  },
+                    { v: 24,  common: true  },
+                    { v: 32,  common: true  },
+                    { v: 48,  common: false },
+                    { v: 64,  common: false },
+                    { v: 96,  common: false },
+                    { v: 120, common: false },
+                  ].map((s) => (
+                    <div key={s.v} style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                      <div style={{ width: 60, fontWeight: s.common ? 600 : 400, color: s.common ? ROYAL_BLUE : SLATE }}>
+                        {s.v}px
+                      </div>
+                      <div style={{ width: s.v, height: 14, background: s.common ? AZURE : 'rgba(60,69,84,0.25)', borderRadius: 2 }} />
+                    </div>
+                  ))}
+                </div>
+              </SGSection>
+
+              {/* LOGO & BRAND */}
+              <SGSection
+                id="brand"
+                title="Logo & Brand"
+                lead="The wordmark and hexagon mark are the only brand-identity assets sanctioned for system-wide use. Click an asset tile to copy its component reference. Favicon and social-card templates are placeholder slots until source assets are produced."
+              >
+                <h3 style={{ fontSize: 13, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: 'rgba(60,69,84,0.6)', margin: '0 0 14px' }}>
+                  Asset matrix
+                </h3>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+                  gap: 16,
+                  marginBottom: 40,
+                }}>
+                  <AssetTile bg="#fff"      ink={ROYAL_BLUE} mark={<UncountableLogo height={28} />} label="Wordmark · Color"      copyText="<UncountableLogo height={28} />" />
+                  <AssetTile bg={MIDNIGHT}  ink="#fff"       mark={<UncountableLogo height={28} />} label="Wordmark · On Midnight" copyText="<UncountableLogo height={28} />" />
+                  <AssetTile bg="#fff"      ink={SLATE}      mark={<UncountableLogo height={28} />} label="Wordmark · Mono"        copyText="<UncountableLogo height={28} />" />
+                  <AssetTile bg="#fff"      ink={ROYAL_BLUE} mark={<HexagonMark height={36} />}     label="Hexagon · Color"        copyText="<HexagonMark height={32} />" />
+                  <AssetTile bg={MIDNIGHT}  ink="#fff"       mark={<HexagonMark height={36} />}     label="Hexagon · On Midnight"  copyText="<HexagonMark height={32} />" />
+                  <AssetTile bg="#fff"      ink={SLATE}      mark={<HexagonMark height={36} />}     label="Hexagon · Mono"         copyText="<HexagonMark height={32} />" />
+                  <AssetTilePlaceholder label="Favicon"      body="16 / 32 / 64 px set required" />
+                  <AssetTilePlaceholder label="Social Card"  body="1200 × 630, safe-area documented" />
+                </div>
+
+                <h3 style={{ fontSize: 13, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: 'rgba(60,69,84,0.6)', margin: '0 0 14px' }}>
+                  Usage rules
+                </h3>
+                <SGRule name="Clear-Space">
+                  Reserve at least 1× the cap-height of the wordmark (or 0.5× the hex height) on every side. Don't crowd the mark with adjacent type, edges, photography, or stickers.
+                </SGRule>
+                <SGRule name="Minimum-Size">
+                  Wordmark renders at 24px height minimum; hexagon mark at 16px. Below that, the geometry degrades and it stops reading as Uncountable. Prefer the hexagon at small sizes.
+                </SGRule>
+                <SGRule name="Single-Color">
+                  The marks render only in Royal Blue (light surfaces), White (midnight surfaces), or Slate (mono / single-color print). Any other tint breaks the register. Gradients on the mark are forbidden.
+                </SGRule>
+                <SGRule name="No-Distortion">
+                  Never skew, rotate, stretch, or recolor outside the sanctioned palette. The hexagon's geometry is the brand cue. If a layout pressures the mark to bend, change the layout.
+                </SGRule>
+                <SGRule name="Co-Branding">
+                  When pairing with a customer logo (case studies, partner badges), separate with a 1px Slate-15% vertical rule, equal-height alignment, equal optical weight. Never merge the marks into a combined lockup.
+                </SGRule>
+              </SGSection>
+
+              {/* ANTI-PATTERNS */}
+              <SGSection
+                id="dont"
+                title="Anti-Patterns"
+                lead="Eight prohibited patterns from the system's doctrine, with the working version on the left and the violation on the right. Every Don't is enforceable; if you find yourself reaching for the right side, rework the element."
+              >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+
+                  {/* 1. Side-stripe borders */}
+                  <AntiPatternRow
+                    rule={{ name: 'Side-Stripe Borders', body: <>Decorative <Token>border-left</Token> &gt; 1px on cards, callouts, or alerts is banned. Use a full hairline border, a background tint, or nothing. The 2px Royal Blue active-nav bar is the only sanctioned exception.</> }}
+                    doNode={
+                      <div style={{ width: 240, padding: 14, background: '#fff', border: `1px solid rgba(60,69,84,0.10)`, borderRadius: 6 }}>
+                        <div style={{ fontSize: 12, fontWeight: 600, color: SLATE, marginBottom: 4 }}>Within spec</div>
+                        <div style={{ fontSize: 12, color: 'rgba(60,69,84,0.65)' }}>Hairline border, no decoration.</div>
+                      </div>
+                    }
+                    dontNode={
+                      <div style={{ width: 240, padding: 14, background: '#fff', border: `1px solid rgba(60,69,84,0.10)`, borderLeft: `4px solid ${ROYAL_BLUE}`, borderRadius: 6 }}>
+                        <div style={{ fontSize: 12, fontWeight: 600, color: SLATE, marginBottom: 4 }}>Within spec</div>
+                        <div style={{ fontSize: 12, color: 'rgba(60,69,84,0.65)' }}>Stripe pretends to be meaning.</div>
+                      </div>
+                    }
+                  />
+
+                  {/* 2. Gradient text */}
+                  <AntiPatternRow
+                    rule={{ name: 'Gradient-Text', body: <>Headlines render in a single solid color. <Token>background-clip: text</Token> with a gradient on H1/H2 is decorative and dilutes the system. Emphasis comes from weight or size.</> }}
+                    doNode={
+                      <div style={{ fontSize: 28, fontWeight: 500, letterSpacing: '-0.01em', color: ROYAL_BLUE }}>
+                        One unified data layer
+                      </div>
+                    }
+                    dontNode={
+                      <div style={{
+                        fontSize: 28, fontWeight: 500, letterSpacing: '-0.01em',
+                        backgroundImage: `linear-gradient(90deg, ${ROYAL_BLUE}, ${SKY_CYAN}, #B45309)`,
+                        WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                        color: 'transparent',
+                      }}>
+                        One unified data layer
+                      </div>
+                    }
+                  />
+
+                  {/* 3. Color hover vs opacity hover */}
+                  <AntiPatternRow
+                    rule={{ name: 'Calm-Hover', body: <>Filled CTAs dim with <Token>opacity: 0.92</Token> on hover; ghosts tint with a faint overlay. Color shifts on hover read as marketing chrome and break the calm-authority register.</> }}
+                    doNode={
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'center' }}>
+                        <button className="uc-cta-primary" style={{ background: AZURE, color: '#fff', border: 0, padding: '10px 18px', borderRadius: 4, fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>
+                          Request a Demo
+                        </button>
+                        <span style={{ fontSize: 11, color: 'rgba(60,69,84,0.6)' }}>hover ⟶ opacity 0.92</span>
+                      </div>
+                    }
+                    dontNode={
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'center' }}>
+                        <button style={{ background: '#7B5CFF', color: '#fff', border: 0, padding: '10px 18px', borderRadius: 4, fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>
+                          Request a Demo
+                        </button>
+                        <span style={{ fontSize: 11, color: STATUS_RED }}>hover ⟶ different hue</span>
+                      </div>
+                    }
+                  />
+
+                  {/* 4. Pure-black shadow */}
+                  <AntiPatternRow
+                    rule={{ name: 'Midnight-Tinted Shadow', body: <>Every shadow uses <Token>rgba(2, 13, 76, ...)</Token>, never <Token>rgba(0, 0, 0, ...)</Token>. Pure black on the brand's blue palette reads as gray and pre-rebrand. The midnight tint is what makes elevation feel like it belongs to this system.</> }}
+                    doNode={
+                      <div style={{ width: 200, height: 84, background: '#fff', border: `1px solid ${FOG}`, borderRadius: 8, padding: 14, boxShadow: '0 14px 28px -12px rgba(2,13,76,0.32)' }}>
+                        <div style={{ fontSize: 12, fontWeight: 600, color: ROYAL_BLUE }}>Midnight-tinted</div>
+                        <div style={{ fontSize: 11, color: 'rgba(60,69,84,0.65)', marginTop: 4 }}>rgba(2, 13, 76, 0.32)</div>
+                      </div>
+                    }
+                    dontNode={
+                      <div style={{ width: 200, height: 84, background: '#fff', border: `1px solid ${FOG}`, borderRadius: 8, padding: 14, boxShadow: '0 14px 28px -12px rgba(0,0,0,0.32)' }}>
+                        <div style={{ fontSize: 12, fontWeight: 600, color: SLATE }}>Pure-black</div>
+                        <div style={{ fontSize: 11, color: 'rgba(60,69,84,0.65)', marginTop: 4 }}>rgba(0, 0, 0, 0.32)</div>
+                      </div>
+                    }
+                  />
+
+                  {/* 5. Amber on white */}
+                  <AntiPatternRow
+                    rule={{ name: 'Amber Restriction', body: <>Amber (<Token>#FFAF0F</Token>) is dark-surface only. On white it can't reach AA contrast and reads as decorative. Warnings on white surfaces use Status Red BG with Status Red text.</> }}
+                    doNode={
+                      <span style={{
+                        display: 'inline-flex', alignItems: 'center', gap: 4,
+                        background: STATUS_RED_BG, color: STATUS_RED,
+                        padding: '3px 9px', borderRadius: 3,
+                        fontSize: 11, fontWeight: 600,
+                        textTransform: 'uppercase', letterSpacing: '.04em',
+                      }}>
+                        <MI name="warning" size={12} fill={1} /> Out of Spec
+                      </span>
+                    }
+                    dontNode={
+                      <span style={{
+                        display: 'inline-flex', alignItems: 'center', gap: 4,
+                        color: AMBER, background: '#fff',
+                        padding: '3px 9px', borderRadius: 3,
+                        fontSize: 11, fontWeight: 600,
+                        textTransform: 'uppercase', letterSpacing: '.04em',
+                        border: `1px solid ${AMBER}`,
+                      }}>
+                        <MI name="warning" size={12} fill={1} /> Out of Spec
+                      </span>
+                    }
+                  />
+
+                  {/* 6. Em dash */}
+                  <AntiPatternRow
+                    rule={{ name: 'No-Em-Dash', body: <>Copy uses commas, colons, semicolons, periods, or parentheses. Em dashes (and double-hyphens) are banned across UI copy, error messages, and editorial prose. Sentences earn their own stops.</> }}
+                    doNode={
+                      <div style={{ fontSize: 18, fontWeight: 500, letterSpacing: '-0.005em', color: SLATE, textAlign: 'center', lineHeight: 1.4 }}>
+                        Cut formulation cycles from 14 weeks to 5.<br />
+                        <span style={{ fontSize: 13, color: 'rgba(60,69,84,0.6)', fontWeight: 400 }}>Beiersdorf, consumer-care R&amp;D</span>
+                      </div>
+                    }
+                    dontNode={
+                      <div style={{ fontSize: 18, fontWeight: 500, letterSpacing: '-0.005em', color: SLATE, textAlign: 'center', lineHeight: 1.4 }}>
+                        Cut formulation cycles from 14 weeks to 5 — Beiersdorf
+                      </div>
+                    }
+                  />
+
+                  {/* 7. Hero-metric template */}
+                  <AntiPatternRow
+                    rule={{ name: 'No-Hero-Metric-Template', body: <>The big-number-with-tiny-label SaaS template is forbidden. Outcomes render as editorial declarations with named customer attribution. Numbers earn their place by being specific and tied to a real R&amp;D program.</> }}
+                    doNode={
+                      <div style={{ maxWidth: 240 }}>
+                        <div style={{ fontSize: 18, fontWeight: 500, lineHeight: 1.3, color: SLATE, letterSpacing: '-0.005em' }}>
+                          Eliminated 60% of redundant experiments before scale-up.
+                        </div>
+                        <div style={{ fontSize: 12, color: 'rgba(60,69,84,0.6)', marginTop: 8, fontWeight: 500 }}>
+                          Sika, polymer materials
+                        </div>
+                      </div>
+                    }
+                    dontNode={
+                      <div style={{
+                        background: '#fff', border: `1px solid ${FOG}`, borderRadius: 8,
+                        padding: 16, textAlign: 'center', width: 200,
+                      }}>
+                        <div style={{
+                          fontSize: 36, fontWeight: 700,
+                          backgroundImage: `linear-gradient(135deg, ${ROYAL_BLUE}, ${SKY_CYAN})`,
+                          WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                          color: 'transparent',
+                          letterSpacing: '-0.03em', lineHeight: 1,
+                        }}>60%</div>
+                        <div style={{ fontSize: 10, color: TEXT_MUTED, textTransform: 'uppercase', letterSpacing: '.08em', marginTop: 6 }}>
+                          Faster experiments
+                        </div>
+                      </div>
+                    }
+                  />
+
+                  {/* 8. Identical card grid */}
+                  <AntiPatternRow
+                    rule={{ name: 'No-Identical-Card-Grid', body: <>The 6-up icon + heading + text grid is the SaaS landing-page reflex. The platform deep-dive uses real product screens with alternating sides; capabilities don't render as identical decorative cards.</> }}
+                    doNode={
+                      <div style={{
+                        display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 12,
+                        alignItems: 'center', maxWidth: 280,
+                      }}>
+                        <div style={{ fontSize: 12 }}>
+                          <div style={{ fontSize: 10, color: ROYAL_BLUE, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.08em' }}>ELN</div>
+                          <div style={{ fontSize: 14, fontWeight: 500, color: SLATE, marginTop: 4 }}>Lab notebook with structured templates</div>
+                        </div>
+                        <div style={{
+                          background: CANVAS, border: `1px solid ${DIVIDER}`,
+                          borderRadius: 4, height: 60, padding: 6,
+                          display: 'flex', flexDirection: 'column', gap: 3,
+                        }}>
+                          <div style={{ height: 6, background: ROYAL_BLUE, borderRadius: 1, opacity: 0.8, width: '60%' }} />
+                          <div style={{ height: 4, background: DIVIDER, borderRadius: 1 }} />
+                          <div style={{ height: 4, background: DIVIDER, borderRadius: 1, width: '80%' }} />
+                          <div style={{ height: 4, background: DIVIDER, borderRadius: 1, width: '40%' }} />
+                        </div>
+                      </div>
+                    }
+                    dontNode={
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, maxWidth: 280 }}>
+                        {['edit_note', 'inventory_2', 'auto_awesome'].map((i) => (
+                          <div key={i} style={{
+                            background: '#fff', border: `1px solid ${FOG}`,
+                            borderRadius: 6, padding: 10, textAlign: 'center',
+                          }}>
+                            <div style={{
+                              width: 24, height: 24, borderRadius: 6, background: MIST,
+                              display: 'flex', alignItems: 'center', justifyContent: 'center',
+                              color: ROYAL_BLUE, margin: '0 auto 6px',
+                            }}>
+                              <MI name={i} size={14} />
+                            </div>
+                            <div style={{ fontSize: 9, fontWeight: 500, color: SLATE }}>Capability</div>
+                            <div style={{ fontSize: 8, color: TEXT_MUTED, marginTop: 2, lineHeight: 1.3 }}>
+                              Description text
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    }
+                  />
+
+                </div>
+              </SGSection>
+
+              {/* COPY & VOICE */}
+              <SGSection
+                id="voice"
+                title="Copy & Voice"
+                lead="The system's voice is calm authority, declarative, evidence-led. Copy rules below are enforceable; the worked examples are the canonical labels and microcopy that should propagate across surfaces."
+              >
+                <h3 style={{ fontSize: 13, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: 'rgba(60,69,84,0.6)', margin: '0 0 14px' }}>
+                  Rules
+                </h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 36 }}>
+                  {[
+                    { rule: 'Sentence case for button labels.',         dont: '"Sign-up"',          doc: '"Sign up"' },
+                    { rule: 'No em dashes. Also not double-hyphens.',    dont: 'analysis — fast',   doc: 'analysis is fast' },
+                    { rule: 'Verbs first for actions.',                  dont: '"Demo Request"',    doc: '"Request a Demo"' },
+                    { rule: 'No marketing adverbs.',                    dont: '"easily ship UI"',   doc: '"ship UI"' },
+                    { rule: 'Real numbers over qualifiers.',            dont: '"industry-leading"', doc: '"4.8/5 G2"' },
+                    { rule: '"Request a Demo" is the canonical CTA.',    dont: '"Schedule a demo"', doc: '"Request a Demo"' },
+                  ].map((r, i) => (
+                    <div key={i} className="uc-voice-rule" style={{
+                      display: 'grid', gridTemplateColumns: '1fr 220px 220px',
+                      gap: 16, alignItems: 'center',
+                      padding: '12px 16px',
+                      background: '#fff',
+                      border: `1px solid ${FOG}`,
+                      borderRadius: 6,
+                    }}>
+                      <div style={{ fontSize: 13, color: SLATE, lineHeight: 1.5 }}>{r.rule}</div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <MI name="close" size={14} fill={1} style={{ color: STATUS_RED }} />
+                        <code style={{
+                          fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace',
+                          fontSize: 12, color: STATUS_RED, background: STATUS_RED_BG,
+                          padding: '2px 7px', borderRadius: 3,
+                        }}>{r.dont}</code>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <MI name="check" size={14} fill={1} style={{ color: EMERALD }} />
+                        <code style={{
+                          fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace',
+                          fontSize: 12, color: EMERALD, background: STATUS_GREEN_BG,
+                          padding: '2px 7px', borderRadius: 3,
+                        }}>{r.doc}</code>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <h3 style={{ fontSize: 13, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: 'rgba(60,69,84,0.6)', margin: '0 0 14px' }}>
+                  Canonical button labels
+                </h3>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                  gap: 12,
+                  marginBottom: 36,
+                }}>
+                  {[
+                    { label: 'Request a Demo',   note: 'Brand-affordance casing; the only CTA that converts on this surface.' },
+                    { label: 'Watch 2-min tour', note: 'Specific length sets expectation; lowercase after the verb.' },
+                    { label: 'Learn more',       note: 'Pairs with a trailing arrow only; never standalone.' },
+                    { label: 'View all',         note: 'Use only when "all" is bounded; otherwise be specific.' },
+                    { label: 'Open app',         note: 'Authenticated state replacement for "Log in"; verb-first.' },
+                    { label: 'Cancel',           note: 'Single word; never "Cancel and exit" or "Discard".' },
+                  ].map((b) => (
+                    <div key={b.label} style={{
+                      background: '#fff',
+                      border: `1px solid ${FOG}`,
+                      borderRadius: 8,
+                      padding: 14,
+                    }}>
+                      <code style={{
+                        fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace',
+                        fontSize: 13, color: ROYAL_BLUE, fontWeight: 500,
+                        background: MIST,
+                        padding: '4px 8px',
+                        borderRadius: 3,
+                        display: 'inline-block',
+                        marginBottom: 8,
+                      }}>{b.label}</code>
+                      <div style={{ fontSize: 12, color: 'rgba(60,69,84,0.7)', lineHeight: 1.5 }}>
+                        {b.note}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <h3 style={{ fontSize: 13, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: 'rgba(60,69,84,0.6)', margin: '0 0 14px' }}>
+                  Error and empty states
+                </h3>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                  gap: 16,
+                }}>
+                  {/* Form error */}
+                  <div style={{
+                    background: '#fff', border: `1px solid ${FOG}`, borderRadius: 8,
+                    padding: 18, display: 'flex', flexDirection: 'column', gap: 10,
+                  }}>
+                    <div style={{ fontSize: 11, fontWeight: 600, color: ROYAL_BLUE, textTransform: 'uppercase', letterSpacing: '.08em' }}>
+                      Form error
+                    </div>
+                    <div style={{
+                      background: STATUS_RED_BG, color: STATUS_RED,
+                      borderRadius: 4, padding: '8px 12px',
+                      fontSize: 13, fontWeight: 500,
+                      display: 'flex', alignItems: 'center', gap: 8,
+                    }}>
+                      <MI name="error" size={16} fill={1} />
+                      Email already in use. Try logging in.
+                    </div>
+                    <div style={{ fontSize: 12, color: 'rgba(60,69,84,0.65)', lineHeight: 1.5 }}>
+                      State the problem, then offer the next action. Never "An error occurred" or "Please try again later."
+                    </div>
+                  </div>
+
+                  {/* Empty resource list */}
+                  <div style={{
+                    background: '#fff', border: `1px solid ${FOG}`, borderRadius: 8,
+                    padding: 18, display: 'flex', flexDirection: 'column', gap: 10,
+                  }}>
+                    <div style={{ fontSize: 11, fontWeight: 600, color: ROYAL_BLUE, textTransform: 'uppercase', letterSpacing: '.08em' }}>
+                      Empty list
+                    </div>
+                    <div style={{
+                      background: CANVAS, borderRadius: 4, padding: '14px',
+                      display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'flex-start',
+                    }}>
+                      <div style={{ fontSize: 13, fontWeight: 500, color: SLATE }}>No experiments yet.</div>
+                      <div style={{ fontSize: 12, color: 'rgba(60,69,84,0.65)' }}>Start a notebook entry or import from Excel.</div>
+                    </div>
+                    <div style={{ fontSize: 12, color: 'rgba(60,69,84,0.65)', lineHeight: 1.5 }}>
+                      Name the absent thing, then point to the activation action. Never illustrative-blob mascots.
+                    </div>
+                  </div>
+
+                  {/* Network error */}
+                  <div style={{
+                    background: '#fff', border: `1px solid ${FOG}`, borderRadius: 8,
+                    padding: 18, display: 'flex', flexDirection: 'column', gap: 10,
+                  }}>
+                    <div style={{ fontSize: 11, fontWeight: 600, color: ROYAL_BLUE, textTransform: 'uppercase', letterSpacing: '.08em' }}>
+                      Network error
+                    </div>
+                    <div style={{
+                      background: STATUS_RED_BG, borderRadius: 4, padding: '12px 14px',
+                      display: 'flex', flexDirection: 'column', gap: 6,
+                    }}>
+                      <div style={{
+                        fontSize: 13, fontWeight: 500, color: STATUS_RED,
+                        display: 'flex', alignItems: 'center', gap: 8,
+                      }}>
+                        <MI name="cloud_off" size={14} fill={1} />
+                        Couldn't reach the server.
+                      </div>
+                      <button style={{
+                        alignSelf: 'flex-start',
+                        background: 'transparent',
+                        color: STATUS_RED,
+                        border: `1px solid ${STATUS_RED}`,
+                        padding: '4px 10px', borderRadius: 3,
+                        fontSize: 12, fontWeight: 500,
+                        cursor: 'pointer',
+                      }}>
+                        Retry
+                      </button>
+                    </div>
+                    <div style={{ fontSize: 12, color: 'rgba(60,69,84,0.65)', lineHeight: 1.5 }}>
+                      Acknowledge the failure, then surface the recovery action inline. Don't bury Retry in a modal.
+                    </div>
+                  </div>
+                </div>
+              </SGSection>
+
+              {/* Footer note */}
+              <div style={{ padding: '48px 0 80px', fontSize: 13, color: 'rgba(60,69,84,0.6)' }}>
+                Generated from the live system. Tokens are mirrored 1:1 with the React constants and CSS variables in this file.
+              </div>
+            </main>
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<StyleGuide />);
+  </script>
+</body>
+</html>
