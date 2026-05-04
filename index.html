@@ -268,9 +268,10 @@
       }
     }
 
-    /* Logo strip stats: drop the vertical pipe dividers when stats wrap */
-    @media (max-width: 640px) {
-      .uc-stat-divider { display: none !important; }
+    /* Hero stats: drop the vertical pipe dividers when the row wraps to a single column */
+    @media (max-width: 540px) {
+      .uc-hero-stat-divider { display: none !important; }
+      .uc-hero-stats { gap: 24px !important; }
     }
 
     /* Demo modal: collapse the 2-column field grid to a single stack at narrow widths */
@@ -921,6 +922,60 @@
               <MI name="play_circle" size={18} fill={1} /> Watch 2-min tour
             </button>
           </div>
+          <div className="uc-enter uc-enter-d4 uc-hero-stats" style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 36,
+            marginTop: 28,
+            paddingTop: 28,
+            borderTop: '1px solid rgba(255,255,255,0.18)',
+            flexWrap: 'wrap',
+          }}>
+            {[
+              { n: 150, decimals: 0, suffix: '+', l: 'R&D orgs' },
+              { n: 4.8, decimals: 1, suffix: '',  tail: '/5', l: 'G2 rating' },
+              { n: 10,  decimals: 0, suffix: '×', l: 'Faster analysis' },
+            ].map((s, i, arr) => (
+              <React.Fragment key={s.l}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  <div style={{
+                    fontSize: 'clamp(36px, 3.6vw, 48px)',
+                    fontWeight: 500,
+                    letterSpacing: '-0.015em',
+                    lineHeight: 1,
+                    color: '#FFFFFF',
+                    fontVariantNumeric: 'tabular-nums',
+                  }}>
+                    <Counter value={s.n} decimals={s.decimals} suffix={s.suffix} />
+                    {s.tail && (
+                      <span style={{
+                        fontSize: '0.4em',
+                        color: 'rgba(255,255,255,0.7)',
+                        fontWeight: 400,
+                        letterSpacing: '0',
+                      }}>{s.tail}</span>
+                    )}
+                  </div>
+                  <div style={{
+                    fontSize: 12,
+                    fontWeight: 500,
+                    color: 'rgba(255,255,255,0.7)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '.08em',
+                  }}>
+                    {s.l}
+                  </div>
+                </div>
+                {i < arr.length - 1 && (
+                  <div className="uc-hero-stat-divider" aria-hidden="true" style={{
+                    width: 1,
+                    alignSelf: 'stretch',
+                    background: 'rgba(255,255,255,0.18)',
+                  }} />
+                )}
+              </React.Fragment>
+            ))}
+          </div>
         </div>
       );
     }
@@ -1076,14 +1131,9 @@
 
     function LogoStrip() {
       const logos = ['Repsol', 'Carbon', 'Cooper Standard', 'SCHOTT', 'Sika', 'Beiersdorf', 'Mondelez', 'Clariant'];
-      const stats = [
-        { n: 150, decimals: 0, suffix: '+', l: 'R&D orgs' },
-        { n: 4.8, decimals: 1, suffix: '',  tail: '/5', l: 'G2 rating' },
-        { n: 10,  decimals: 0, suffix: '×', l: 'Faster analysis' },
-      ];
       return (
         <section style={{
-          padding: '64px 32px 56px',
+          padding: '56px 32px',
           borderBottom: '1px solid rgba(60,69,84,0.08)',
           background: '#fff',
         }}>
@@ -1097,39 +1147,6 @@
               marginBottom: 28,
             }}>
               Trusted by 150+ R&amp;D organizations worldwide
-            </div>
-            <div style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: 40,
-              marginBottom: 40,
-              flexWrap: 'wrap',
-            }}>
-              {stats.map((s, i, arr) => (
-                <React.Fragment key={s.l}>
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
-                    <span style={{
-                      fontSize: 32,
-                      fontWeight: 500,
-                      letterSpacing: '-0.015em',
-                      color: ROYAL_BLUE,
-                      lineHeight: 1,
-                    }}>
-                      <Counter value={s.n} decimals={s.decimals} suffix={s.suffix} />
-                      {s.tail && (
-                        <span style={{ fontSize: 16, color: 'rgba(60,69,84,0.55)', fontWeight: 400 }}>{s.tail}</span>
-                      )}
-                    </span>
-                    <span style={{ fontSize: 13, color: 'rgba(60,69,84,0.65)' }}>
-                      {s.l}
-                    </span>
-                  </div>
-                  {i < arr.length - 1 && (
-                    <div className="uc-stat-divider" style={{ width: 1, height: 24, background: 'rgba(60,69,84,0.15)' }} />
-                  )}
-                </React.Fragment>
-              ))}
             </div>
             <div style={{
               display: 'flex',
