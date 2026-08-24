@@ -75,6 +75,34 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
 .card-demo { background:var(--u-surface-1); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:24px; width:220px; box-shadow:var(--shadow-sm); }
 .card-demo-dark { background:var(--surface-dark); color:#fff; border-radius:var(--radius-lg); padding:24px; width:220px; box-shadow:var(--shadow-lg); }
 .avatar-demo { width:44px; height:44px; border-radius:50%; background:var(--grad-cyan); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:500; font-size:15px; }
+.avatar-demo-lg { width:46px; height:46px; font-size:15px; }
+
+.icon-btn-demo { display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:var(--radius-control); font-size:18px; color:var(--text-strong); background:transparent; border:1.5px solid var(--border-default); cursor:pointer; }
+.icon-btn-demo:disabled { cursor:not-allowed; opacity:0.4; }
+
+.voices-demo-card { width:340px; background:var(--surface-dark); color:#fff; border-radius:var(--radius-lg); padding:24px; display:flex; flex-direction:column; box-shadow:var(--shadow-lg); }
+.voices-demo-company { font-family:var(--font-display); font-size:13px; font-weight:500; letter-spacing:0.04em; text-transform:uppercase; color:var(--u-cyan); }
+.voices-demo-quote { font-family:var(--font-display); font-weight:500; font-size:18px; line-height:1.32; margin:16px 0 0; }
+.voices-demo-quote span { color:var(--u-cyan); margin-right:4px; }
+.voices-demo-who { display:flex; align-items:center; gap:10px; margin-top:20px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.16); }
+.voices-demo-name { font-weight:500; font-size:14px; }
+.voices-demo-role { font-size:12.5px; color:rgba(255,255,255,0.7); }
+
+.case-demo-card { width:240px; background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-sm); }
+.case-demo-logo { height:72px; display:flex; align-items:center; justify-content:center; background:var(--u-surface-1); border-bottom:1px solid var(--border-subtle); font-family:var(--font-display); font-size:13px; font-weight:500; color:var(--text-muted); }
+.case-demo-body { padding:16px; }
+.case-demo-stat { font-size:19px; font-weight:500; color:var(--text-strong); margin:12px 0 6px; }
+.case-demo-body p { font-size:12.5px; color:var(--text-body); margin:0 0 12px; line-height:1.5; }
+.case-demo-read { display:inline-flex; align-items:center; gap:5px; font-size:12.5px; font-weight:500; color:var(--text-link); }
+
+.proof-demo { display:flex; flex-direction:column; gap:8px; padding-left:20px; border-left:1px solid var(--border-subtle); width:170px; }
+.proof-demo-value { font-family:var(--font-display); font-size:32px; font-weight:500; letter-spacing:-0.03em; color:var(--text-strong); }
+.proof-demo-label { font-size:12.5px; color:var(--text-body); }
+.proof-demo-company { font-family:var(--font-display); font-size:13px; font-weight:500; color:var(--text-muted); }
+
+.tour-demo-play { width:64px; height:64px; border-radius:50%; background:var(--u-cyan); display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-md); flex:none; }
+.tour-demo-play svg { width:24px; height:24px; color:var(--u-navy); margin-left:2px; }
+.tour-demo-frame { display:flex; align-items:center; gap:12px; background:var(--grad-dark); border-radius:var(--radius-lg); padding:20px; color:#fff; font-size:12.5px; }
 </style>
 </head>
 <body data-theme="dark">
@@ -149,7 +177,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     </div>
   </section>
 
-  <section class="sg-section" style="border-bottom:none;">
+  <section class="sg-section">
     <h2>Cards</h2>
     <div class="comp-row">
       <div class="card-demo">
@@ -160,6 +188,67 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
         <p style="font-size:13px;opacity:0.6;margin:0 0 8px;">surface-dark</p>
         <h3 style="color:#fff;font-size:20px;">“Uncountable replaced a dozen spreadsheets.”</h3>
       </div>
+    </div>
+  </section>
+
+  <section class="sg-section" style="border-bottom:none;">
+    <h2>Customers Page Components</h2>
+    <p class="sg-desc">Added for the Customers page — proof stats, the quote slider, case study cards, the product tour play affordance, and the disabled icon-button state.</p>
+
+    <p style="font-size:13px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin:0 0 12px;">Proof stat</p>
+    <div class="comp-row">
+      <div class="proof-demo" style="border-left:none;padding-left:0;">
+        <div class="proof-demo-value">30%</div>
+        <div class="proof-demo-label">less time spent reconciling data</div>
+        <div class="proof-demo-company">Arbor Nutrition</div>
+      </div>
+      <div class="proof-demo">
+        <div class="proof-demo-value">6 mo</div>
+        <div class="proof-demo-label">faster development timelines</div>
+        <div class="proof-demo-company">Halendza Materials</div>
+      </div>
+    </div>
+
+    <p style="font-size:13px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin:32px 0 12px;">Quote card (voices slider)</p>
+    <p class="sg-desc" style="margin-bottom:16px;">Same <code>surface-dark</code> card as testimonials, but the avatar renders at 44px here (testimonials use 46px) — check the component you're referencing before assuming a shared size.</p>
+    <div class="comp-row">
+      <div class="voices-demo-card">
+        <span class="voices-demo-company">Halendza Materials</span>
+        <p class="voices-demo-quote"><span>&ldquo;</span>Uncountable has enabled our R&amp;D organization to connect data management across sites&hellip;</p>
+        <div class="voices-demo-who">
+          <img src="assets/dana-lee.png" alt="Dana Lee" class="avatar-demo" style="object-fit:cover;">
+          <div><div class="voices-demo-name">Dana Lee</div><div class="voices-demo-role">Head of R&amp;D, Coatings &amp; Materials</div></div>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:13px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin:32px 0 12px;">Case study card</p>
+    <div class="comp-row">
+      <div class="case-demo-card">
+        <div class="case-demo-logo">Halendza Materials</div>
+        <div class="case-demo-body">
+          <span class="tag" style="font-size:11px;padding:3px 10px;">Specialty Chemicals</span>
+          <h3 class="case-demo-stat">1,000+ users</h3>
+          <p>Replaced a legacy ELN with a structured backbone connecting synthesis and application teams.</p>
+          <span class="case-demo-read">Read case study &rarr;</span>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:13px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin:32px 0 12px;">Product tour play</p>
+    <div class="comp-row">
+      <div class="tour-demo-frame">
+        <span class="tour-demo-play"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg></span>
+        <span>Watch the tour &middot; 3 min</span>
+      </div>
+    </div>
+
+    <p style="font-size:13px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin:32px 0 12px;">Icon button — enabled / disabled</p>
+    <div class="comp-row">
+      <button class="icon-btn-demo">&larr;</button>
+      <button class="icon-btn-demo" disabled>&larr;</button>
+      <button class="icon-btn-demo">&rarr;</button>
+      <button class="icon-btn-demo" disabled>&rarr;</button>
     </div>
   </section>
 
