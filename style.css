@@ -242,6 +242,8 @@ button { font-family: inherit; }
 .icon-btn-outline { background: transparent; border: 1.5px solid var(--border-default); }
 .icon-btn-outline:hover { background: var(--brand-ink); color: #fff; border-color: var(--brand-ink); }
 .icon-btn-lg { width: 64px; height: 64px; }
+.icon-btn:disabled { cursor: not-allowed; opacity: 0.4; }
+.icon-btn-outline:disabled:hover { background: transparent; color: var(--text-strong); border-color: var(--border-default); }
 
 .tag {
   display: inline-flex; align-items: center; padding: 6px 14px; border-radius: var(--radius-sm);
@@ -611,3 +613,99 @@ button { font-family: inherit; }
 .footer-legal { display: flex; gap: 22px; font-family: var(--font-body); font-size: 13.5px; }
 .footer-legal a { color: rgba(255,255,255,0.7); text-decoration: none; }
 .footer-legal a:hover { text-decoration: underline; }
+
+/* ============================================================
+   NAV — active page link (Customers page)
+   ============================================================ */
+.nav-link-active { color: var(--text-link); }
+
+/* ============================================================
+   CUSTOMERS PAGE — hero + proof row
+   ============================================================ */
+.cust-hero-section { background: var(--grad-hero); }
+.cust-hero-inner { padding-top: clamp(44px,6vw,88px); padding-bottom: clamp(40px,5vw,72px); }
+.cust-hero { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(0,0.85fr); gap: clamp(24px,4vw,64px); align-items: end; margin-top: 16px; }
+.cust-hero-title { font-size: var(--text-display-xl); max-width: 20ch; margin: 0; }
+.cust-hero-sub { font-family: var(--font-body); font-size: clamp(16px,1.5vw,19px); color: var(--text-body); line-height: 1.55; margin: 0; max-width: 520px; }
+.cust-hero-sub strong { color: var(--text-strong); font-weight: 500; }
+@media (max-width: 920px) { .cust-hero { grid-template-columns: 1fr; } }
+
+.cust-proof { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: clamp(18px,2.5vw,36px); margin-top: clamp(40px,5vw,72px); border-top: 1px solid var(--border-subtle); padding-top: clamp(28px,3.5vw,44px); }
+.cust-proof-item { display: flex; flex-direction: column; gap: 10px; padding-left: clamp(18px,2.5vw,36px); border-left: 1px solid var(--border-subtle); opacity: 0; transform: translateY(18px); transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out); }
+.cust-proof-item:first-child { padding-left: 0; border-left: none; }
+.cust-proof.is-visible .cust-proof-item { opacity: 1; transform: translateY(0); }
+.cust-proof.is-visible .cust-proof-item:nth-child(2) { transition-delay: 0.1s; }
+.cust-proof.is-visible .cust-proof-item:nth-child(3) { transition-delay: 0.2s; }
+.cust-proof.is-visible .cust-proof-item:nth-child(4) { transition-delay: 0.3s; }
+.cust-proof-value { font-size: clamp(34px,3.6vw,54px); font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; }
+.cust-proof-label { font-family: var(--font-body); font-size: 14.5px; line-height: 1.45; color: var(--text-body); max-width: 22ch; }
+.cust-proof-spacer { flex: 1; min-height: 14px; }
+.cust-proof-company { font-family: var(--font-display); font-size: 16px; font-weight: 500; letter-spacing: 0.02em; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 920px) { .cust-proof { grid-template-columns: 1fr 1fr; } .cust-proof-item:nth-child(2) { padding-left: clamp(18px,2.5vw,36px); border-left: 1px solid var(--border-subtle); } }
+
+/* ============================================================
+   CUSTOMERS PAGE — "In their words" one-up slider
+   ============================================================ */
+.voices { padding: clamp(56px,8vw,112px) 0; background: var(--surface-page); overflow: hidden; }
+.voices-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: clamp(32px,4vw,52px); }
+.voices-title { font-size: var(--text-display-lg); margin: 14px 0 0; text-transform: uppercase; }
+.voices-controls { display: flex; align-items: center; gap: 16px; }
+.voices-counter { font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); letter-spacing: 0.06em; }
+.voices-viewport { overflow: hidden; outline: none; --voice-w: min(760px, 76vw); }
+.voices-track { display: flex; gap: 24px; width: max-content; align-items: stretch; padding-left: calc(50% - var(--voice-w) / 2); padding-right: calc(50% - var(--voice-w) / 2); transition: transform .62s cubic-bezier(.22,.61,.36,1); }
+.voices-card { flex: 0 0 var(--voice-w); display: flex; flex-direction: column; min-height: 340px; cursor: pointer; opacity: 0.34; filter: saturate(0.15); transform: scale(0.965); transition: opacity .5s var(--ease-out), filter .5s var(--ease-out), transform .62s cubic-bezier(.22,.61,.36,1); }
+.voices-card.is-active { cursor: default; opacity: 1; filter: none; transform: scale(1); }
+.voices-company { font-family: var(--font-display); font-size: 15px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--u-cyan); }
+.voices-quote { font-family: var(--font-display); font-weight: 500; font-size: clamp(20px,2.1vw,29px); line-height: 1.32; letter-spacing: -0.01em; color: #fff; margin: 22px 0 0; }
+.voices-quote-mark { color: var(--u-cyan); margin-right: 6px; }
+.voices-spacer { flex: 1; min-height: 24px; }
+.voices-who { display: flex; align-items: center; gap: 12px; margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.16); }
+.voices-who .avatar { width: 44px; height: 44px; }
+.voices-who .avatar-initials-static { font-size: 14.5px; }
+.voices-name { font-family: var(--font-body); font-weight: 500; font-size: 15px; color: #fff; }
+.voices-role { font-family: var(--font-body); font-size: 14px; color: rgba(255,255,255,0.7); }
+.avatar-initials-static { display: flex; align-items: center; justify-content: center; background: var(--grad-cyan); color: #fff; font-weight: 500; font-size: 15px; }
+.voices-dots { display: flex; justify-content: center; gap: 8px; margin-top: 36px; }
+.voices-dot { width: 18px; height: 3px; border-radius: 2px; border: none; padding: 0; cursor: pointer; background: var(--u-gray-200); transition: width var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out); }
+.voices-dot.is-active { width: 34px; background: var(--text-link); }
+
+/* ============================================================
+   CUSTOMERS PAGE — product tour band
+   ============================================================ */
+.eyebrow-light { color: #fff; }
+.tour { background: var(--grad-dark); padding: clamp(56px,8vw,112px) 0; border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); }
+.tour-inner { max-width: 1100px; text-align: center; }
+.tour-title { font-size: var(--text-display-lg); color: #fff; margin: 14px 0 0; text-transform: uppercase; }
+.tour-sub { font-family: var(--font-body); font-size: clamp(16px,1.5vw,19px); color: rgba(255,255,255,0.75); max-width: 560px; margin: 18px auto 0; line-height: 1.55; }
+.tour-frame { margin-top: clamp(32px,4vw,56px); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xl); border: 1px solid rgba(255,255,255,0.14); position: relative; aspect-ratio: 16 / 9; background: var(--u-navy); }
+.tour-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; filter: saturate(0.96); transition: filter var(--dur-base) var(--ease-out); }
+.tour-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(2,13,76,0.18), rgba(2,13,76,0.52)); transition: background var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out); }
+.tour-play { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; background: none; border: none; cursor: pointer; color: #fff; }
+.tour-play-btn { width: 76px; height: 76px; border-radius: 50%; background: var(--u-cyan); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-lg); transition: transform var(--dur-base) var(--ease-out); }
+.tour-play-btn svg { width: 28px; height: 28px; color: var(--u-navy); margin-left: 3px; }
+.tour-play:hover .tour-play-btn { transform: scale(1.06); }
+.tour-play-label { font-family: var(--font-body); font-size: 14px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+.tour-frame.is-playing .tour-poster { filter: none; }
+.tour-frame.is-playing .tour-scrim { background: transparent; }
+.tour-frame.is-playing .tour-play { display: none; }
+
+/* ============================================================
+   CUSTOMERS PAGE — case studies
+   ============================================================ */
+.case-studies { padding: clamp(56px,8vw,112px) 0; background: var(--u-surface-1); }
+.case-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap; margin-bottom: clamp(32px,4vw,52px); }
+.case-title { font-size: var(--text-display-lg); margin: 14px 0 0; text-transform: uppercase; }
+.case-sub { font-family: var(--font-body); font-size: clamp(16px,1.5vw,18px); color: var(--text-body); line-height: 1.55; margin: 18px 0 0; max-width: 620px; }
+.case-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
+.case-card { display: flex; flex-direction: column; background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; text-decoration: none; cursor: pointer; transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out); }
+.case-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); text-decoration: none; }
+.case-card-logo { height: 124px; display: flex; align-items: center; justify-content: center; background: var(--u-surface-1); border-bottom: 1px solid var(--border-subtle); }
+.case-card-logo span { font-family: var(--font-display); font-size: 20px; font-weight: 500; letter-spacing: 0.03em; color: var(--text-muted); }
+.case-card-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+.case-card-stat { font-size: clamp(24px,2.2vw,30px); font-weight: 500; letter-spacing: -0.03em; color: var(--text-strong); margin: 18px 0 10px; line-height: 1.05; }
+.case-card-body p { font-family: var(--font-body); font-size: 14.5px; line-height: 1.55; color: var(--text-body); margin: 0; }
+.case-spacer { flex: 1; min-height: 20px; }
+.case-read { display: inline-flex; align-items: center; gap: 7px; margin-top: 22px; font-family: var(--font-body); font-size: 14px; font-weight: 500; color: var(--text-link); }
+.case-read svg { width: 15px; height: 15px; }
+@media (max-width: 1000px) { .case-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 680px) { .case-grid { grid-template-columns: 1fr; } }

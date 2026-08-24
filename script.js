@@ -70,6 +70,7 @@
   var avatarFallback = document.getElementById('testiAvatarFallback');
   var tabEls = Array.prototype.slice.call(document.querySelectorAll('.testi-tab'));
 
+  if (panelEl) {
   function initials(name) {
     return name.split(' ').map(function (p) { return p[0]; }).filter(Boolean).slice(0, 2).join('').toUpperCase();
   }
@@ -135,6 +136,7 @@
 
   applyContent();
   timer = setInterval(function () { goTo((active + 1) % TESTIMONIALS.length, false); }, ROTATE_MS);
+  } // end if (panelEl)
 
   /* ---------- Stats row: stagger-reveal on scroll (once) ---------- */
   var statsRow = document.getElementById('statsRow');
@@ -150,5 +152,75 @@
     io.observe(statsRow);
   } else if (statsRow) {
     statsRow.classList.add('is-visible');
+  }
+
+  /* ---------- Customers page: proof row reveal on scroll (once) ---------- */
+  var custProof = document.getElementById('custProof');
+  if ('IntersectionObserver' in window && custProof) {
+    var ioProof = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          custProof.classList.add('is-visible');
+          ioProof.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+    ioProof.observe(custProof);
+  } else if (custProof) {
+    custProof.classList.add('is-visible');
+  }
+
+  /* ---------- Customers page: "In their words" one-up slider ---------- */
+  var voicesTrack = document.getElementById('voicesTrack');
+  if (voicesTrack) {
+    var voiceCards = Array.prototype.slice.call(voicesTrack.querySelectorAll('.voices-card'));
+    var voicesViewport = document.getElementById('voicesViewport');
+    var voicesCounter = document.getElementById('voicesCounter');
+    var voicesPrev = document.getElementById('voicesPrev');
+    var voicesNext = document.getElementById('voicesNext');
+    var voicesDotsEl = document.getElementById('voicesDots');
+    var voicesLast = voiceCards.length - 1;
+    var voicesActive = 0;
+
+    voicesDotsEl.innerHTML = voiceCards.map(function (c, i) {
+      return '<button class="voices-dot" data-idx="' + i + '" aria-label="Show ' + c.querySelector('.voices-company').textContent + '"></button>';
+    }).join('');
+    var voicesDots = Array.prototype.slice.call(voicesDotsEl.querySelectorAll('.voices-dot'));
+
+    function renderVoices() {
+      var cardW = voiceCards[0].getBoundingClientRect().width;
+      voicesTrack.style.transform = 'translateX(calc(-1 * ' + voicesActive + ' * (' + Math.round(cardW) + 'px + 24px)))';
+      voiceCards.forEach(function (c, i) {
+        var on = i === voicesActive;
+        c.classList.toggle('is-active', on);
+        if (on) c.removeAttribute('aria-hidden'); else c.setAttribute('aria-hidden', 'true');
+      });
+      voicesDots.forEach(function (d, i) { d.classList.toggle('is-active', i === voicesActive); d.setAttribute('aria-current', i === voicesActive ? 'true' : 'false'); });
+      voicesCounter.textContent = String(voicesActive + 1).padStart(2, '0') + ' / ' + String(voiceCards.length).padStart(2, '0');
+      voicesPrev.disabled = voicesActive === 0;
+      voicesNext.disabled = voicesActive === voicesLast;
+    }
+
+    function voicesGo(i) { voicesActive = Math.min(voicesLast, Math.max(0, i)); renderVoices(); }
+
+    voicesPrev.addEventListener('click', function () { voicesGo(voicesActive - 1); });
+    voicesNext.addEventListener('click', function () { voicesGo(voicesActive + 1); });
+    voiceCards.forEach(function (c, i) { c.addEventListener('click', function () { voicesGo(i); }); });
+    voicesDots.forEach(function (d, i) { d.addEventListener('click', function () { voicesGo(i); }); });
+    voicesViewport.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); voicesGo(voicesActive + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); voicesGo(voicesActive - 1); }
+    });
+    window.addEventListener('resize', renderVoices);
+
+    renderVoices();
+  }
+
+  /* ---------- Customers page: product tour play toggle ---------- */
+  var tourPlayBtn = document.getElementById('tourPlayBtn');
+  if (tourPlayBtn) {
+    tourPlayBtn.addEventListener('click', function () {
+      document.getElementById('tourFrame').classList.add('is-playing');
+    });
   }
 })();
