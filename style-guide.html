@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uncountable 3.0 — Style Guide</title>
+<link rel="icon" href="assets/mark-navy.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --u-white:#FFFFFF; --u-navy:#020D4C; --u-blue-900:#01318F; --u-blue-600:#046CDE; --u-blue-700:#0356B4;
+  --u-cyan:#00C7FE; --u-green:#01A955; --u-orange:#FFAF0F; --u-ink:#3C4554;
+  --u-rd:#2E9E5B; --u-quality:#232AB6; --u-lifecycle:#6C4BD8; --u-ppm:#FFAF0F;
+  --u-tint-cyan:#80E3FE; --u-tint-cyan-2:#BFF1FF; --u-tint-green:#80D4AA; --u-tint-green-2:#BFE9D4;
+  --u-gray-50:#F6F8FB; --u-gray-100:#EEF1F6; --u-gray-200:#E0E5ED; --u-gray-300:#C9D1DD;
+  --u-gray-400:#9AA5B6; --u-gray-500:#6B7689; --u-gray-600:#4E586B; --u-gray-700:#3C4554;
+  --text-strong:var(--u-navy); --text-heading:var(--u-blue-900); --text-body:var(--u-ink);
+  --text-muted:#6B7689; --text-link:var(--u-blue-600);
+  --surface-page:var(--u-white); --surface-card:var(--u-white); --surface-subtle:#EAF2F9; --surface-sunken:#DFE3EA;
+  --u-surface-1:#EAF2F9; --u-surface-2:#DFE3EA; --surface-dark:#0C1C63; --surface-success-soft:#E2F6EC;
+  --border-subtle:#E0E5ED; --border-default:#C9D1DD; --border-strong:var(--u-navy);
+  --brand-ink:var(--u-navy);
+  --grad-hero:linear-gradient(160deg,#EAF2F9 0%,#DFE9F6 38%,#E6F8FF 100%);
+  --grad-dark:linear-gradient(155deg,#061156 0%,#020D4C 60%,#01081f 100%);
+  --grad-cyan:linear-gradient(135deg,var(--u-cyan) 0%,var(--u-blue-600) 100%);
+  --shadow-sm:0 2px 6px rgba(2,13,76,0.07); --shadow-md:0 8px 24px rgba(2,13,76,0.09); --shadow-lg:0 18px 44px rgba(2,13,76,0.12);
+  --radius-sm:4px; --radius-md:6px; --radius-lg:8px; --radius-control:6px;
+  --font-display:'Poppins','Helvetica Neue',Arial,sans-serif; --font-body:'Poppins','Helvetica Neue',Arial,sans-serif; --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+[data-theme="dark"] {
+  --text-strong:#EDF2FA; --text-heading:#DDE8F8; --text-body:#AEBBD0; --text-muted:#7C8AA3; --text-link:#57A6F6;
+  --surface-page:#070C1F; --surface-card:#101A33; --surface-subtle:#0C142B; --surface-sunken:#16203C;
+  --u-surface-1:#0C142B; --u-surface-2:#16203C; --surface-success-soft:rgba(1,169,85,0.22);
+  --border-subtle:rgba(255,255,255,0.09); --border-default:rgba(255,255,255,0.20); --border-strong:rgba(255,255,255,0.55);
+  --brand-ink:var(--u-blue-600);
+  --u-gray-50:#0E1730; --u-gray-100:rgba(255,255,255,0.08); --u-gray-200:rgba(255,255,255,0.12); --u-gray-300:rgba(255,255,255,0.22); --u-gray-400:#7C8AA3; --u-gray-600:#A3B1C7; --u-gray-700:#C6D1E1;
+  --grad-hero:linear-gradient(160deg,#0A1330 0%,#0B1732 38%,#08213D 100%);
+  --shadow-sm:0 2px 6px rgba(0,0,0,0.45); --shadow-md:0 8px 20px rgba(0,0,0,0.45); --shadow-lg:0 18px 40px rgba(0,0,0,0.50);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family:var(--font-body); background:var(--surface-page); color:var(--text-body); transition:background .2s, color .2s; }
+h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weight:500; margin:0; }
+.sg-header { position:sticky; top:0; z-index:10; display:flex; align-items:center; justify-content:space-between; padding:18px clamp(20px,3vw,40px); background:var(--surface-card); border-bottom:1px solid var(--border-subtle); }
+.sg-header h1 { font-size:20px; }
+.sg-toggle { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-muted); cursor:pointer; background:var(--u-surface-1); border:1px solid var(--border-default); border-radius:var(--radius-control); padding:6px 12px; }
+.sg-wrap { max-width:1100px; margin:0 auto; padding:0 clamp(20px,3vw,40px) 80px; }
+.sg-section { padding:48px 0; border-bottom:1px solid var(--border-subtle); }
+.sg-section h2 { font-size:28px; text-transform:uppercase; letter-spacing:-0.02em; margin-bottom:8px; }
+.sg-desc { color:var(--text-muted); font-size:14px; margin-bottom:28px; max-width:640px; }
+.sg-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:16px; }
+.swatch { border-radius:var(--radius-md); overflow:hidden; border:1px solid var(--border-subtle); cursor:pointer; }
+.swatch-fill { height:64px; }
+.swatch-label { padding:8px 10px; font-size:12px; background:var(--surface-card); }
+.swatch-label b { display:block; font-family:var(--font-mono); font-size:11px; color:var(--text-strong); }
+.swatch-label span { color:var(--text-muted); font-size:10.5px; }
+.type-row { display:flex; align-items:baseline; gap:24px; padding:16px 0; border-bottom:1px solid var(--border-subtle); }
+.type-row:last-child { border-bottom:none; }
+.type-row code { flex:0 0 160px; font-family:var(--font-mono); font-size:11px; color:var(--text-muted); }
+.space-row { display:flex; align-items:center; gap:16px; padding:10px 0; }
+.space-row code { flex:0 0 100px; font-family:var(--font-mono); font-size:12px; color:var(--text-muted); }
+.space-bar { height:14px; background:var(--u-blue-600); border-radius:2px; }
+.radius-row, .shadow-row { display:flex; gap:20px; flex-wrap:wrap; }
+.radius-box { width:80px; height:80px; background:var(--u-surface-1); border:1px solid var(--border-default); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:11px; color:var(--text-muted); }
+.shadow-box { width:120px; height:80px; background:var(--surface-card); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:11px; color:var(--text-muted); border-radius:var(--radius-md); }
+.comp-row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:16px; }
+.btn { display:inline-flex; align-items:center; justify-content:center; font-family:var(--font-body); font-weight:500; border-radius:var(--radius-control); cursor:pointer; border:1.5px solid transparent; padding:12px 24px; font-size:15px; text-decoration:none; }
+.btn-primary { background:var(--brand-ink); color:#fff; border-color:var(--brand-ink); }
+.btn-cta { background:var(--u-blue-600); color:#fff; border-color:var(--u-blue-600); }
+.btn-accent { background:var(--u-cyan); color:var(--u-navy); border-color:var(--u-cyan); }
+.btn-outline { background:transparent; color:var(--text-strong); border-color:var(--border-strong); }
+.tag { display:inline-flex; padding:6px 14px; border-radius:var(--radius-sm); font-size:13px; font-weight:500; border:1px solid var(--border-default); color:var(--text-body); }
+.card-demo { background:var(--u-surface-1); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:24px; width:220px; box-shadow:var(--shadow-sm); }
+.card-demo-dark { background:var(--surface-dark); color:#fff; border-radius:var(--radius-lg); padding:24px; width:220px; box-shadow:var(--shadow-lg); }
+.avatar-demo { width:44px; height:44px; border-radius:50%; background:var(--grad-cyan); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:500; font-size:15px; }
+</style>
+</head>
+<body data-theme="dark">
+
+<div class="sg-header">
+  <h1>Uncountable 3.0 — Style Guide</h1>
+  <button class="sg-toggle" id="themeToggle">🌙 Dark</button>
+</div>
+
+<div class="sg-wrap">
+
+  <section class="sg-section">
+    <h2>Brand &amp; Product Colors</h2>
+    <p class="sg-desc">Raw brand hues — do not flip between themes. Reference by variable name, never by hex.</p>
+    <div class="sg-grid" id="brandSwatches"></div>
+  </section>
+
+  <section class="sg-section">
+    <h2>Semantic Tokens</h2>
+    <p class="sg-desc">Flip between light and dark via <code>[data-theme]</code>. Always prefer these over raw brand colors for text and surfaces.</p>
+    <div class="sg-grid" id="semanticSwatches"></div>
+  </section>
+
+  <section class="sg-section">
+    <h2>Typography</h2>
+    <p class="sg-desc">Poppins for display/heading/body (weights capped at 500), IBM Plex Mono for data.</p>
+    <div class="type-row"><code>--text-display-xl</code><span class="display" style="font-family:var(--font-display);font-weight:500;font-size:clamp(2.75rem,4.9vw,4.75rem);color:var(--text-strong);">Reach the answer</span></div>
+    <div class="type-row"><code>--text-display-lg</code><span style="font-family:var(--font-display);font-weight:500;font-size:clamp(2.25rem,3.6vw,3.5rem);color:var(--text-strong);">Run. Capture. Predict.</span></div>
+    <div class="type-row"><code>heading / h2</code><span style="font-size:24px;color:var(--text-strong);">The data behind every breakthrough</span></div>
+    <div class="type-row"><code>body / 16px</code><span style="font-size:16px;color:var(--text-body);">The R&amp;D data platform that captures every experiment.</span></div>
+    <div class="type-row"><code>eyebrow</code><span style="font-size:13px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-strong);">By the numbers</span></div>
+    <div class="type-row"><code>--font-mono</code><span style="font-family:var(--font-mono);font-size:13px;color:var(--text-body);">FORM-2291 · 96.4 · +5.4</span></div>
+  </section>
+
+  <section class="sg-section">
+    <h2>Spacing</h2>
+    <p class="sg-desc">4px base grid, --space-1 through --space-12.</p>
+    <div id="spaceRows"></div>
+  </section>
+
+  <section class="sg-section">
+    <h2>Radii &amp; Shadows</h2>
+    <div class="radius-row" style="margin-bottom:32px;">
+      <div class="radius-box" style="border-radius:4px;">sm · 4px</div>
+      <div class="radius-box" style="border-radius:6px;">md · 6px</div>
+      <div class="radius-box" style="border-radius:8px;">lg · 8px</div>
+      <div class="radius-box" style="border-radius:12px;">xl · 12px</div>
+    </div>
+    <div class="shadow-row">
+      <div class="shadow-box" style="box-shadow:var(--shadow-sm);">sm</div>
+      <div class="shadow-box" style="box-shadow:var(--shadow-md);">md</div>
+      <div class="shadow-box" style="box-shadow:var(--shadow-lg);">lg</div>
+    </div>
+  </section>
+
+  <section class="sg-section">
+    <h2>Buttons</h2>
+    <div class="comp-row">
+      <a class="btn btn-primary">Primary</a>
+      <a class="btn btn-cta">CTA</a>
+      <a class="btn btn-accent">Accent</a>
+      <a class="btn btn-outline">Outline</a>
+    </div>
+  </section>
+
+  <section class="sg-section">
+    <h2>Tags &amp; Avatars</h2>
+    <div class="comp-row">
+      <span class="tag">Guide</span><span class="tag">Platform</span><span class="tag">News</span>
+      <span class="avatar-demo">DL</span>
+      <img class="avatar-demo" style="object-fit:cover;" src="assets/dana-lee.png" alt="Dana Lee">
+    </div>
+  </section>
+
+  <section class="sg-section" style="border-bottom:none;">
+    <h2>Cards</h2>
+    <div class="comp-row">
+      <div class="card-demo">
+        <p style="font-size:13px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin:0 0 8px;">Design of Experiments</p>
+        <h3 style="font-size:20px;">Plan smarter experiment sets</h3>
+      </div>
+      <div class="card-demo-dark">
+        <p style="font-size:13px;opacity:0.6;margin:0 0 8px;">surface-dark</p>
+        <h3 style="color:#fff;font-size:20px;">“Uncountable replaced a dozen spreadsheets.”</h3>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+const BRAND = [
+  ['--u-navy', '#020D4C'], ['--u-blue-900', '#01318F'], ['--u-blue-600', '#046CDE'],
+  ['--u-cyan', '#00C7FE'], ['--u-green', '#01A955'], ['--u-orange', '#FFAF0F'], ['--u-ink', '#3C4554'],
+  ['--u-rd', '#2E9E5B'], ['--u-quality', '#232AB6'], ['--u-lifecycle', '#6C4BD8'], ['--u-ppm', '#FFAF0F'],
+];
+const SEMANTIC = [
+  '--text-strong', '--text-heading', '--text-body', '--text-muted', '--text-link',
+  '--surface-page', '--surface-card', '--surface-subtle', '--surface-sunken', '--surface-dark',
+  '--border-subtle', '--border-default', '--border-strong',
+];
+const SPACE = [['space-1','4px'],['space-2','8px'],['space-3','12px'],['space-4','16px'],['space-5','24px'],['space-6','32px'],['space-8','48px'],['space-9','64px']];
+
+function swatchHTML(name, hex) {
+  const textColor = name.startsWith('--surface') || name === '--u-navy' || name.startsWith('--border') ? '' : hex;
+  return `<div class="swatch" title="${name}"><div class="swatch-fill" style="background:var(${name})"></div><div class="swatch-label"><b>${name}</b><span>${hex || 'computed'}</span></div></div>`;
+}
+document.getElementById('brandSwatches').innerHTML = BRAND.map(([n,h]) => swatchHTML(n,h)).join('');
+document.getElementById('semanticSwatches').innerHTML = SEMANTIC.map(n => swatchHTML(n,'')).join('');
+document.getElementById('spaceRows').innerHTML = SPACE.map(([n,px]) =>
+  `<div class="space-row"><code>--${n}</code><div class="space-bar" style="width:${px}"></div><span style="font-size:12px;color:var(--text-muted)">${px}</span></div>`
+).join('');
+
+const toggle = document.getElementById('themeToggle');
+toggle.addEventListener('click', () => {
+  const dark = document.body.getAttribute('data-theme') === 'dark';
+  document.body.setAttribute('data-theme', dark ? 'light' : 'dark');
+  toggle.textContent = dark ? '☀️ Light' : '🌙 Dark';
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uncountable — Reach the answer in fewer experiments</title>
+<meta name="description" content="The R&D data platform that captures every experiment, surfaces the pattern, and recommends what to run next.">
+<link rel="icon" href="assets/mark-navy.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Announcement bar -->
+<div class="announce">
+  <strong>NEW · Uncountable AI</strong>
+  <span class="announce-sep">—</span>
+  Predict your next best experiment from your own lab data.
+  <a href="#" class="announce-link">Read the announcement →</a>
+</div>
+
+<!-- Nav -->
+<header class="nav" id="siteNav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="assets/logo-white.svg" alt="Uncountable" height="26">
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <button class="nav-tab" data-panel="platform" aria-expanded="false">Platform <span class="chev">&#9660;</span></button>
+      <button class="nav-tab" data-panel="solutions" aria-expanded="false">Solutions <span class="chev">&#9660;</span></button>
+      <button class="nav-tab" data-panel="industries" aria-expanded="false">Industries <span class="chev">&#9660;</span></button>
+      <a href="#" class="nav-link">Customers</a>
+      <a href="#" class="nav-link">Company <span class="nav-link-arrow">&#8599;</span></a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#" class="btn btn-outline btn-sm">Log In</a>
+      <a href="#" class="btn btn-primary btn-sm">Request a demo</a>
+    </div>
+  </div>
+
+  <div class="nav-backdrop" id="navBackdrop"></div>
+
+  <!-- PLATFORM mega panel -->
+  <div class="nav-panel" data-panel="platform">
+    <div class="nav-panel-inner">
+      <div class="mega-list mega-list-narrow">
+        <a href="#" class="mega-item">
+          <span class="mega-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg></span>
+          <span>
+            <span class="mega-item-title">Platform Overview</span>
+            <span class="mega-item-desc">The one structured data layer underneath every suite.</span>
+          </span>
+        </a>
+        <a href="#" class="mega-item">
+          <span class="mega-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/></svg></span>
+          <span>
+            <span class="mega-item-title">Bodie</span>
+            <span class="mega-item-desc">The Gen AI assistant that works across your whole platform.</span>
+          </span>
+        </a>
+        <a href="#" class="mega-item">
+          <span class="mega-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 4h3a2 2 0 0 1 2 2v14"/><path d="M2 20h3"/><path d="M13 20h9"/><path d="M10 12v.01"/><path d="M13 4.562v16.157a1 1 0 0 1-1.242.97L5 20V5.562a2 2 0 0 1 1.515-1.94l4-1A2 2 0 0 1 13 4.561Z"/></svg></span>
+          <span>
+            <span class="mega-item-title">Portal</span>
+            <span class="mega-item-desc">Secure external access for partners and customers, no seats required.</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOLUTIONS mega panel -->
+  <div class="nav-panel" data-panel="solutions">
+    <div class="nav-panel-inner">
+      <div class="nav-suites">
+        <div class="nav-suite">
+          <div class="nav-suite-head"><span class="suite-dot" style="background:var(--u-rd)"></span><span class="nav-suite-title">Research &amp; Development</span></div>
+          <p class="nav-suite-tagline">Design, run, and learn from every experiment, on one platform.</p>
+          <ul class="suite-links">
+            <li><a href="#" class="suite-link">ELN</a></li>
+            <li><a href="#" class="suite-link">Formulation</a></li>
+            <li><a href="#" class="suite-link">R&amp;D Lab Data (LIMS)</a></li>
+            <li><a href="#" class="suite-link">DOE &amp; Predictive Tools</a></li>
+          </ul>
+        </div>
+        <div class="nav-suite">
+          <div class="nav-suite-head"><span class="suite-dot" style="background:var(--u-quality)"></span><span class="nav-suite-title">Quality</span></div>
+          <p class="nav-suite-tagline">Release with confidence and stay audit-ready.</p>
+          <ul class="suite-links">
+            <li><a href="#" class="suite-link">QC LIMS</a></li>
+            <li><a href="#" class="suite-link">QMS</a></li>
+          </ul>
+        </div>
+        <div class="nav-suite">
+          <div class="nav-suite-head"><span class="suite-dot" style="background:var(--u-lifecycle)"></span><span class="nav-suite-title">Product Lifecycle</span></div>
+          <p class="nav-suite-tagline">Take products from concept to commercialization.</p>
+          <ul class="suite-links">
+            <li><a href="#" class="suite-link">BOM Management</a></li>
+            <li><a href="#" class="suite-link">PPM</a></li>
+            <li><a href="#" class="suite-link">Regulatory Management</a></li>
+            <li><a href="#" class="suite-link">Sustainability &amp; ESG</a></li>
+          </ul>
+        </div>
+        <div class="nav-suite nav-suite-last">
+          <div class="nav-suite-head"><span class="suite-dot" style="background:var(--u-ppm)"></span><span class="nav-suite-title">Innovation and Project Management</span></div>
+          <p class="nav-suite-tagline">Scope, gate, and route project work.</p>
+          <ul class="suite-links">
+            <li><a href="#" class="suite-link">PPM</a></li>
+            <li><a href="#" class="suite-link">Project Stage Gating</a></li>
+            <li><a href="#" class="suite-link">Request Management</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="nav-suites-foot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/></svg>
+        <span><strong>Shared across every suite:</strong> <a href="#">Bodie</a> and the <a href="#">Portal</a>.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- INDUSTRIES mega panel -->
+  <div class="nav-panel" data-panel="industries">
+    <div class="nav-panel-inner">
+      <div class="industry-pills">
+        <a href="#" class="industry-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.52 16h12.96"/></svg>Specialty Chemicals</a>
+        <a href="#" class="industry-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg>Cosmetics &amp; Personal Care</a>
+        <a href="#" class="industry-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>Food &amp; Beverage</a>
+        <a href="#" class="industry-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m14.622 17.897-10.68-2.913"/><path d="M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z"/><path d="M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15"/></svg>Coatings &amp; Adhesives</a>
+        <a href="#" class="industry-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V2"/><path d="M17 22V2"/><path d="M2 6h5"/><path d="M2 10h5"/><path d="M2 14h5"/><path d="M2 18h5"/><path d="M22 6h-5"/><path d="M22 10h-5"/><path d="M22 14h-5"/><path d="M22 18h-5"/><path d="M2 22h20"/><path d="M2 2h20"/></svg>Building Materials &amp; Construction</a>
+        <a href="#" class="industry-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M11 7h6a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-6"/><path d="M5 10V5a2 2 0 0 1 2-2h2"/><path d="M7 3v4h4"/><path d="m11 13 1.912 2.55a1 1 0 0 0 1.6 0L18 11"/><path d="M22 11v4"/></svg>Battery &amp; Advanced Materials</a>
+        <a href="#" class="industry-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg>Agriculture &amp; AgTech</a>
+        <a href="#" class="industry-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6h4v11h4V7l-8-4-8 4v10h4V6h4z"/><path d="M17 18h1"/><path d="M2 22h20"/><path d="M6 18h1"/></svg>Industrial Manufacturing</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Hero (two-column) -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <h1 class="display hero-title">Reach the answer in fewer experiments</h1>
+        <p class="hero-sub">The R&amp;D data platform that captures every experiment, surfaces the pattern, and recommends what to run next.</p>
+        <div class="hero-cta" data-theme="light">
+          <div class="searchfield">
+            <input type="email" class="searchfield-input" placeholder="Enter your work email">
+            <button class="btn btn-cta btn-md">Request a demo</button>
+          </div>
+        </div>
+      </div>
+      <div class="hero-preview">
+        <div class="dash-preview" data-theme="light">
+          <div class="dash-topbar">
+            <div class="dash-brand"><img src="assets/mark-navy.svg" alt="" height="20"><span>Coating Series A</span></div>
+            <div class="dash-tabs">
+              <span class="dash-tab">Experiments</span>
+              <span class="dash-tab dash-tab-active">Model</span>
+              <span class="dash-tab">Reports</span>
+            </div>
+          </div>
+          <div class="dash-body">
+            <div class="dash-table">
+              <div class="dash-table-head">
+                <span>Experiment matrix</span>
+                <a href="#" class="dash-table-add">+ New batch</a>
+              </div>
+              <div class="dash-grid">
+                <div class="dash-cell dash-head">ID</div><div class="dash-cell dash-head">Resin</div><div class="dash-cell dash-head">Filler %</div><div class="dash-cell dash-head">Cure &deg;C</div><div class="dash-cell dash-head">Gloss</div>
+                <div class="dash-cell">A-01</div><div class="dash-cell">EP-2</div><div class="dash-cell">12</div><div class="dash-cell">120</div><div class="dash-cell">88</div>
+                <div class="dash-cell">A-02</div><div class="dash-cell">EP-2</div><div class="dash-cell">18</div><div class="dash-cell">140</div><div class="dash-cell dash-gloss-hi">91</div>
+                <div class="dash-cell">A-03</div><div class="dash-cell">PU-7</div><div class="dash-cell">15</div><div class="dash-cell">130</div><div class="dash-cell">79</div>
+                <div class="dash-cell">A-04</div><div class="dash-cell">PU-7</div><div class="dash-cell">22</div><div class="dash-cell">150</div><div class="dash-cell dash-gloss-hi">94</div>
+                <div class="dash-cell">A-05</div><div class="dash-cell">EP-9</div><div class="dash-cell">10</div><div class="dash-cell">125</div><div class="dash-cell">83</div>
+              </div>
+            </div>
+            <div class="dash-rec">
+              <div class="dash-rec-head">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/></svg>
+                <span>Recommended next</span>
+              </div>
+              <div class="dash-rec-card">
+                <div class="dash-rec-label">Predicted gloss</div>
+                <div class="dash-rec-value">96.4</div>
+                <div class="dash-rec-delta">+5.4 vs. best run</div>
+              </div>
+              <div class="dash-bars">
+                <span style="height:40%"></span><span style="height:55%"></span><span style="height:48%"></span><span style="height:70%"></span><span style="height:62%"></span><span style="height:88%"></span><span style="height:96%" class="dash-bar-hi"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customers marquee -->
+  <section class="customers">
+    <p class="customers-label">Trusted by R&amp;D teams at leading materials &amp; chemicals companies.</p>
+    <div class="customers-mask">
+      <div class="cust-track">
+        <div class="cust-row">
+          <a href="https://www.dow.com" target="_blank" rel="noreferrer" class="cust-logo">Dow</a>
+          <a href="https://www.dupont.com" target="_blank" rel="noreferrer" class="cust-logo">DuPont</a>
+          <a href="https://www.sika.com" target="_blank" rel="noreferrer" class="cust-logo">Sika</a>
+          <a href="https://www.clariant.com" target="_blank" rel="noreferrer" class="cust-logo">Clariant</a>
+          <a href="https://www.mondelezinternational.com" target="_blank" rel="noreferrer" class="cust-logo">Mondel&#275;z</a>
+          <a href="https://www.beiersdorf.com" target="_blank" rel="noreferrer" class="cust-logo">Beiersdorf</a>
+          <a href="https://www.6kinc.com" target="_blank" rel="noreferrer" class="cust-logo">6K</a>
+          <a href="https://www.behr.com" target="_blank" rel="noreferrer" class="cust-logo">BEHR</a>
+          <a href="https://www.soprema.com" target="_blank" rel="noreferrer" class="cust-logo">SOPREMA</a>
+        </div>
+        <div class="cust-row" aria-hidden="true">
+          <a href="https://www.dow.com" tabindex="-1" class="cust-logo">Dow</a>
+          <a href="https://www.dupont.com" tabindex="-1" class="cust-logo">DuPont</a>
+          <a href="https://www.sika.com" tabindex="-1" class="cust-logo">Sika</a>
+          <a href="https://www.clariant.com" tabindex="-1" class="cust-logo">Clariant</a>
+          <a href="https://www.mondelezinternational.com" tabindex="-1" class="cust-logo">Mondel&#275;z</a>
+          <a href="https://www.beiersdorf.com" tabindex="-1" class="cust-logo">Beiersdorf</a>
+          <a href="https://www.6kinc.com" tabindex="-1" class="cust-logo">6K</a>
+          <a href="https://www.behr.com" tabindex="-1" class="cust-logo">BEHR</a>
+          <a href="https://www.soprema.com" tabindex="-1" class="cust-logo">SOPREMA</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bodie AI feature band -->
+  <section class="bodie-section">
+    <div class="bodie-band">
+      <div class="bodie-top">
+        <div class="bodie-copy">
+          <div class="bodie-eyebrow-row">
+            <img src="assets/bodie-logo.svg" alt="" height="26" class="bodie-mark">
+            <span class="bodie-eyebrow">Meet Bodie</span>
+          </div>
+          <h2 class="display bodie-title">Your new<br>AI assistant</h2>
+          <p class="bodie-lede">Your data&rsquo;s already in the platform. Bodie is the layer that makes it conversational.</p>
+          <p class="bodie-sub">Ask it to find an experiment, summarize a project, generate a visualization, or write up a notebook — and it does it, right where you work.</p>
+          <a href="#" class="btn btn-accent btn-lg bodie-cta">Book a demo</a>
+        </div>
+        <div class="bodie-preview-wrap">
+          <div class="bodie-preview" data-theme="light">
+            <div class="bodie-rail">
+              <img src="assets/bodie-logo.svg" alt="" class="bodie-rail-mark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <div class="bodie-chat">
+              <div class="bodie-hi">Hi, I&rsquo;m Bodie.<br>How can I help?</div>
+              <div class="bodie-try">Try asking about things like:</div>
+              <div class="bodie-prompts">
+                <div class="bodie-prompt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h.01"/><path d="M3 12h.01"/><path d="M3 19h.01"/><path d="M8 5h13"/><path d="M8 12h13"/><path d="M8 19h13"/></svg><span>Give me an overview of this project&rsquo;s recent activity</span></div>
+                <div class="bodie-prompt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M8 6h8"/><path d="M16 14v4"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg><span>How do I create an input calculation for percentage of an ingredient?</span></div>
+                <div class="bodie-prompt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg><span>Summarize this page</span></div>
+              </div>
+              <div class="bodie-spacer"></div>
+              <div class="bodie-ask">
+                <span>Ask anything</span>
+                <span class="bodie-spacer"></span>
+                <span class="bodie-send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg></span>
+              </div>
+            </div>
+            <div class="bodie-list">
+              <div class="bodie-row"><span class="bodie-row-name">Sunshield Exp 43</span><span class="bodie-row-meta">Connor Moore (UNC) 1/22/2026</span></div>
+              <div class="bodie-row"><span class="bodie-row-name">Sunshield Exp 42</span><span class="bodie-row-meta">Connor Moore (UNC) 1/22/2026</span></div>
+              <div class="bodie-row"><span class="bodie-row-name">Sunshield Exp 41</span><span class="bodie-row-meta">Connor Moore (UNC) 1/22/2026</span></div>
+              <div class="bodie-row"><span class="bodie-row-name">Sunshield Exp 40</span><span class="bodie-row-meta">Connor Moore (UNC) 1/22/2026</span></div>
+              <div class="bodie-row"><span class="bodie-row-name">Sunshield Exp 39</span><span class="bodie-row-meta">Connor Moore (UNC) 1/22/2026</span></div>
+              <div class="bodie-row"><span class="bodie-row-name">Sunshield Exp 38</span><span class="bodie-row-meta">Connor Moore (UNC) 1/22/2026</span></div>
+              <div class="bodie-row"><span class="bodie-row-name">Sunshield Exp 37</span><span class="bodie-row-meta">Connor Moore (UNC) 1/22/2026</span></div>
+              <div class="bodie-row"><span class="bodie-row-name">Sunshield Exp 36</span><span class="bodie-row-meta">Connor Moore (UNC) 1/22/2026</span></div>
+              <div class="bodie-row"><span class="bodie-row-name">Sunshield Exp 35</span><span class="bodie-row-meta">Connor Moore (UNC) 1/22/2026</span></div>
+              <div class="bodie-row"><span class="bodie-row-name">Sunshield Exp 34</span><span class="bodie-row-meta">Connor Moore (UNC) 1/22/2026</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bodie-divider"></div>
+      <div class="bodie-grid">
+        <div class="bodie-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><h3>Search and discovery</h3><p>Find recipes, ingredients, outputs, and notebooks across the platform.</p></div>
+        <div class="bodie-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/></svg><h3>Automated insight generation</h3><p>Turn a prompt into an in-depth report — no manual notebook required.</p></div>
+        <div class="bodie-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg><h3>Summarize your knowledge</h3><p>Generate summaries and answer technical questions from your project data.</p></div>
+        <div class="bodie-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg><h3>Plots and visualizations</h3><p>Create charts and figures from plain language.</p></div>
+        <div class="bodie-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 21H3"/><path d="M21 3v18"/><path d="M3 21V3"/><path d="m5 8 4-4 4 4-4 4Z"/><path d="M13.5 12.5 21 20"/></svg><h3>Direct platform actions</h3><p>Edit listings, create records, and update fields in place.</p></div>
+        <div class="bodie-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 14h.01"/><path d="M13 14h2"/><path d="M9 18h.01"/><path d="M13 18h2"/></svg><h3>DOE Copilot</h3><p>Set up and interpret designed experiments using your project&rsquo;s own data.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions carousel -->
+  <section class="solutions">
+    <div class="solutions-head">
+      <div>
+        <p class="eyebrow">Platform</p>
+        <h2 class="display solutions-title">Run. Capture.<br>Predict.</h2>
+      </div>
+      <div class="carousel-controls">
+        <button class="icon-btn icon-btn-outline icon-btn-lg" data-scroll="sol-track" data-dir="-1" aria-label="Previous">&larr;</button>
+        <button class="icon-btn icon-btn-outline icon-btn-lg" data-scroll="sol-track" data-dir="1" aria-label="Next">&rarr;</button>
+      </div>
+    </div>
+    <div class="sol-track" id="sol-track">
+      <div class="card card-tinted sol-card">
+        <div class="sol-card-head"><p class="eyebrow eyebrow-muted">Design of Experiments</p><span class="sol-plus">+</span></div>
+        <h3 class="sol-card-title">Plan smarter<br>experiment sets</h3>
+        <div class="sol-spacer"></div>
+        <div class="viz" data-theme="light">
+          <div class="viz-doe">
+            <div class="doe-cell doe-cyan"></div><div class="doe-cell"></div><div class="doe-cell"></div><div class="doe-cell doe-blue"></div><div class="doe-cell"></div><div class="doe-cell doe-cyan"></div><div class="doe-cell"></div><div class="doe-cell doe-blue"></div>
+            <div class="doe-cell"></div><div class="doe-cell"></div><div class="doe-cell doe-blue"></div><div class="doe-cell"></div><div class="doe-cell"></div><div class="doe-cell"></div><div class="doe-cell"></div><div class="doe-cell doe-blue"></div>
+            <div class="doe-cell"></div><div class="doe-cell"></div><div class="doe-cell doe-blue"></div><div class="doe-cell"></div><div class="doe-cell doe-cyan"></div><div class="doe-cell"></div><div class="doe-cell doe-blue"></div><div class="doe-cell"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card card-tinted sol-card">
+        <div class="sol-card-head"><p class="eyebrow eyebrow-muted">Electronic Lab Notebook</p><span class="sol-plus">+</span></div>
+        <h3 class="sol-card-title">Capture every<br>result in one place</h3>
+        <div class="sol-spacer"></div>
+        <div class="viz" data-theme="light">
+          <div class="viz-table">
+            <div class="viz-row"><span>A-04</span><span class="viz-pill viz-pill-hi">94</span></div>
+            <div class="viz-row"><span>A-02</span><span class="viz-pill viz-pill-hi">91</span></div>
+            <div class="viz-row viz-row-last"><span>A-01</span><span class="viz-pill">88</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card card-tinted sol-card">
+        <div class="sol-card-head"><p class="eyebrow eyebrow-muted">ML Recommendations</p><span class="sol-plus">+</span></div>
+        <h3 class="sol-card-title">Predict the next<br>best experiment</h3>
+        <div class="sol-spacer"></div>
+        <div class="viz" data-theme="light">
+          <p class="viz-label">OPTIMIZATION</p>
+          <svg class="viz-curve" viewBox="0 0 200 70" preserveAspectRatio="xMidYMid meet">
+            <polyline points="0,60 30,55 60,50 90,38 120,30 150,18 200,8" fill="none" stroke="var(--u-blue-600)" stroke-width="3"/>
+            <polyline points="0,64 30,62 60,58 90,56 120,50 150,46 200,40" fill="none" stroke="var(--u-cyan)" stroke-width="3"/>
+            <circle cx="200" cy="8" r="4" fill="var(--u-blue-600)"/>
+          </svg>
+        </div>
+      </div>
+      <div class="card card-tinted sol-card">
+        <div class="sol-card-head"><p class="eyebrow eyebrow-muted">Analytics</p><span class="sol-plus">+</span></div>
+        <h3 class="sol-card-title">See what drives<br>your properties</h3>
+        <div class="sol-spacer"></div>
+        <div class="viz" data-theme="light">
+          <p class="viz-label">FEATURE IMPACT</p>
+          <svg class="viz-curve" viewBox="0 0 200 70" preserveAspectRatio="xMidYMid meet">
+            <circle cx="30" cy="50" r="8" fill="var(--u-blue-600)" fill-opacity="0.8"/>
+            <circle cx="70" cy="30" r="14" fill="var(--u-cyan)" fill-opacity="0.8"/>
+            <circle cx="110" cy="45" r="10" fill="var(--u-green)" fill-opacity="0.8"/>
+            <circle cx="150" cy="22" r="18" fill="var(--u-blue-400)" fill-opacity="0.8"/>
+            <circle cx="180" cy="38" r="7" fill="var(--u-orange)" fill-opacity="0.8"/>
+          </svg>
+        </div>
+      </div>
+      <div class="card card-tinted sol-card">
+        <div class="sol-card-head"><p class="eyebrow eyebrow-muted">Workflow &amp; LIMS</p><span class="sol-plus">+</span></div>
+        <h3 class="sol-card-title">Route samples<br>and approvals</h3>
+        <div class="sol-spacer"></div>
+        <div class="viz" data-theme="light">
+          <div class="viz-flow">
+            <span class="flow-chip">Mix</span><span class="flow-arrow">&rarr;</span><span class="flow-chip">Test</span><span class="flow-arrow">&rarr;</span><span class="flow-chip flow-chip-dark">Approve</span>
+          </div>
+        </div>
+      </div>
+      <div class="card card-tinted sol-card">
+        <div class="sol-card-head"><p class="eyebrow eyebrow-muted">Collaboration</p><span class="sol-plus">+</span></div>
+        <h3 class="sol-card-title">Align the whole<br>R&amp;D team</h3>
+        <div class="sol-spacer"></div>
+        <div class="viz" data-theme="light">
+          <div class="viz-avatars">
+            <span class="viz-avatar viz-avatar-grad">DL</span>
+            <span class="viz-avatar viz-avatar-grad">JR</span>
+            <span class="viz-avatar viz-avatar-grad">PN</span>
+            <span class="viz-avatar viz-avatar-flat">+5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats">
+    <div class="stats-head">
+      <div>
+        <p class="eyebrow">By the numbers</p>
+        <h2 class="display stats-title">The data behind every breakthrough</h2>
+      </div>
+      <a href="#" class="btn btn-outline btn-md">See the platform</a>
+    </div>
+
+    <div class="stats-feature">
+      <div class="statblock statblock-panel">
+        <div class="statblock-accent statblock-accent-cyan">&uarr;</div>
+        <div class="statblock-panel-body">
+          <span class="statblock-value">40%</span>
+          <span class="statblock-label">Fewer experiments</span>
+        </div>
+      </div>
+      <p class="stats-feature-copy">Teams reach target properties in far fewer iterations.</p>
+    </div>
+
+    <div class="stats-row" id="statsRow">
+      <div class="statblock statblock-plain"><div class="statblock-value">3&times;</div><div class="statblock-label">Faster to target</div></div>
+      <div class="statblock statblock-plain"><div class="statblock-value">12M+</div><div class="statblock-label">Experiment data points</div></div>
+      <div class="statblock statblock-plain"><div class="statblock-value">250+</div><div class="statblock-label">R&amp;D teams</div></div>
+      <div class="statblock statblock-plain"><div class="statblock-value">99.9%</div><div class="statblock-label">Data captured &amp; traceable</div></div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <p class="eyebrow">Our customers</p>
+    <h2 class="display testi-title">How we help R&amp;D teams win</h2>
+
+    <div class="testi-panel" id="testiPanel">
+      <div class="card card-dark testi-quote-card" data-anim="card">
+        <p class="testi-quote" data-anim="quote"><span class="testi-quote-mark">&ldquo;</span><span id="testiQuoteText">Uncountable replaced a dozen spreadsheets. Our chemists run fewer, smarter experiments and the model tells us where to look next.</span></p>
+        <div class="testi-spacer"></div>
+        <div class="testi-who" data-anim="who">
+          <img src="assets/dana-lee.png" alt="Dana Lee" class="avatar avatar-ring" id="testiAvatarImg">
+          <span class="avatar avatar-ring avatar-initials" id="testiAvatarFallback" hidden></span>
+          <div>
+            <div class="testi-name" id="testiName">Dana Lee</div>
+            <div class="testi-role" id="testiRole">VP of R&amp;D, Halendza</div>
+          </div>
+        </div>
+      </div>
+      <div class="card card-plain-flat testi-stat-card" data-anim="card">
+        <div class="display testi-stat" data-anim="stat" id="testiStat">+62%</div>
+        <div class="testi-statdesc" data-anim="statdesc" id="testiStatDesc">Increase in experiment throughput in the first year.</div>
+      </div>
+    </div>
+
+    <div class="testi-tabs" role="tablist" aria-label="Customer testimonials" id="testiTabs">
+      <button class="testi-tab testi-tab-active" role="tab" aria-selected="true" data-idx="0">
+        <span class="testi-progress-track"><span class="testi-progress" id="testiProgress0"></span></span>
+        <span class="testi-tab-label">HALENDZA</span>
+      </button>
+      <button class="testi-tab" role="tab" aria-selected="false" data-idx="1">
+        <span class="testi-progress-track"><span class="testi-progress" id="testiProgress1"></span></span>
+        <span class="testi-tab-label">NOVARA</span>
+      </button>
+      <button class="testi-tab" role="tab" aria-selected="false" data-idx="2">
+        <span class="testi-progress-track"><span class="testi-progress" id="testiProgress2"></span></span>
+        <span class="testi-tab-label">POLYFORM</span>
+      </button>
+      <button class="testi-tab" role="tab" aria-selected="false" data-idx="3">
+        <span class="testi-progress-track"><span class="testi-progress" id="testiProgress3"></span></span>
+        <span class="testi-tab-label">CELTEK</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Resources -->
+  <section class="resources">
+    <div class="resources-head">
+      <div>
+        <p class="eyebrow">Resources</p>
+        <h2 class="display resources-title">Stay ahead of<br>what&rsquo;s next</h2>
+      </div>
+      <div class="carousel-controls">
+        <button class="icon-btn icon-btn-outline icon-btn-lg" data-scroll="res-track" data-dir="-1" aria-label="Previous">&larr;</button>
+        <button class="icon-btn icon-btn-outline icon-btn-lg" data-scroll="res-track" data-dir="1" aria-label="Next">&rarr;</button>
+      </div>
+    </div>
+    <div class="res-track" id="res-track">
+      <article class="res-card">
+        <div class="res-card-head res-head-dark"><span class="res-kicker res-kicker-dark">PLAYBOOK</span></div>
+        <div class="res-card-body">
+          <h3>The R&amp;D Data Operating System</h3>
+          <p>A practical guide to unifying experiments, workflows, and models in one workspace.</p>
+          <div class="res-spacer"></div>
+          <div class="res-tags"><span class="tag">Guide</span><span class="tag">Platform</span></div>
+        </div>
+      </article>
+      <article class="res-card">
+        <div class="res-card-head res-head-mint"><span class="res-kicker res-kicker-mint">PRODUCT UPDATE</span></div>
+        <div class="res-card-body">
+          <h3>Introducing Uncountable AI recommendations</h3>
+          <p>Predict the next best experiment from your own historical data — now in every project.</p>
+          <div class="res-spacer"></div>
+          <div class="res-tags"><span class="tag">News</span><span class="tag">AI</span></div>
+        </div>
+      </article>
+      <article class="res-card">
+        <div class="res-card-head res-head-blue"><span class="res-kicker res-kicker-dark">CASE STUDY</span></div>
+        <div class="res-card-body">
+          <h3>How Halendza cut experiments by 40%</h3>
+          <p>Inside a coatings team that reached spec in a third of the usual iterations.</p>
+          <div class="res-spacer"></div>
+          <div class="res-tags"><span class="tag">Customers</span></div>
+        </div>
+      </article>
+      <article class="res-card">
+        <div class="res-card-head res-head-ink"><span class="res-kicker res-kicker-dark">EVENT</span></div>
+        <div class="res-card-body">
+          <h3>Materials R&amp;D Summit 2026</h3>
+          <p>Two days of talks on data-driven formulation and lab automation. June 22&ndash;25.</p>
+          <div class="res-spacer"></div>
+          <div class="res-tags"><span class="tag">Events</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <section class="footer-cta">
+    <h2 class="display footer-cta-title">Less guessing.<br>More discovery.</h2>
+    <p class="footer-cta-sub">See how Uncountable helps your R&amp;D team reach the answer in fewer experiments.</p>
+    <div class="footer-cta-actions">
+      <a href="#" class="btn btn-accent btn-lg">Request a demo</a>
+      <a href="#" class="btn btn-outline-light btn-lg">Talk to sales</a>
+    </div>
+  </section>
+
+  <div class="footer-links">
+    <div class="footer-links-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/logo-white.svg" alt="Uncountable" height="28">
+          <p>The R&amp;D data platform for materials, chemicals, and formulation science.</p>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-title">Platform</p>
+          <a href="#">Design of Experiments</a><a href="#">Lab Notebook</a><a href="#">ML Recommendations</a><a href="#">Analytics</a><a href="#">Workflow &amp; LIMS</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-title">Solutions</p>
+          <a href="#">Coatings</a><a href="#">Polymers &amp; Plastics</a><a href="#">Specialty Chemicals</a><a href="#">Consumer Goods</a><a href="#">Batteries</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-title">Resources</p>
+          <a href="#">Playbooks</a><a href="#">Case studies</a><a href="#">Documentation</a><a href="#">Webinars</a><a href="#">Blog</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-title">Company</p>
+          <a href="#">About</a><a href="#">Careers</a><a href="#">Customers</a><a href="#">Security</a><a href="#">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Uncountable Inc. All rights reserved.</span>
+        <div class="footer-legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Security</a><a href="#">Status</a></div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
