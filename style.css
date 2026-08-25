@@ -30,7 +30,9 @@
   /* Emerald Text. The text-safe Emerald: 5.74:1 on white vs Emerald's 3.08:1.
      Per the Emerald-Text Rule, the moment Emerald renders as a character
      glyph rather than an icon or fill, it becomes this. LIGHT SURFACES ONLY —
-     3.38:1 on --surface-page, so it does not survive the dark page. */
+     3.38:1 on --surface-page, so it does not survive the dark page, and 4.46:1
+     on --surface-sunken #DFE3EA, so it does not clear AA on that ground either.
+     White, Canvas and Mist are fine (5.74 / 5.40 / 5.08). */
   --u-green-text: #01763C;
   --u-orange:     #FFAF0F;
   --u-plum:       #6C4BD8;
@@ -541,6 +543,13 @@ button { font-family: inherit; }
    ============================================================ */
 .solutions { padding: clamp(56px,8vw,112px) 0; background: var(--surface-page); }
 .solutions-head, .resources-head, .stats-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 40px; max-width: 1280px; margin-left: auto; margin-right: auto; padding: 0 clamp(20px,3vw,40px); }
+/* These heads are a title beside a control (a CTA or carousel arrows) with no
+   wrap rule, so at phone widths the control is pushed past the viewport —
+   .stats-head measured 100px of real overflow at 390px. Wrapping is right here:
+   the control is secondary to the heading and reads fine beneath it. */
+@media (max-width: 680px) {
+  .solutions-head, .resources-head, .stats-head { flex-wrap: wrap; gap: 16px; align-items: flex-start; }
+}
 .solutions-title, .resources-title { font-size: var(--text-display-lg); margin: 14px 0 0; text-transform: uppercase; }
 .carousel-controls { display: flex; gap: 12px; }
 

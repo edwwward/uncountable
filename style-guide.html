@@ -407,8 +407,8 @@
 
     <h3 class="sg-sub">The shipped model</h3>
     <ul class="rule-list">
-      <li><b>Dark is the root.</b> <code>style.css</code> defines 84 tokens on <code>:root</code>, already resolved to their dark values, with <code>color-scheme: dark</code>. There is no separate dark block to opt into.</li>
-      <li><b>Light is an island, not a mode.</b> <code>[data-theme="light"]</code> is the only theme selector in the file. It re-declares 30 of those 84 tokens and sets <code>color-scheme: light</code>, so native controls and scrollbars inside the island follow.</li>
+      <li><b>Dark is the root.</b> <code>style.css</code> defines 85 tokens on <code>:root</code>, already resolved to their dark values, with <code>color-scheme: dark</code>. There is no separate dark block to opt into.</li>
+      <li><b>Light is an island, not a mode.</b> <code>[data-theme="light"]</code> is the only theme selector in the file. It re-declares 30 of those 85 tokens and sets <code>color-scheme: light</code>, so native controls and scrollbars inside the island follow.</li>
       <li><b>Islands nest by attribute.</b> It is an ordinary attribute selector, so it applies to any element and cascades to that element's whole subtree. The nearest ancestor carrying the attribute wins for the 30 tokens it re-declares; every other token keeps inheriting from <code>:root</code>.</li>
       <li><b>Nesting is one-way.</b> There is no <code>[data-theme="dark"]</code> rule in <code>style.css</code>, so a subtree cannot be returned to dark by attribute. Scope the island tighter instead of trying to reverse it.</li>
       <li><b>The page attribute is documentation, not styling.</b> <code>index.html</code> and <code>customers.html</code> both open with <code>&lt;html data-theme="dark"&gt;</code>. It records intent and matches no rule.</li>
@@ -420,7 +420,7 @@
     <div class="comp-row" style="align-items:flex-start;gap:20px;">
       <div>
         <p class="sg-desc" style="font-size:12.5px;margin:0 0 10px;">Page scope &mdash; no attribute</p>
-        <div class="card-demo" data-theme="dark" style="width:250px;padding:16px;">
+        <div class="card-demo" style="width:250px;padding:16px;">
           <div class="island-demo">
             <p style="font-size:11px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin:0 0 6px;">Gloss</p>
             <h3 style="font-size:19px;margin:0 0 14px;">94.1</h3>
@@ -433,7 +433,7 @@
       </div>
       <div>
         <p class="sg-desc" style="font-size:12.5px;margin:0 0 10px;">Light island &mdash; <code>data-theme="light"</code></p>
-        <div class="card-demo" data-theme="dark" style="width:250px;padding:16px;">
+        <div class="card-demo" style="width:250px;padding:16px;">
           <div class="island-demo" data-theme="light">
             <p style="font-size:11px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin:0 0 6px;">Gloss</p>
             <h3 style="font-size:19px;margin:0 0 14px;">94.1</h3>
@@ -445,7 +445,7 @@
         </div>
       </div>
     </div>
-    <p class="sg-desc" style="margin-top:16px;">Same markup, same classes &mdash; the only difference is the <code>data-theme="light"</code> attribute on the right-hand panel. Both outer frames are pinned to <code>data-theme="dark"</code> so the pair keeps reading as a light island on a dark page whichever theme this guide is toggled to; that pin only works because this page ships the <code>[data-theme="dark"]</code> rule <code>style.css</code> does not. Note the Primary button: it reads <code>--brand-ink</code>, which flips Azure &rarr; Midnight, while <code>.btn-cta</code> reads <code>--u-blue-600</code> directly and would not move.</p>
+    <p class="sg-desc" style="margin-top:16px;">Same markup, same classes &mdash; the only difference is the <code>data-theme="light"</code> attribute on the right-hand panel. The left panel is page-scoped, so on the dark default you are seeing a light island on a dark page. Toggle this guide to light and the two become identical: that is the one-way-nesting rule above doing its job, not a broken demo. An earlier revision pinned both frames to <code>data-theme="dark"</code> to hold the contrast, which only worked while the guide forked its own tokens and shipped a <code>[data-theme="dark"]</code> block; it no longer does, and pinning would have been reversing an island by attribute, which this section tells you not to do. Note the Primary button: it reads <code>--brand-ink</code>, which flips Azure &rarr; Midnight, while <code>.btn-cta</code> reads <code>--u-blue-600</code> directly and would not move.</p>
 
     <h3 class="sg-sub">What flips</h3>
     <div class="sg-table-wrap">
@@ -643,7 +643,7 @@
     <p class="sg-desc">The rules that keep the palette accessible. Every ratio below is computed, not eyeballed — do the same before shipping a new pairing.</p>
     <ul class="rule-list">
       <li><b>The Amber Rule.</b> Amber is dark-surface only: 1.8:1 on white fails even the large-text bar. Chart thresholds, control-band markers, dark badges — never type on a light surface.</li>
-      <li><b>The Emerald rule.</b> Emerald is for icons, fills, and graphical marks (≥3:1 non-text bar). The moment it renders as a character glyph, switch to a darkened text variant.</li>
+      <li><b>The Emerald rule.</b> Emerald (<code>--u-green</code>) is for icons, fills and graphical marks (≥3:1 non-text bar) — it is 3.08:1 on white and never legal as type. The moment it renders as a character glyph, switch to Emerald Text (<code>--u-green-text</code>, 5.74:1 on white). That token is light-surface only: 3.38:1 on the dark page, and 4.46:1 on Sunken.</li>
       <li><b>Azure has no headroom as text.</b> 4.99:1 on white passes AA with almost nothing to spare — keep Azure text on white or lighter surfaces only, and never shrink it below 14px.</li>
       <li><b>surface-dark is lifted.</b> Dark cards use #0C1C63, not raw Midnight — Midnight is 1.08:1 against the dark page and reads as invisible.</li>
       <li><b>500 is bold.</b> Only Poppins 400/500 are loaded. A heavier weight will silently render as faux-bold or fall back — cap everything at 500.</li>
@@ -1044,7 +1044,7 @@
     <p class="cx-foot">Alpha foregrounds are measured as their composite over the stated ground, and the swatch shows that composite — <code>.footer-cta-sub</code> is white at 75%, <code>.bodie-try</code> and <code>.footer-col-title</code> white at 50%. Ratios against <code>--grad-dark</code> use its lightest stop, #061156 — the worst case for white on that band. Opaque panels that sit <em>inside</em> a gradient band are measured against their own fill, not the band: <code>.bodie-preview</code> paints #0A1238 over <code>--grad-dark</code>, and <code>.footer-col-title</code> lives in <code>.footer-links</code> on flat <code>--u-navy</code>.</p>
 
     <h3 class="sg-sub">Contrast — light islands</h3>
-    <p class="sg-desc">Panels marked <code>data-theme="light"</code> — the hero email capture, the dashboard, the Bodie preview, the six solution vizzes, the tour frame — resolve the semantic tokens to their light values while sitting on the dark page. They are a second contrast system, and three shipped text pairings sit under the bar.</p>
+    <p class="sg-desc">Panels marked <code>data-theme="light"</code> — the hero email capture, the dashboard, the Bodie preview, the six solution vizzes, the tour frame — resolve the semantic tokens to their light values while sitting on the dark page. They are a second contrast system, and every shipped text pairing in them now clears AA.</p>
     <div class="contrast-scroll" tabindex="0" role="region" aria-label="Contrast ratios inside light islands">
       <table class="contrast-table">
         <thead><tr><th scope="col">Foreground</th><th scope="col">Background</th><th scope="col">Ratio</th><th scope="col">Verdict</th></tr></thead>
@@ -1055,10 +1055,10 @@
           <tr><td><span class="cx-swatch" style="background:#3C4554"></span><code>--u-ink</code> #3C4554</td><td><span class="cx-swatch" style="background:#FFFFFF"></span><code>--surface-card</code> #FFFFFF</td><td class="cx-ratio">9.67</td><td><span class="cx-verdict">AAA</span></td></tr>
           <tr><td><span class="cx-swatch" style="background:#3C4554"></span><code>--u-ink</code> #3C4554</td><td><span class="cx-swatch" style="background:#EAF2F9"></span><code>--u-surface-1</code> #EAF2F9</td><td class="cx-ratio">8.55</td><td><span class="cx-verdict">AAA</span></td></tr>
           <tr><td><span class="cx-swatch" style="background:#046CDE"></span><code>--u-blue-600</code> #046CDE</td><td><span class="cx-swatch" style="background:#FFFFFF"></span><code>--surface-card</code> #FFFFFF</td><td class="cx-ratio">4.99</td><td><span class="cx-verdict">AA</span></td></tr>
-          <tr><td><span class="cx-swatch" style="background:#6B7689"></span><code>--text-muted</code> #6B7689</td><td><span class="cx-swatch" style="background:#FFFFFF"></span><code>--surface-card</code> #FFFFFF</td><td class="cx-ratio">4.59</td><td><span class="cx-verdict">AA</span></td></tr>
-          <tr><td><span class="cx-swatch" style="background:#6B7689"></span><code>--text-muted</code> #6B7689</td><td><span class="cx-swatch" style="background:#F6F8FB"></span><code>--u-gray-50</code> #F6F8FB</td><td class="cx-ratio">4.31</td><td><span class="cx-verdict cx-verdict-flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Large / non-text</span></td></tr>
-          <tr><td><span class="cx-swatch" style="background:#01A955"></span><code>--u-green</code> #01A955</td><td><span class="cx-swatch" style="background:#FFFFFF"></span><code>--surface-card</code> #FFFFFF</td><td class="cx-ratio">3.08</td><td><span class="cx-verdict cx-verdict-flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Large / non-text</span></td></tr>
-          <tr><td><span class="cx-swatch" style="background:#9AA5B6"></span><code>--u-gray-400</code> #9AA5B6</td><td><span class="cx-swatch" style="background:#FFFFFF"></span><code>--surface-card</code> #FFFFFF</td><td class="cx-ratio">2.49</td><td><span class="cx-verdict cx-verdict-fail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Fails</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#5C6575"></span><code>--text-muted</code> #5C6575</td><td><span class="cx-swatch" style="background:#FFFFFF"></span><code>--surface-card</code> #FFFFFF</td><td class="cx-ratio">5.88</td><td><span class="cx-verdict">AA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#5C6575"></span><code>--text-muted</code> #5C6575</td><td><span class="cx-swatch" style="background:#F6F8FB"></span><code>--u-gray-50</code> #F6F8FB</td><td class="cx-ratio">5.52</td><td><span class="cx-verdict">AA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#01763C"></span><code>--u-green-text</code> #01763C</td><td><span class="cx-swatch" style="background:#FFFFFF"></span><code>--surface-card</code> #FFFFFF</td><td class="cx-ratio">5.74</td><td><span class="cx-verdict">AA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#01763C"></span><code>--u-green-text</code> #01763C</td><td><span class="cx-swatch" style="background:#DFE3EA"></span><code>--surface-sunken</code> #DFE3EA</td><td class="cx-ratio">4.46</td><td><span class="cx-verdict cx-verdict-flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Not on Sunken</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -1071,7 +1071,7 @@
       <li><b>Midnight never touches a dark ground.</b> <code>--u-navy</code> is 1.05:1 on <code>--surface-card</code>. Dark cards use <code>--surface-dark</code> #0C1C63 — 15.42:1 for white — for exactly this reason.</li>
       <li><b>Amber and Sky Cyan invert on dark.</b> Both are safe as text here — <code>--u-orange</code> is 10.53:1 and <code>--u-cyan</code> is 9.80:1 against <code>--surface-page</code>. What stays broken is white on either <em>fill</em>: 1.84:1 and 1.98:1, below even the 3:1 non-text bar. Set <code>--u-navy</code> on those fills — 9.78:1 on amber, 9.10:1 on cyan — as every shipped cyan surface already does.</li>
       <li><b>Muted has the least headroom.</b> <code>--text-muted</code> is 4.61:1 on <code>--u-surface-2</code>, the thinnest passing margin on the dark page. Do not lift that surface further and do not reuse muted on anything lighter.</li>
-      <li><b>Three light-island text pairings ship under the bar.</b> <code>.bodie-row-meta</code> sets <code>--u-gray-400</code> on white at 10.5px (2.49:1), <code>.dash-rec-delta</code> sets <code>--u-green</code> on white at 12px (3.08:1), and <code>.dash-tab</code> inherits <code>--text-muted</code> from <code>.dash-tabs</code> onto the <code>--u-gray-50</code> topbar at 13px (4.31:1). All three are preview chrome standing in for product UI — fix them before any of it becomes real.</li>
+      <li><b>The three light-island failures are fixed.</b> <code>.bodie-row-meta</code> was <code>--u-gray-400</code> on white at 2.49:1 and is now <code>--text-muted</code> at 5.88:1; <code>.dash-rec-delta</code> was <code>--u-green</code> at 3.08:1 and is now <code>--u-green-text</code> at 5.74:1; <code>.dash-tab</code> was 4.31:1 and is now 5.52:1 because <code>--text-muted</code> itself was darkened to <code>#5C6575</code>. The lesson is the one the Emerald and Amber rules already state: a colour can be in-brand and still be wrong as a glyph.</li>
     </ul>
 
     <h3 class="sg-sub">Targets &amp; labels</h3>
