@@ -22,7 +22,7 @@
 .sg-toggle-icon { display:inline-flex; width:14px; height:14px; }
 .sg-toggle-icon svg { width:100%; height:100%; }
 .sg-wrap { padding-bottom:80px; }
-.sg-section { padding:clamp(56px,8vw,112px) 0; border-bottom:1px solid var(--border-subtle); scroll-margin-top:76px; }
+.sg-section { padding:clamp(40px,4vw,64px) 0; border-bottom:1px solid var(--border-subtle); scroll-margin-top:76px; }
 
 /* Table of contents. Sidebar above 1120px — the same width the marketing
    nav's own links collapse at (style.css: @media (max-width:1120px)),
@@ -36,6 +36,7 @@
    page element (matching .container-max) — the sidebar lives inside that
    budget rather than extending past it, the same way .nav-inner keeps the
    logo, links and CTA all within 1280px instead of spreading to the edges. */
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
 .sg-toc { list-style:none; margin:0; }
 .sg-toc a { display:block; color:var(--text-body); text-decoration:none; transition:color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out); }
 .sg-toc a:hover { color:var(--text-link); }
@@ -69,26 +70,59 @@
 @media (prefers-reduced-motion:no-preference) {
   html { scroll-behavior:smooth; }
 }
-.sg-section h2 { font-size:var(--text-display-lg); text-transform:uppercase; margin-bottom:22px; }
-.sg-section h3.sg-sub { font-size:13px; font-weight:500; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.08em; margin:32px 0 12px; }
-.sg-desc { color:var(--text-muted); font-size:14px; margin-bottom:28px; max-width:640px; }
+/* Reference scale, not the marketing band scale. --text-display-lg resolves
+   to 51.84px at 1440px, which is the homepage headline size applied 22 times
+   to words like "Neutrals". Nobody scans a token reference at 52px, and the
+   uppercasing was inherited from the marketing sections rather than chosen. */
+.sg-section h2 { font-size:clamp(26px,2.2vw,32px); line-height:1.2; margin-bottom:20px; }
+/* The subsection label is the scan target, so it outranks body copy instead
+   of sitting below it (it was 13px muted against 14px body). Kept uppercase
+   but at --text-strong and 15px, with a rule above it so grouping reads
+   structurally and it does not have to win on size alone against the 19-20px
+   headings inside the demo cards. */
+.sg-section h3.sg-sub { font-size:16px; font-weight:500; color:var(--text-strong); text-transform:uppercase; letter-spacing:0.07em; margin:30px 0 12px; padding-top:13px; border-top:1px solid var(--border-subtle); }
+.sg-section h3.sg-sub:first-of-type { margin-top:24px; }
+/* Measure, not pixels: 640px at 14px ran ~86 characters and the rule list ran
+   ~108, both past the 65-75 the system targets. ch is the width of "0", which
+   in Poppins is wider than average prose, so ~60ch lands near 70 real chars. */
+.sg-desc { color:var(--text-body); font-size:15px; line-height:1.6; margin-bottom:24px; max-width:60ch; }
 .sg-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:16px; }
 .swatch { border-radius:var(--radius-md); overflow:hidden; border:1px solid var(--border-subtle); }
 .swatch-fill { height:64px; }
-.swatch-label { padding:10px 12px; font-size:12px; background:var(--surface-card); }
-.swatch-label span.swatch-name { display:block; font-family:var(--font-display); font-weight:500; font-size:13px; color:var(--text-strong); margin-bottom:2px; }
-.swatch-label b { display:block; font-family:var(--font-mono); font-weight:400; font-size:11px; color:var(--text-body); }
-.swatch-label span { color:var(--text-muted); font-size:10.5px; }
-.swatch-label span.swatch-note { display:block; margin-top:5px; font-size:11px; line-height:1.45; color:var(--text-muted); }
+/* Swatch anatomy is ordered by how often each part is USED, not by how
+   decorative it is. The token is what gets typed and the hex is what gets
+   checked, so those two lead; the human name is a caption above them. The
+   previous order was exactly inverted — name 13px, token 11px, hex 10.5px —
+   which made the single most-transcribed value on the page its smallest,
+   faintest type. Nothing here is under 12px now. */
+.swatch-label { padding:10px 10px 12px; background:var(--surface-card); }
+.swatch-name { display:block; font-size:12px; line-height:1.3; color:var(--text-muted); margin-bottom:6px; }
+.swatch-copy { display:block; width:100%; text-align:left; background:none; border:none; padding:4px 4px 5px; margin:0 -4px; border-radius:var(--radius-sm); cursor:pointer; position:relative; font-family:var(--font-mono); }
+.swatch-token { display:block; font-size:13px; line-height:1.35; color:var(--text-strong); word-break:break-all; }
+.swatch-hex { display:block; font-size:12.5px; line-height:1.35; color:var(--text-body); }
+.swatch-copy:hover { background:var(--u-surface-2); }
+.swatch-copy:focus-visible { outline:3px solid var(--u-blue-400); outline-offset:0; }
+.swatch-copied { position:absolute; inset:0; display:none; align-items:center; justify-content:center; font-family:var(--font-body); font-size:12px; color:var(--text-strong); background:var(--u-surface-2); border-radius:var(--radius-sm); }
+.swatch-copy.is-copied .swatch-copied { display:flex; }
+.swatch-note { display:block; margin-top:7px; font-size:12px; line-height:1.5; color:var(--text-muted); }
 .type-row { display:flex; align-items:baseline; gap:24px; padding:16px 0; border-bottom:1px solid var(--border-subtle); }
 .type-row:last-child { border-bottom:none; }
-.type-row code { flex:0 0 160px; font-family:var(--font-mono); font-size:11px; color:var(--text-muted); }
+/* A display specimen has to render at its real size to be a specimen, and
+   --text-display-xl bottoms out at 44px, which cannot sit beside its label
+   on a phone. Below 700px the label stacks above and the specimen scrolls
+   inside its own row — the same containment .sg-table-wrap and
+   .icon-code-wrap already use, rather than letting the page scroll. */
+@media (max-width:700px) {
+  .type-row { flex-direction:column; align-items:flex-start; gap:6px; overflow-x:auto; }
+  .type-row code { flex:none; }
+}
+.type-row code { flex:0 0 170px; font-family:var(--font-mono); font-size:12px; color:var(--text-body); }
 .space-row { display:flex; align-items:center; gap:16px; padding:10px 0; }
 .space-row code { flex:0 0 100px; font-family:var(--font-mono); font-size:12px; color:var(--text-muted); }
 .space-bar { height:14px; background:var(--u-blue-600); border-radius:2px; }
 .radius-row, .shadow-row { display:flex; gap:20px; flex-wrap:wrap; }
-.radius-box { width:80px; height:80px; background:var(--u-surface-1); border:1px solid var(--border-default); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:11px; color:var(--text-muted); }
-.shadow-box { width:120px; height:80px; background:var(--surface-card); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:11px; color:var(--text-muted); border-radius:var(--radius-md); }
+.radius-box { width:80px; height:80px; background:var(--u-surface-1); border:1px solid var(--border-default); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:12px; color:var(--text-body); }
+.shadow-box { width:120px; height:80px; background:var(--surface-card); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:12px; color:var(--text-body); border-radius:var(--radius-md); }
 .grad-box { height:96px; border-radius:var(--radius-md); border:1px solid var(--border-subtle); }
 .motion-demo { display:flex; align-items:center; gap:24px; padding:20px; background:var(--u-surface-1); border:1px solid var(--border-subtle); border-radius:var(--radius-md); }
 .motion-chip { width:56px; height:56px; border-radius:var(--radius-md); background:var(--u-blue-600); transition:transform var(--dur-base) var(--ease-out); }
@@ -97,8 +131,8 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
 }
-.rule-list { margin:0; padding:0; list-style:none; max-width:720px; }
-.rule-list li { padding:12px 0; border-bottom:1px solid var(--border-subtle); font-size:14px; line-height:1.55; }
+.rule-list { margin:0; padding:0; list-style:none; max-width:53ch; }
+.rule-list li { padding:13px 0; border-bottom:1px solid var(--border-subtle); font-size:15px; line-height:1.6; }
 .rule-list li:last-child { border-bottom:none; }
 .rule-list b { color:var(--text-strong); font-weight:500; }
 .logo-tile { width:260px; height:120px; display:flex; align-items:center; justify-content:center; border-radius:var(--radius-md); border:1px solid var(--border-subtle); }
@@ -152,10 +186,10 @@
 
 .sg-table-wrap { overflow-x:auto; }
 .sg-table { width:100%; border-collapse:collapse; font-size:13px; line-height:1.5; }
-.sg-table th { text-align:left; font-family:var(--font-body); font-weight:500; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); padding:0 16px 8px 0; border-bottom:1px solid var(--border-default); white-space:nowrap; }
+.sg-table th { text-align:left; font-family:var(--font-body); font-weight:500; font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); padding:0 16px 8px 0; border-bottom:1px solid var(--border-default); white-space:nowrap; }
 .sg-table td { padding:11px 16px 11px 0; border-bottom:1px solid var(--border-subtle); color:var(--text-body); vertical-align:top; }
 .sg-table tr:last-child td { border-bottom:none; }
-.sg-table code { font-family:var(--font-mono); font-size:11.5px; color:var(--text-strong); white-space:nowrap; }
+.sg-table code { font-family:var(--font-mono); font-size:12.5px; color:var(--text-strong); white-space:nowrap; }
 .sg-table td.sg-num { font-family:var(--font-mono); font-size:12px; color:var(--text-muted); white-space:nowrap; }
 .sg-chip { display:inline-block; width:13px; height:13px; border-radius:3px; border:1px solid var(--border-default); vertical-align:-2px; margin-right:8px; }
 .island-demo { background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:14px; box-shadow:var(--shadow-sm); }
@@ -169,7 +203,7 @@
 /* The full wrapper string is ~130 chars — it scrolls inside its own box rather
    than setting the paragraph's min-content width. */
 .icon-code-wrap { max-width:720px; overflow-x:auto; }
-.sg-icons .icon-code-wrap code { display:inline-block; padding:10px 14px; border-radius:var(--radius-md); font-size:11.5px; white-space:pre; }
+.sg-icons .icon-code-wrap code { display:inline-block; padding:10px 14px; border-radius:var(--radius-md); font-size:12.5px; white-space:pre; }
 
 .icon-spec { display:flex; flex-wrap:wrap; gap:22px 26px; padding:22px 24px; border-radius:var(--radius-md); border:1px solid var(--border-subtle); background:var(--u-surface-1); color:var(--text-body); }
 .icon-spec + .icon-spec { margin-top:12px; }
@@ -179,14 +213,14 @@
 .icon-spec-dark { background:var(--grad-dark); color:var(--u-cyan); }
 .icon-spec-item { flex:none; display:flex; flex-direction:column; align-items:center; gap:9px; width:108px; }
 .icon-spec-item svg { width:20px; height:20px; }
-.icon-spec-name { font-family:var(--font-mono); font-size:11px; color:var(--text-body); text-align:center; }
+.icon-spec-name { font-family:var(--font-mono); font-size:12px; color:var(--text-body); text-align:center; }
 .icon-spec-dark .icon-spec-name { color:rgba(255,255,255,0.7); }
 
 .icon-size-row { display:flex; align-items:center; gap:14px; padding:9px 0; border-bottom:1px solid var(--border-subtle); max-width:720px; }
 /* Two classes, so this wins over .sg-icons code regardless of source order. */
-.sg-icons .icon-size-row code { flex:0 0 48px; font-size:11.5px; color:var(--text-muted); background:none; border:none; padding:0; }
+.sg-icons .icon-size-row code { flex:0 0 52px; font-size:12px; color:var(--text-muted); background:none; border:none; padding:0; }
 .icon-size-slot { flex:0 0 34px; display:flex; align-items:center; justify-content:center; color:var(--text-strong); }
-.icon-size-row > span:last-child { min-width:0; font-family:var(--font-mono); font-size:11.5px; color:var(--text-body); }
+.icon-size-row > span:last-child { min-width:0; font-family:var(--font-mono); font-size:12px; color:var(--text-body); }
 
 /* ==== states ==== */
 /* ---- Interaction States ---- */
@@ -250,7 +284,7 @@
 .band-row b { font-family:var(--font-display); font-weight:500; font-size:13.5px; }
 /* nowrap: without it the browser breaks token names at their hyphens on narrow
    viewports — "--u-surface-1" splits into "--u-surface-" / "1" and misreads. */
-.band-row code { font-family:var(--font-mono); font-size:11px; text-align:right; white-space:nowrap; }
+.band-row code { font-family:var(--font-mono); font-size:12px; text-align:right; white-space:nowrap; }
 .band-page { background:var(--surface-page); }
 .band-tint { background:var(--u-surface-1); }
 .band-hero { background:var(--grad-hero); }
@@ -304,19 +338,19 @@
 .contrast-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
 .contrast-scroll:focus-visible { outline:3px solid var(--u-blue-400); outline-offset:2px; }
 .contrast-table { width:100%; min-width:600px; border-collapse:collapse; font-size:13px; }
-.contrast-table th { text-align:left; font-family:var(--font-body); font-weight:500; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); padding:0 14px 10px 0; border-bottom:1px solid var(--border-default); white-space:nowrap; }
+.contrast-table th { text-align:left; font-family:var(--font-body); font-weight:500; font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); padding:0 14px 10px 0; border-bottom:1px solid var(--border-default); white-space:nowrap; }
 .contrast-table td { padding:9px 14px 9px 0; border-bottom:1px solid var(--border-subtle); color:var(--text-body); vertical-align:baseline; white-space:nowrap; }
 .contrast-table tbody tr:last-child td { border-bottom:none; }
-.contrast-table code { font-family:var(--font-mono); font-size:11.5px; color:var(--text-body); }
+.contrast-table code { font-family:var(--font-mono); font-size:12.5px; color:var(--text-body); }
 .cx-swatch { display:inline-block; width:10px; height:10px; border-radius:2px; border:1px solid var(--border-default); margin-right:8px; vertical-align:0; }
 .cx-ratio { font-family:var(--font-mono); font-size:12.5px; color:var(--text-strong); text-align:right; }
 .cx-verdict { display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:500; color:var(--text-muted); }
 .cx-verdict svg { width:13px; height:13px; flex:none; }
 .cx-verdict-flag { color:var(--text-body); }
 .cx-verdict-fail { color:var(--text-strong); }
-.cx-foot { font-size:12px; color:var(--text-muted); margin:10px 0 0; max-width:640px; line-height:1.55; }
+.cx-foot { font-size:13px; color:var(--text-muted); margin:12px 0 0; max-width:62ch; line-height:1.6; }
 .target-gauge { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border:1px dashed var(--border-default); border-radius:var(--radius-control); }
-.target-note { font-family:var(--font-mono); font-size:11.5px; color:var(--text-muted); }
+.target-note { font-family:var(--font-mono); font-size:12px; color:var(--text-muted); }
 .a11y-ring { outline-offset:2px; }
 .a11y-ring:focus-visible { outline:3px solid var(--u-blue-400); }
 .a11y-ring-static { outline:3px solid var(--u-blue-400); outline-offset:2px; }
@@ -380,7 +414,7 @@
     <p class="sg-desc">Ten islands ship. In <code>index.html</code>: the hero email capture (<code>.hero-cta</code>), the dashboard preview (<code>.dash-preview</code>), the Bodie app frame (<code>.bodie-preview</code>), and six Solutions card panels (<code>.viz</code>). In <code>customers.html</code>: the product tour frame (<code>.tour-frame</code>). Nine are product surfaces or screenshot stand-ins; the tenth, <code>.hero-cta</code>, is a live email-capture form that the island renders as a white field on the dark hero. No other element carries <code>data-theme="light"</code>.</p>
     <div class="comp-row" style="align-items:flex-start;gap:20px;">
       <div>
-        <p class="sg-desc" style="font-size:11.5px;margin:0 0 10px;">Page scope &mdash; no attribute</p>
+        <p class="sg-desc" style="font-size:12.5px;margin:0 0 10px;">Page scope &mdash; no attribute</p>
         <div class="card-demo" data-theme="dark" style="width:250px;padding:16px;">
           <div class="island-demo">
             <p style="font-size:11px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin:0 0 6px;">Gloss</p>
@@ -393,7 +427,7 @@
         </div>
       </div>
       <div>
-        <p class="sg-desc" style="font-size:11.5px;margin:0 0 10px;">Light island &mdash; <code>data-theme="light"</code></p>
+        <p class="sg-desc" style="font-size:12.5px;margin:0 0 10px;">Light island &mdash; <code>data-theme="light"</code></p>
         <div class="card-demo" data-theme="dark" style="width:250px;padding:16px;">
           <div class="island-demo" data-theme="light">
             <p style="font-size:11px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin:0 0 6px;">Gloss</p>
@@ -1126,11 +1160,14 @@ function resolve(varName) {
   if (m) return '#' + [m[1],m[2],m[3]].map(n => (+n).toString(16).padStart(2,'0')).join('').toUpperCase();
   return v;
 }
+// The token line is a real <button>, so it is reachable by keyboard and by
+// touch. It replaces the title="" tooltip the swatches used to carry, which
+// duplicated visible text and was reachable by neither.
 function swatchHTML(name, varName, hex, note) {
-  return `<div class="swatch" title="${varName}"><div class="swatch-fill" style="background:var(${varName})"></div><div class="swatch-label">${name ? `<span class="swatch-name">${name}</span>` : ''}<b>${varName}</b><span>${hex}</span>${note ? `<span class="swatch-note">${note}</span>` : ''}</div></div>`;
+  return `<div class="swatch"><div class="swatch-fill" style="background:var(${varName})"></div><div class="swatch-label">${name ? `<span class="swatch-name">${name}</span>` : ''}<button class="swatch-copy" type="button" data-copy="${varName}"><span class="swatch-token">${varName}</span><span class="swatch-hex">${hex}</span><span class="swatch-copied" aria-hidden="true">Copied</span></button>${note ? `<span class="swatch-note">${note}</span>` : ''}</div></div>`;
 }
 function gradHTML(name, varName, note) {
-  return `<div class="swatch" title="${varName}"><div class="grad-box" style="background:var(${varName});border-radius:0;border:none;"></div><div class="swatch-label"><span class="swatch-name">${name}</span><b>${varName}</b>${note ? `<span class="swatch-note">${note}</span>` : ''}</div></div>`;
+  return `<div class="swatch"><div class="grad-box" style="background:var(${varName});border-radius:0;border:none;"></div><div class="swatch-label"><span class="swatch-name">${name}</span><button class="swatch-copy" type="button" data-copy="${varName}"><span class="swatch-token">${varName}</span><span class="swatch-copied" aria-hidden="true">Copied</span></button>${note ? `<span class="swatch-note">${note}</span>` : ''}</div></div>`;
 }
 function render() {
   document.getElementById('coreSwatches').innerHTML = CORE.map(([n,v,h,note]) => swatchHTML(n,v,h,note)).join('');
@@ -1161,6 +1198,36 @@ toggle.addEventListener('click', () => {
   toggleIcon.innerHTML = dark ? ICON_SUN : ICON_MOON;
   toggleLabel.textContent = dark ? 'Light' : 'Dark';
   render();
+});
+
+// Click-to-copy. Delegated from document so it keeps working across the
+// re-render that the theme toggle triggers. The visual "Copied" flash is
+// aria-hidden and paired with a live region, so the announcement happens once
+// rather than twice.
+const copyLive = document.createElement('div');
+copyLive.setAttribute('aria-live', 'polite');
+copyLive.className = 'sr-only';
+document.body.appendChild(copyLive);
+
+document.addEventListener('click', async (e) => {
+  const btn = e.target.closest('.swatch-copy');
+  if (!btn) return;
+  const token = btn.dataset.copy;
+  try {
+    await navigator.clipboard.writeText(token);
+  } catch {
+    // Clipboard API needs a secure context; select the text as the fallback
+    // so the value is still reachable with the keyboard.
+    const r = document.createRange();
+    r.selectNodeContents(btn.querySelector('.swatch-token'));
+    const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    copyLive.textContent = token + ' selected — press Ctrl+C to copy';
+    return;
+  }
+  btn.classList.add('is-copied');
+  copyLive.textContent = token + ' copied';
+  clearTimeout(btn._t);
+  btn._t = setTimeout(() => btn.classList.remove('is-copied'), 900);
 });
 
 // Table of contents — built from the sections actually on the page, in the
