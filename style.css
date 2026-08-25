@@ -320,7 +320,6 @@ button { font-family: inherit; }
 .nav-tab[aria-expanded="true"] { color: var(--text-link); }
 .chev { display: inline-flex; font-size: 10px; transition: transform var(--dur-fast) var(--ease-out); }
 .nav-tab[aria-expanded="true"] .chev { transform: rotate(180deg); }
-.nav-link-arrow { font-size: 14px; }
 .nav-actions { flex: 1 1 0; display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
 @media (max-width: 1120px) { .nav-links { display: none; } }
 
