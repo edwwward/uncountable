@@ -8,49 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- The shipped stylesheet IS the token source. The guide links it rather
+     than restating it, so a token can never drift between site and guide. -->
+<link rel="stylesheet" href="style.css">
 <style>
-:root {
-  --u-white:#FFFFFF; --u-navy:#020D4C; --u-blue-900:#01318F; --u-blue-600:#046CDE; --u-blue-700:#0356B4; --u-blue-400:#2E86E8;
-  --u-blue-200:#9CC4F6;
-  --u-cyan:#00C7FE; --u-green:#01A955; --u-orange:#FFAF0F; --u-plum:#6C4BD8; --u-ink:#3C4554;
-  /* Suite accents alias core palette colors — see the Core Palette section. */
-  --u-rd:var(--u-green); --u-quality:var(--u-blue-700); --u-lifecycle:var(--u-plum); --u-ppm:var(--u-orange);
-  --u-tint-cyan:#80E3FE; --u-tint-cyan-2:#BFF1FF; --u-tint-green-2:#BFE9D4;
-  --u-gray-50:#F6F8FB; --u-gray-100:#EEF1F6; --u-gray-200:#E0E5ED; --u-gray-300:#C9D1DD;
-  --u-gray-400:#9AA5B6; --u-gray-600:#4E586B; --u-gray-700:#3C4554;
-  --text-strong:var(--u-navy); --text-heading:var(--u-blue-900); --text-body:var(--u-ink);
-  --text-muted:#6B7689; --text-link:var(--u-blue-600);
-  --surface-page:var(--u-white); --surface-card:var(--u-white); --surface-card-ring:rgba(255,255,255,0.35); --surface-subtle:#EAF2F9; --surface-sunken:#DFE3EA;
-  --u-surface-1:#EAF2F9; --u-surface-2:#DFE3EA; --surface-dark:#0C1C63; --surface-success-soft:#E2F6EC;
-  --border-subtle:#E0E5ED; --border-default:#C9D1DD; --border-strong:var(--u-navy);
-  --brand-ink:var(--u-navy);
-  --grad-hero:linear-gradient(160deg,#EAF2F9 0%,#DFE9F6 38%,#E6F8FF 100%);
-  --grad-dark:linear-gradient(155deg,#061156 0%,#020D4C 60%,#01081f 100%);
-  --grad-cyan:linear-gradient(135deg,var(--u-cyan) 0%,var(--u-blue-600) 100%);
-  --grad-mint:linear-gradient(135deg,var(--u-tint-green-2) 0%,var(--u-tint-cyan) 100%);
-  --shadow-xs:0 1px 2px rgba(2,13,76,0.06); --shadow-sm:0 2px 6px rgba(2,13,76,0.07); --shadow-md:0 8px 24px rgba(2,13,76,0.09); --shadow-lg:0 18px 44px rgba(2,13,76,0.12); --shadow-xl:0 32px 70px rgba(2,13,76,0.16);
-  --shadow-card:0 1px 0 rgba(255,255,255,0.6) inset, 0 10px 30px rgba(2,13,76,0.08);
-  --radius-sm:4px; --radius-md:6px; --radius-lg:8px; --radius-xl:12px; --radius-control:6px;
-  --ease-out:cubic-bezier(0.22, 1, 0.36, 1); --dur-fast:140ms; --dur-base:220ms;
-  --font-display:'Poppins','Helvetica Neue',Arial,sans-serif; --font-body:'Poppins','Helvetica Neue',Arial,sans-serif; --font-mono:'IBM Plex Mono',ui-monospace,monospace;
-  /* Matches style.css exactly — not theme-dependent, so declared once. */
-  --text-display-lg:clamp(2.25rem, 3.6vw, 3.5rem); --leading-snug:1.12; --tracking-tight:-0.02em;
-}
-[data-theme="dark"] {
-  --text-strong:#EDF2FA; --text-heading:#DDE8F8; --text-body:#AEBBD0; --text-muted:#7C8AA3; --text-link:#57A6F6;
-  --surface-page:#070C1F; --surface-card:#101A33; --surface-card-ring:rgba(255,255,255,0.06); --surface-subtle:#0C142B; --surface-sunken:#16203C;
-  --u-surface-1:#0C142B; --u-surface-2:#16203C; --surface-success-soft:rgba(1,169,85,0.22);
-  --border-subtle:rgba(255,255,255,0.09); --border-default:rgba(255,255,255,0.20); --border-strong:rgba(255,255,255,0.55);
-  --brand-ink:var(--u-blue-600);
-  --u-gray-50:#0E1730; --u-gray-100:rgba(255,255,255,0.08); --u-gray-200:rgba(255,255,255,0.12); --u-gray-300:rgba(255,255,255,0.22); --u-gray-400:#7C8AA3; --u-gray-600:#A3B1C7; --u-gray-700:#C6D1E1;
-  --grad-hero:linear-gradient(160deg,#0A1330 0%,#0B1732 38%,#08213D 100%);
-  --shadow-xs:0 1px 2px rgba(0,0,0,0.45); --shadow-sm:0 2px 6px rgba(0,0,0,0.45); --shadow-md:0 8px 20px rgba(0,0,0,0.45); --shadow-lg:0 18px 40px rgba(0,0,0,0.50); --shadow-xl:0 32px 70px rgba(0,0,0,0.55);
-  --shadow-card:0 1px 0 rgba(255,255,255,0.05) inset, 0 10px 30px rgba(0,0,0,0.40);
-  color-scheme: dark;
-}
-* { box-sizing: border-box; }
-body { margin:0; font-family:var(--font-body); background:var(--surface-page); color:var(--text-body); transition:background .2s, color .2s; }
-h1,h2,h3 { font-family:var(--font-display); color:var(--text-heading); font-weight:500; margin:0; line-height:var(--leading-snug); letter-spacing:var(--tracking-tight); }
 /* Two-layer bar/inner split, matching style.css's .nav / .nav-inner exactly:
    the bar spans full width for its background, the inner content is capped
    at the same 1280px container every other page element uses. */
@@ -79,20 +40,22 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-heading); font-weig
 .sg-toc a { display:block; color:var(--text-body); text-decoration:none; transition:color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out); }
 .sg-toc a:hover { color:var(--text-link); }
 .sg-toc a:focus-visible { outline:3px solid var(--u-blue-400); outline-offset:-2px; border-radius:var(--radius-sm); }
-/* The current item takes --text-strong, not --text-link. Every entry here is a
-   link, so link-blue on the current one is redundant with the bar and the tint
-   — and it was the thing breaking contrast: Azure on Mist is 4.42:1, the exact
-   pairing DESIGN.md §5 flags as failing and the Academy app already deviates
-   from. Azure stays as the 2px bar, where it is a non-text state indicator
-   judged against WCAG 1.4.11's 3:1 bar rather than 4.5:1, and clears it at
-   4.42:1. Result: 15.94:1 light / 16.24:1 dark on the label, no new tokens. */
-.sg-toc a[aria-current="true"] { color:var(--text-strong); background:var(--u-surface-1); font-weight:500; box-shadow:inset 2px 0 0 var(--text-link); }
+/* The current item is marked by tint + weight + --text-strong, and nothing
+   else. It carried a 2px inset bar until this revision; that is a coloured
+   side-stripe on a nav item, which this page's own "What We Don't Do" bans by
+   name. It escaped the guide's audit only because that audit counts border-*
+   declarations and the stripe was a box-shadow. Three signals is already past
+   the "colour is never the only signal" bar, so the stripe was removed rather
+   than legalised.
+   Not --text-link, either: every entry here is a link, so link-blue on the
+   current one says nothing, and it was failing contrast at 4.42:1 (Azure on
+   Mist, the pairing DESIGN.md §5 flags). Now 15.94:1 light / 16.24:1 dark. */
+.sg-toc a[aria-current="true"] { color:var(--text-strong); background:var(--u-surface-1); font-weight:500; }
 
 @media (min-width:1121px) {
   .sg-shell { display:flex; align-items:flex-start; max-width:1280px; margin:0 auto; padding:0 clamp(20px,3vw,40px); }
   .sg-toc { position:sticky; top:76px; flex:0 0 220px; width:220px; align-self:flex-start; max-height:calc(100vh - 96px); overflow-y:auto; padding:32px 8px 32px 0; }
   .sg-toc a { padding:6px 12px; font-size:13px; line-height:1.4; border-radius:var(--radius-sm); }
-  .sg-toc a[aria-current="true"] { padding-left:10px; }
   .sg-wrap { flex:1; min-width:0; }
 }
 @media (max-width:1120px) {
@@ -101,7 +64,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-heading); font-weig
   .sg-toc { position:sticky; top:57px; z-index:9; display:flex; gap:4px; overflow-x:auto; scroll-snap-type:x proximity; scrollbar-width:none; background:var(--surface-page); border-bottom:1px solid var(--border-subtle); padding:10px clamp(20px,3vw,40px); }
   .sg-toc::-webkit-scrollbar { display:none; }
   .sg-toc a { flex:none; scroll-snap-align:start; padding:6px 12px; font-size:12.5px; white-space:nowrap; border-radius:999px; border:1px solid var(--border-default); }
-  .sg-toc a[aria-current="true"] { border-color:var(--text-link); box-shadow:none; }
+  .sg-toc a[aria-current="true"] { border-color:var(--text-link); }
 }
 @media (prefers-reduced-motion:no-preference) {
   html { scroll-behavior:smooth; }
@@ -140,20 +103,21 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-heading); font-weig
 .rule-list b { color:var(--text-strong); font-weight:500; }
 .logo-tile { width:260px; height:120px; display:flex; align-items:center; justify-content:center; border-radius:var(--radius-md); border:1px solid var(--border-subtle); }
 .comp-row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:16px; }
-.btn { display:inline-flex; align-items:center; justify-content:center; font-family:var(--font-body); font-weight:500; border-radius:var(--radius-control); cursor:pointer; border:1.5px solid transparent; padding:12px 24px; font-size:15px; text-decoration:none; }
-.btn-primary { background:var(--brand-ink); color:#fff; border-color:var(--brand-ink); }
-.btn-cta { background:var(--u-blue-600); color:#fff; border-color:var(--u-blue-600); }
-.btn-cta:hover { background:var(--u-blue-700); border-color:var(--u-blue-700); }
-.btn-accent { background:var(--u-cyan); color:var(--u-navy); border-color:var(--u-cyan); }
-.btn-outline { background:transparent; color:var(--text-strong); border-color:var(--border-strong); }
-.btn { transition:transform var(--dur-fast) var(--ease-out), background var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out); }
+/* style.css owns .btn structure; the guide only sets a demo size. */
+.btn { padding:12px 24px; font-size:15px; }
 .searchfield-demo { display:flex; align-items:center; gap:8px; background:var(--surface-card); border-radius:var(--radius-lg); padding:8px 8px 8px 24px; box-shadow:0 0 0 8px var(--surface-card-ring), var(--shadow-lg); max-width:480px; width:100%; }
 .searchfield-demo input { flex:1; border:none; outline:none; background:transparent; font-family:var(--font-body); font-size:16px; color:var(--text-strong); min-width:0; }
 .searchfield-demo input::placeholder { color:var(--text-muted); }
-.tag { display:inline-flex; padding:6px 14px; border-radius:var(--radius-sm); font-size:13px; font-weight:500; border:1px solid var(--border-default); color:var(--text-body); }
 .card-demo { background:var(--u-surface-1); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:24px; width:220px; box-shadow:var(--shadow-sm); }
 .card-demo-dark { background:var(--surface-dark); color:#fff; border-radius:var(--radius-lg); padding:24px; width:220px; box-shadow:var(--shadow-lg); }
-.avatar-demo { width:44px; height:44px; border-radius:50%; background:var(--grad-cyan); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:500; font-size:15px; }
+/* Initials sit on a solid --u-blue-900, not --grad-cyan. White on that
+   gradient measures 1.98:1 at the cyan stop and 3.06:1 under the glyphs —
+   a hard AA failure on the page that publishes the contrast table. Midnight
+   does not rescue it either (3.61:1 at the blue stop), so the ground had to
+   stop being a gradient. White on --u-blue-900 is 11.43:1. --grad-cyan is
+   still correct behind an image avatar, where nothing is read off it. */
+.avatar-demo { width:44px; height:44px; border-radius:50%; background:var(--u-blue-900); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:500; font-size:15px; }
+.avatar-demo[src] { background:var(--grad-cyan); }
 
 .icon-btn-demo { display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:var(--radius-control); font-size:18px; color:var(--text-strong); background:transparent; border:1.5px solid var(--border-default); cursor:pointer; }
 .icon-btn-demo:disabled { cursor:not-allowed; opacity:0.4; }
@@ -185,28 +149,6 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-heading); font-weig
 /* ==== theming ==== */
 /* --- Theming section --------------------------------------------------- */
 
-/* The shipped light island, copied verbatim from style.css:144-182 so the
-   demo in this section behaves exactly as it does on the site. The guide had
-   no [data-theme="light"] rule, so islands could not be shown at all. All 30
-   declarations were diffed programmatically against style.css and against
-   this guide's own :root: they match both, so toggling the page to Light is
-   a no-op and only color-scheme changes behaviour. */
-[data-theme="light"] {
-  --u-gray-50:#F6F8FB; --u-gray-100:#EEF1F6; --u-gray-200:#E0E5ED; --u-gray-300:#C9D1DD;
-  --u-gray-400:#9AA5B6; --u-gray-600:#4E586B; --u-gray-700:#3C4554;
-  --text-strong:var(--u-navy); --text-heading:var(--u-blue-900); --text-body:var(--u-ink);
-  --text-muted:#6B7689; --text-link:var(--u-blue-600);
-  --surface-page:var(--u-white); --surface-card:var(--u-white); --surface-card-ring:rgba(255,255,255,0.35);
-  --surface-subtle:#EAF2F9; --surface-sunken:#DFE3EA;
-  --u-surface-1:#EAF2F9; --u-surface-2:#DFE3EA; --surface-success-soft:#E2F6EC;
-  --border-subtle:#E0E5ED; --border-default:#C9D1DD; --border-strong:var(--u-navy);
-  --brand-ink:var(--u-navy);
-  --shadow-xs:0 1px 2px rgba(2,13,76,0.06); --shadow-sm:0 2px 6px rgba(2,13,76,0.07);
-  --shadow-md:0 8px 24px rgba(2,13,76,0.09); --shadow-lg:0 18px 44px rgba(2,13,76,0.12);
-  --shadow-xl:0 32px 70px rgba(2,13,76,0.16);
-  --shadow-card:0 1px 0 rgba(255,255,255,0.6) inset, 0 10px 30px rgba(2,13,76,0.08);
-  color-scheme: light;
-}
 
 .sg-table-wrap { overflow-x:auto; }
 .sg-table { width:100%; border-collapse:collapse; font-size:13px; line-height:1.5; }
@@ -251,13 +193,8 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-heading); font-weig
 /* Hover/press transforms mirrored from style.css so every button demo in this
    guide behaves like the shipped one. :active must stay declared after :hover —
    equal specificity, so source order is what makes press replace the lift. */
-.btn:hover { transform: translateY(-1px); }
-.btn:active { transform: scale(0.97); }
 /* style.css:240 writes .btn-primary:hover as a literal #0356B4. Same colour,
    but the token is the pattern this guide asks you to copy — see the Hover rule. */
-.btn-primary:hover { background: var(--u-blue-700); border-color: var(--u-blue-700); }
-.btn-accent:hover { background: var(--u-tint-cyan); border-color: var(--u-tint-cyan); }
-.btn-outline:hover { background: var(--u-surface-1); }
 
 /* Shipped .icon-btn transitions background and border-color only — the glyph
    color is deliberately absent, so it snaps. Reproduced here on purpose. */
@@ -436,7 +373,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-heading); font-weig
       <li><b>Islands nest by attribute.</b> It is an ordinary attribute selector, so it applies to any element and cascades to that element's whole subtree. The nearest ancestor carrying the attribute wins for the 30 tokens it re-declares; every other token keeps inheriting from <code>:root</code>.</li>
       <li><b>Nesting is one-way.</b> There is no <code>[data-theme="dark"]</code> rule in <code>style.css</code>, so a subtree cannot be returned to dark by attribute. Scope the island tighter instead of trying to reverse it.</li>
       <li><b>The page attribute is documentation, not styling.</b> <code>index.html</code> and <code>customers.html</code> both open with <code>&lt;html data-theme="dark"&gt;</code>. It records intent and matches no rule.</li>
-      <li><b>This page inverts the model.</b> The style guide declares light on <code>:root</code>, dark under <code>[data-theme="dark"]</code>, ships <code>&lt;body data-theme="dark"&gt;</code> as the default, and adds a header toggle so both themes can be documented. Do not copy this token block into production.</li>
+      <li><b>This page runs the same model, from the same file.</b> The guide <code>&lt;link&gt;</code>s <code>style.css</code> and declares no tokens of its own, so <code>:root</code> here is the shipped dark set and the header toggle just moves <code>data-theme="light"</code> on and off <code>&lt;body&gt;</code> — exercising the real island rule rather than a copy of it. Until this revision the guide forked all 68 tokens into an inverted block of its own, which is how it came to publish a <code>--space-*</code> scale that existed nowhere.</li>
     </ul>
 
     <h3 class="sg-sub">Where islands are used</h3>
@@ -544,8 +481,23 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-heading); font-weig
 
   <section id="spacing-layout" class="sg-section">
     <h2>Spacing &amp; Layout</h2>
-    <p class="sg-desc">4px base grid. Page content sits in a 1280px container (<code>.container-max</code>) with a <code>clamp(20px, 3vw, 40px)</code> gutter — the same container and gutter the Academy app uses.</p>
+    <p class="sg-desc"><b>There are no spacing variables in this system.</b> Earlier revisions of this page published a <code>--space-1</code>&hellip;<code>--space-9</code> scale; it was never real. Nothing declares those names, so <code>padding: var(--space-5)</code> resolves to nothing. What ships is two layout formulas and a 4px grid applied as raw values.</p>
+
+    <h3 class="sg-sub">The two formulas</h3>
+    <div class="sg-table-wrap">
+      <table class="sg-table">
+        <thead><tr><th>Role</th><th>Value</th><th>Where</th></tr></thead>
+        <tbody>
+          <tr><td>Container + gutter</td><td><code>max-width:1280px</code> &middot; <code>padding:0 clamp(20px,3vw,40px)</code></td><td><code>.container-max</code>, <code>.nav-inner</code>, and this page's shell</td></tr>
+          <tr><td>Section rhythm</td><td><code>clamp(56px,8vw,112px)</code> block</td><td>Every marketing band; <code>.bodie-section</code> is the one exception at <code>clamp(48px,7vw,96px)</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sg-sub">The 4px grid</h3>
+    <p class="sg-desc">Every fixed gap, pad and inset is a multiple of 4. These are a convention the values follow, not variables you can reference — write the number.</p>
     <div id="spaceRows"></div>
+    <p class="cx-foot">If a new value is not a multiple of 4, it is a mistake or it needs a stated reason. Anything that must scale with the viewport uses one of the two formulas above rather than a new fixed step.</p>
   </section>
 
   <section id="radii-shadows" class="sg-section">
@@ -1162,7 +1114,10 @@ const GRADS = [
   ['Cyan sweep', '--grad-cyan', '135°, #00C7FE → #046CDE. Avatar fallbacks and small accent fills. Decorative only — see the note above.'],
   ['Mint wash',  '--grad-mint', '135°, #BFE9D4 → #80E3FE. Resource-card headers. Graphics only, never text.'],
 ];
-const SPACE = [['space-1','4px'],['space-2','8px'],['space-3','12px'],['space-4','16px'],['space-5','24px'],['space-6','32px'],['space-8','48px'],['space-9','64px']];
+// Steps on the 4px grid. Deliberately NOT named --space-N: no such
+// custom property exists in style.css, and inventing one here is how the
+// previous revision came to document a token nothing could resolve.
+const SPACE = [['4px','4px'],['8px','8px'],['12px','12px'],['16px','16px'],['24px','24px'],['32px','32px'],['48px','48px'],['64px','64px']];
 
 // Live-resolve a custom property so labels always match the rendered theme.
 function resolve(varName) {
@@ -1187,7 +1142,7 @@ function render() {
 }
 render();
 document.getElementById('spaceRows').innerHTML = SPACE.map(([n,px]) =>
-  `<div class="space-row"><code>--${n}</code><div class="space-bar" style="width:${px}"></div><span style="font-size:12px;color:var(--text-muted)">${px}</span></div>`
+  `<div class="space-row"><code>${n}</code><div class="space-bar" style="width:${px}"></div><span style="font-size:12px;color:var(--text-muted)">${parseInt(px)/4}\u00d7</span></div>`
 ).join('');
 
 // Lucide "moon" and "sun" — vector icons, no emoji. See DESIGN.md's
