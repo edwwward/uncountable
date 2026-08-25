@@ -11,10 +11,11 @@
 <style>
 :root {
   --u-white:#FFFFFF; --u-navy:#020D4C; --u-blue-900:#01318F; --u-blue-600:#046CDE; --u-blue-700:#0356B4; --u-blue-400:#2E86E8;
+  --u-blue-200:#9CC4F6;
   --u-cyan:#00C7FE; --u-green:#01A955; --u-orange:#FFAF0F; --u-plum:#6C4BD8; --u-ink:#3C4554;
   /* Suite accents alias core palette colors — see the Core Palette section. */
   --u-rd:var(--u-green); --u-quality:var(--u-blue-700); --u-lifecycle:var(--u-plum); --u-ppm:var(--u-orange);
-  --u-tint-cyan:#80E3FE; --u-tint-cyan-2:#BFF1FF; --u-tint-green:#80D4AA; --u-tint-green-2:#BFE9D4;
+  --u-tint-cyan:#80E3FE; --u-tint-cyan-2:#BFF1FF; --u-tint-green-2:#BFE9D4;
   --u-gray-50:#F6F8FB; --u-gray-100:#EEF1F6; --u-gray-200:#E0E5ED; --u-gray-300:#C9D1DD;
   --u-gray-400:#9AA5B6; --u-gray-600:#4E586B; --u-gray-700:#3C4554;
   --text-strong:var(--u-navy); --text-heading:var(--u-blue-900); --text-body:var(--u-ink);
@@ -79,7 +80,10 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
 .motion-demo { display:flex; align-items:center; gap:24px; padding:20px; background:var(--u-surface-1); border:1px solid var(--border-subtle); border-radius:var(--radius-md); }
 .motion-chip { width:56px; height:56px; border-radius:var(--radius-md); background:var(--u-blue-600); transition:transform var(--dur-base) var(--ease-out); }
 .motion-demo:hover .motion-chip { transform:translateX(120px); }
-@media (prefers-reduced-motion: reduce) { .motion-chip { transition:none; } }
+/* The same global reset style.css ships, so this page honours the policy it documents. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+}
 .rule-list { margin:0; padding:0; list-style:none; max-width:720px; }
 .rule-list li { padding:12px 0; border-bottom:1px solid var(--border-subtle); font-size:14px; line-height:1.55; }
 .rule-list li:last-child { border-bottom:none; }
@@ -127,6 +131,208 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
 .tour-demo-play { width:64px; height:64px; border-radius:50%; background:var(--u-cyan); display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-md); flex:none; }
 .tour-demo-play svg { width:24px; height:24px; color:var(--u-navy); margin-left:2px; }
 .tour-demo-frame { display:flex; align-items:center; gap:12px; background:var(--grad-dark); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:20px; color:#fff; font-size:12.5px; }
+
+/* ==== theming ==== */
+/* --- Theming section --------------------------------------------------- */
+
+/* The shipped light island, copied verbatim from style.css:144-182 so the
+   demo in this section behaves exactly as it does on the site. The guide had
+   no [data-theme="light"] rule, so islands could not be shown at all. All 30
+   declarations were diffed programmatically against style.css and against
+   this guide's own :root: they match both, so toggling the page to Light is
+   a no-op and only color-scheme changes behaviour. */
+[data-theme="light"] {
+  --u-gray-50:#F6F8FB; --u-gray-100:#EEF1F6; --u-gray-200:#E0E5ED; --u-gray-300:#C9D1DD;
+  --u-gray-400:#9AA5B6; --u-gray-600:#4E586B; --u-gray-700:#3C4554;
+  --text-strong:var(--u-navy); --text-heading:var(--u-blue-900); --text-body:var(--u-ink);
+  --text-muted:#6B7689; --text-link:var(--u-blue-600);
+  --surface-page:var(--u-white); --surface-card:var(--u-white); --surface-card-ring:rgba(255,255,255,0.35);
+  --surface-subtle:#EAF2F9; --surface-sunken:#DFE3EA;
+  --u-surface-1:#EAF2F9; --u-surface-2:#DFE3EA; --surface-success-soft:#E2F6EC;
+  --border-subtle:#E0E5ED; --border-default:#C9D1DD; --border-strong:var(--u-navy);
+  --brand-ink:var(--u-navy);
+  --shadow-xs:0 1px 2px rgba(2,13,76,0.06); --shadow-sm:0 2px 6px rgba(2,13,76,0.07);
+  --shadow-md:0 8px 24px rgba(2,13,76,0.09); --shadow-lg:0 18px 44px rgba(2,13,76,0.12);
+  --shadow-xl:0 32px 70px rgba(2,13,76,0.16);
+  --shadow-card:0 1px 0 rgba(255,255,255,0.6) inset, 0 10px 30px rgba(2,13,76,0.08);
+  color-scheme: light;
+}
+
+.sg-table-wrap { overflow-x:auto; }
+.sg-table { width:100%; border-collapse:collapse; font-size:13px; line-height:1.5; }
+.sg-table th { text-align:left; font-family:var(--font-body); font-weight:500; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); padding:0 16px 8px 0; border-bottom:1px solid var(--border-default); white-space:nowrap; }
+.sg-table td { padding:11px 16px 11px 0; border-bottom:1px solid var(--border-subtle); color:var(--text-body); vertical-align:top; }
+.sg-table tr:last-child td { border-bottom:none; }
+.sg-table code { font-family:var(--font-mono); font-size:11.5px; color:var(--text-strong); white-space:nowrap; }
+.sg-table td.sg-num { font-family:var(--font-mono); font-size:12px; color:var(--text-muted); white-space:nowrap; }
+.sg-chip { display:inline-block; width:13px; height:13px; border-radius:3px; border:1px solid var(--border-default); vertical-align:-2px; margin-right:8px; }
+.island-demo { background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:14px; box-shadow:var(--shadow-sm); }
+
+/* ==== iconography ==== */
+/* The guide styles only .type-row code and .space-row code; this is the first
+   section to use <code> in running prose, so it brings its own rule. Scoped to
+   .sg-icons so no existing section is restyled.
+   --text-strong on --u-surface-1 = 15.94:1 light / 16.24:1 dark. */
+.sg-icons code { font-family:var(--font-mono); font-size:0.86em; line-height:1.4; color:var(--text-strong); background:var(--u-surface-1); border:1px solid var(--border-subtle); border-radius:3px; padding:1px 5px; white-space:nowrap; }
+/* The full wrapper string is ~130 chars — it scrolls inside its own box rather
+   than setting the paragraph's min-content width. */
+.icon-code-wrap { max-width:720px; overflow-x:auto; }
+.sg-icons .icon-code-wrap code { display:inline-block; padding:10px 14px; border-radius:var(--radius-md); font-size:11.5px; white-space:pre; }
+
+.icon-spec { display:flex; flex-wrap:wrap; gap:22px 26px; padding:22px 24px; border-radius:var(--radius-md); border:1px solid var(--border-subtle); background:var(--u-surface-1); color:var(--text-body); }
+.icon-spec + .icon-spec { margin-top:12px; }
+/* Fixed dark panel in both themes, so its label colour is a literal, matching
+   the guide's existing on-dark pattern (.voices-demo-role). 8.73-9.71:1 across
+   every --grad-dark stop. The hairline is the border --grad-dark bands require. */
+.icon-spec-dark { background:var(--grad-dark); color:var(--u-cyan); }
+.icon-spec-item { flex:none; display:flex; flex-direction:column; align-items:center; gap:9px; width:108px; }
+.icon-spec-item svg { width:20px; height:20px; }
+.icon-spec-name { font-family:var(--font-mono); font-size:11px; color:var(--text-body); text-align:center; }
+.icon-spec-dark .icon-spec-name { color:rgba(255,255,255,0.7); }
+
+.icon-size-row { display:flex; align-items:center; gap:14px; padding:9px 0; border-bottom:1px solid var(--border-subtle); max-width:720px; }
+/* Two classes, so this wins over .sg-icons code regardless of source order. */
+.sg-icons .icon-size-row code { flex:0 0 48px; font-size:11.5px; color:var(--text-muted); background:none; border:none; padding:0; }
+.icon-size-slot { flex:0 0 34px; display:flex; align-items:center; justify-content:center; color:var(--text-strong); }
+.icon-size-row > span:last-child { min-width:0; font-family:var(--font-mono); font-size:11.5px; color:var(--text-body); }
+
+/* ==== states ==== */
+/* ---- Interaction States ---- */
+/* Hover/press transforms mirrored from style.css so every button demo in this
+   guide behaves like the shipped one. :active must stay declared after :hover —
+   equal specificity, so source order is what makes press replace the lift. */
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: scale(0.97); }
+/* style.css:240 writes .btn-primary:hover as a literal #0356B4. Same colour,
+   but the token is the pattern this guide asks you to copy — see the Hover rule. */
+.btn-primary:hover { background: var(--u-blue-700); border-color: var(--u-blue-700); }
+.btn-accent:hover { background: var(--u-tint-cyan); border-color: var(--u-tint-cyan); }
+.btn-outline:hover { background: var(--u-surface-1); }
+
+/* Shipped .icon-btn transitions background and border-color only — the glyph
+   color is deliberately absent, so it snaps. Reproduced here on purpose. */
+.icon-btn-demo { transition: background var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out); }
+.icon-btn-demo svg { width: 20px; height: 20px; }
+.icon-btn-demo:hover { background: var(--brand-ink); color: #fff; border-color: var(--brand-ink); }
+.icon-btn-demo:disabled:hover { background: transparent; color: var(--text-strong); border-color: var(--border-default); }
+
+.card-demo-lift { transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out); }
+.card-demo-lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); }
+
+.state-play { background: none; border: none; padding: 0; cursor: pointer; display: inline-flex; }
+.tour-demo-play { transition: transform var(--dur-base) var(--ease-out); }
+.state-play:hover .tour-demo-play { transform: scale(1.06); }
+
+.state-row { align-items: stretch; gap: 24px; }
+.state-demo { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; max-width: 230px; }
+.state-caption { margin-top: auto; font-size: 12px; line-height: 1.55; color: var(--text-muted); }
+.state-caption code { font-size: 11px; }
+
+/* ==== forms ==== */
+/* ============================================================
+   FORMS
+   ============================================================ */
+.input-demo { display:flex; flex-direction:column; width:240px; }
+.input-demo-label { font-size:14px; font-weight:500; color:var(--text-strong); margin-bottom:8px; }
+.input-demo-field {
+  height:46px; padding:0 16px; font-family:var(--font-body); font-size:17px; color:var(--text-strong);
+  background:var(--surface-card); border:1.5px solid var(--border-default); border-radius:var(--radius-control);
+  transition:border-color var(--dur-base) var(--ease-out);
+}
+.input-demo-field::placeholder { color:var(--text-muted); }
+.input-demo-msg { font-size:12.5px; line-height:1.5; color:var(--text-body); margin-top:8px; }
+.input-demo.is-error .input-demo-field { border-color:var(--u-orange); }
+/* Focus: 1.5px blue-400 border + 3px blue-400 ring. .is-focus renders the state
+   statically for this page; :focus-visible is the rule the system must ship.
+   Scoped through .input-demo so it matches .input-demo.is-error's specificity
+   (0,3,0) and, declared later, wins — a focused error field takes the blue
+   border, as the Focus ring rules state. Without the scope it silently loses. */
+.input-demo .input-demo-field:focus-visible,
+.input-demo .input-demo-field.is-focus {
+  border-color:var(--u-blue-400); outline:3px solid var(--u-blue-400); outline-offset:0;
+}
+/* Composite controls take the ring on the shell, never on the borderless input inside.
+   This also repairs the outline:none on .searchfield-demo input above. */
+.searchfield-demo:focus-within { outline:3px solid var(--u-blue-400); outline-offset:0; }
+
+/* ==== recipes ==== */
+/* ---- Section Recipes: band-order diagram ---- */
+.band-stack { max-width:720px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); overflow:hidden; margin-bottom:28px; }
+.band-row { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:13px 18px; }
+.band-row + .band-row { border-top:1px solid var(--border-subtle); }
+.band-row b { font-family:var(--font-display); font-weight:500; font-size:13.5px; }
+/* nowrap: without it the browser breaks token names at their hyphens on narrow
+   viewports — "--u-surface-1" splits into "--u-surface-" / "1" and misreads. */
+.band-row code { font-family:var(--font-mono); font-size:11px; text-align:right; white-space:nowrap; }
+.band-page { background:var(--surface-page); }
+.band-tint { background:var(--u-surface-1); }
+.band-hero { background:var(--grad-hero); }
+.band-page b, .band-tint b, .band-hero b { color:var(--text-strong); }
+.band-page code, .band-tint code, .band-hero code { color:var(--text-body); }
+.band-cyan { background:var(--u-tint-cyan); }
+.band-cyan b, .band-cyan code { color:var(--u-navy); }
+.band-dark { background:var(--grad-dark); }
+.band-navy { background:var(--u-navy); }
+.band-dark b, .band-navy b { color:#fff; }
+.band-dark code, .band-navy code { color:rgba(255,255,255,0.62); }
+
+/* ==== voice ==== */
+.voice-pair { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr)); gap:16px; max-width:720px; }
+.voice-col { background:var(--u-surface-1); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:20px 22px; min-width:0; }
+.voice-col-head { display:flex; align-items:center; gap:8px; font-family:var(--font-display); font-size:13px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-strong); margin-bottom:14px; }
+.voice-col-head svg { width:15px; height:15px; flex:none; }
+.voice-line { margin:0; font-size:14px; line-height:1.55; color:var(--text-body); overflow-wrap:anywhere; }
+.voice-line + .voice-line { margin-top:12px; padding-top:12px; border-top:1px solid var(--border-default); }
+
+/* ==== donts ==== */
+/* One addition, and it closes a real gap rather than styling the new section.
+   style-guide.html declares `.type-row code` and `.space-row code` but no bare
+   `code` rule, so every <code> inside `.sg-desc` and `.rule-list` currently
+   falls back to the UA generic monospace at the inherited 14px — a different
+   face from --font-mono and visibly larger than the Poppins beside it.
+   (Verified by walking document.styleSheets: zero selectors match a bare
+   `code`. Computed before: font-family "monospace", 14px. After: "IBM Plex
+   Mono", 12.6px.) This section is the most code-dense on the page, so the
+   mismatch stops reading as a quirk and starts reading as a bug.
+
+   Font only — no color, no background, no new token — so both themes are
+   untouched and every pairing in the section stays the already-audited
+   --text-body / --text-strong / --text-muted on --surface-page
+   (10.00:1, 17.28:1, 5.57:1 dark; 9.67:1, 18.03:1, 4.59:1 light — all AA).
+   Note this deliberately normalises the existing Gradients, Motion, Spacing
+   and Search Field sections too, which is the intended effect; the draft's
+   claim that the new section is byte-identical to Usage Rules still holds
+   (verified in both data-theme states), but those older sections do change.
+   The overflow-wrap is belt-and-braces: the longest unbreakable token is
+   -webkit-background-clip at 174px against 280px of line width at 320px. */
+.sg-desc code,
+.rule-list code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  overflow-wrap: break-word;
+}
+
+/* ==== a11y ==== */
+/* --- Accessibility section --- */
+.contrast-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.contrast-scroll:focus-visible { outline:3px solid var(--u-blue-400); outline-offset:2px; }
+.contrast-table { width:100%; min-width:600px; border-collapse:collapse; font-size:13px; }
+.contrast-table th { text-align:left; font-family:var(--font-body); font-weight:500; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); padding:0 14px 10px 0; border-bottom:1px solid var(--border-default); white-space:nowrap; }
+.contrast-table td { padding:9px 14px 9px 0; border-bottom:1px solid var(--border-subtle); color:var(--text-body); vertical-align:baseline; white-space:nowrap; }
+.contrast-table tbody tr:last-child td { border-bottom:none; }
+.contrast-table code { font-family:var(--font-mono); font-size:11.5px; color:var(--text-body); }
+.cx-swatch { display:inline-block; width:10px; height:10px; border-radius:2px; border:1px solid var(--border-default); margin-right:8px; vertical-align:0; }
+.cx-ratio { font-family:var(--font-mono); font-size:12.5px; color:var(--text-strong); text-align:right; }
+.cx-verdict { display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:500; color:var(--text-muted); }
+.cx-verdict svg { width:13px; height:13px; flex:none; }
+.cx-verdict-flag { color:var(--text-body); }
+.cx-verdict-fail { color:var(--text-strong); }
+.cx-foot { font-size:12px; color:var(--text-muted); margin:10px 0 0; max-width:640px; line-height:1.55; }
+.target-gauge { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border:1px dashed var(--border-default); border-radius:var(--radius-control); }
+.target-note { font-family:var(--font-mono); font-size:11.5px; color:var(--text-muted); }
+.a11y-ring { outline-offset:2px; }
+.a11y-ring:focus-visible { outline:3px solid var(--u-blue-400); }
+.a11y-ring-static { outline:3px solid var(--u-blue-400); outline-offset:2px; }
 </style>
 </head>
 <body data-theme="dark">
@@ -165,8 +371,107 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
   </section>
 
   <section class="sg-section">
+    <h2>Theming</h2>
+    <p class="sg-desc">The site ships one theme. <code>style.css</code> declares a single, already-dark token set on <code>:root</code>, and <code>[data-theme="light"]</code> is a scoped override applied to individual elements so product screenshots read light on the dark page. It is not a page-level light mode, and <code>script.js</code> contains no theme logic. This guide is the one documented exception.</p>
+
+    <h3 class="sg-sub">The shipped model</h3>
+    <ul class="rule-list">
+      <li><b>Dark is the root.</b> <code>style.css</code> defines 84 tokens on <code>:root</code>, already resolved to their dark values, with <code>color-scheme: dark</code>. There is no separate dark block to opt into.</li>
+      <li><b>Light is an island, not a mode.</b> <code>[data-theme="light"]</code> is the only theme selector in the file. It re-declares 30 of those 84 tokens and sets <code>color-scheme: light</code>, so native controls and scrollbars inside the island follow.</li>
+      <li><b>Islands nest by attribute.</b> It is an ordinary attribute selector, so it applies to any element and cascades to that element's whole subtree. The nearest ancestor carrying the attribute wins for the 30 tokens it re-declares; every other token keeps inheriting from <code>:root</code>.</li>
+      <li><b>Nesting is one-way.</b> There is no <code>[data-theme="dark"]</code> rule in <code>style.css</code>, so a subtree cannot be returned to dark by attribute. Scope the island tighter instead of trying to reverse it.</li>
+      <li><b>The page attribute is documentation, not styling.</b> <code>index.html</code> and <code>customers.html</code> both open with <code>&lt;html data-theme="dark"&gt;</code>. It records intent and matches no rule.</li>
+      <li><b>This page inverts the model.</b> The style guide declares light on <code>:root</code>, dark under <code>[data-theme="dark"]</code>, ships <code>&lt;body data-theme="dark"&gt;</code> as the default, and adds a header toggle so both themes can be documented. Do not copy this token block into production.</li>
+    </ul>
+
+    <h3 class="sg-sub">Where islands are used</h3>
+    <p class="sg-desc">Ten islands ship. In <code>index.html</code>: the hero email capture (<code>.hero-cta</code>), the dashboard preview (<code>.dash-preview</code>), the Bodie app frame (<code>.bodie-preview</code>), and six Solutions card panels (<code>.viz</code>). In <code>customers.html</code>: the product tour frame (<code>.tour-frame</code>). Nine are product surfaces or screenshot stand-ins; the tenth, <code>.hero-cta</code>, is a live email-capture form that the island renders as a white field on the dark hero. No other element carries <code>data-theme="light"</code>.</p>
+    <div class="comp-row" style="align-items:flex-start;gap:20px;">
+      <div>
+        <p class="sg-desc" style="font-size:11.5px;margin:0 0 10px;">Page scope &mdash; no attribute</p>
+        <div class="card-demo" data-theme="dark" style="width:250px;padding:16px;">
+          <div class="island-demo">
+            <p style="font-size:11px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin:0 0 6px;">Gloss</p>
+            <h3 style="font-size:19px;margin:0 0 14px;">94.1</h3>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <span class="btn btn-primary" style="padding:8px 16px;font-size:13px;">Primary</span>
+              <span class="tag" style="font-size:11px;padding:4px 10px;">Tag</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="sg-desc" style="font-size:11.5px;margin:0 0 10px;">Light island &mdash; <code>data-theme="light"</code></p>
+        <div class="card-demo" data-theme="dark" style="width:250px;padding:16px;">
+          <div class="island-demo" data-theme="light">
+            <p style="font-size:11px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin:0 0 6px;">Gloss</p>
+            <h3 style="font-size:19px;margin:0 0 14px;">94.1</h3>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <span class="btn btn-primary" style="padding:8px 16px;font-size:13px;">Primary</span>
+              <span class="tag" style="font-size:11px;padding:4px 10px;">Tag</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="sg-desc" style="margin-top:16px;">Same markup, same classes &mdash; the only difference is the <code>data-theme="light"</code> attribute on the right-hand panel. Both outer frames are pinned to <code>data-theme="dark"</code> so the pair keeps reading as a light island on a dark page whichever theme this guide is toggled to; that pin only works because this page ships the <code>[data-theme="dark"]</code> rule <code>style.css</code> does not. Note the Primary button: it reads <code>--brand-ink</code>, which flips Azure &rarr; Midnight, while <code>.btn-cta</code> reads <code>--u-blue-600</code> directly and would not move.</p>
+
+    <h3 class="sg-sub">What flips</h3>
+    <div class="sg-table-wrap">
+      <table class="sg-table">
+        <thead><tr><th>Group</th><th>Tokens</th><th>In a light island</th></tr></thead>
+        <tbody>
+          <tr><td>Text</td><td><code>--text-strong</code>, <code>--text-heading</code>, <code>--text-body</code>, <code>--text-muted</code>, <code>--text-link</code></td><td>Flips. The first three go from pale blue-grays to Midnight, Royal Blue and Slate; <code>--text-muted</code> becomes a cool gray and <code>--text-link</code> becomes Azure.</td></tr>
+          <tr><td>Surfaces</td><td><code>--surface-page</code>, <code>--surface-card</code>, <code>--surface-card-ring</code>, <code>--surface-subtle</code>, <code>--surface-sunken</code>, <code>--u-surface-1</code>, <code>--u-surface-2</code>, <code>--surface-success-soft</code></td><td>Flips.</td></tr>
+          <tr><td>Borders</td><td><code>--border-subtle</code>, <code>--border-default</code>, <code>--border-strong</code></td><td>Flips. White-alpha becomes solid cool gray.</td></tr>
+          <tr><td>Neutral ramp</td><td><code>--u-gray-50</code> through <code>--u-gray-700</code>, all seven steps</td><td>Flips. <code>--u-gray-50</code>'s dark value <code>#0E1730</code> never actually renders &mdash; its only consumer, <code>.dash-topbar</code>, sits inside an island.</td></tr>
+          <tr><td>Shadows</td><td><code>--shadow-xs</code> through <code>--shadow-xl</code>, <code>--shadow-card</code></td><td>Flips. Black-based becomes navy-tinted.</td></tr>
+          <tr><td>Brand ink</td><td><code>--brand-ink</code></td><td>Flips. Azure <code>#046CDE</code> &rarr; Midnight <code>#020D4C</code>. The only one of the four Interactive/brand tokens that moves.</td></tr>
+          <tr><td>Raw brand hues</td><td><code>--u-navy</code>, <code>--u-cyan</code>, <code>--u-green</code>, <code>--u-orange</code>, the Azure steps, the suite aliases, the tints</td><td>Fixed. A hue is a hue in either scope.</td></tr>
+          <tr><td>Gradients</td><td><code>--grad-hero</code>, <code>--grad-dark</code>, <code>--grad-cyan</code>, <code>--grad-mint</code></td><td>Fixed. None has a light-island override, the hero wash included. This guide re-declares <code>--grad-hero</code> per theme only so its swatch reads at page level.</td></tr>
+          <tr><td>Dark chrome</td><td><code>--surface-dark</code>, <code>--surface-nav</code>, <code>--surface-nav-scrolled</code></td><td>Fixed. These exist to stay dark on a dark page.</td></tr>
+          <tr><td>Brand aliases</td><td><code>--brand-primary</code>, <code>--brand-primary-hover</code>, <code>--brand-accent</code></td><td>Fixed. They point straight at raw hues.</td></tr>
+          <tr><td>Type, radii, motion</td><td>Fonts, display sizes, leading, tracking, radii, easings, durations</td><td>Fixed. Theme changes color, nothing else.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sg-sub">The dark surface ladder</h3>
+    <p class="sg-desc">Dark separates surfaces with very small steps and leans on hairline borders, so the ordering matters more than the size of any one gap. Navy sits at the top: most lifted and most saturated, which is what makes it read as a brand band rather than one more gray. Ratios are against <code>--surface-page</code>; saturation is HSB. The swatches below are hardcoded to the dark hexes so the table still documents dark while this guide is toggled to Light.</p>
+    <div class="sg-table-wrap">
+      <table class="sg-table">
+        <thead><tr><th>Surface</th><th>Dark value</th><th>vs page</th><th>Sat.</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td><span class="sg-chip" style="background:#070C1F;"></span><code>--surface-page</code></td><td class="sg-num">#070C1F</td><td class="sg-num">1.00</td><td class="sg-num">77%</td><td>The ground everything is measured against.</td></tr>
+          <tr><td><span class="sg-chip" style="background:#0C142B;"></span><code>--surface-subtle</code></td><td class="sg-num">#0C142B</td><td class="sg-num">1.06</td><td class="sg-num">72%</td><td>Band separator. <code>--u-surface-1</code> is the same hex.</td></tr>
+          <tr><td><span class="sg-chip" style="background:#101A33;"></span><code>--surface-card</code></td><td class="sg-num">#101A33</td><td class="sg-num">1.13</td><td class="sg-num">69%</td><td>Default card ground.</td></tr>
+          <tr><td><span class="sg-chip" style="background:#16203C;"></span><code>--surface-sunken</code></td><td class="sg-num">#16203C</td><td class="sg-num">1.21</td><td class="sg-num">63%</td><td>Hover and inset fills. <code>--u-surface-2</code> is the same hex.</td></tr>
+          <tr><td><span class="sg-chip" style="background:#0C1C63;"></span><code>--surface-dark</code></td><td class="sg-num">#0C1C63</td><td class="sg-num">1.26</td><td class="sg-num">88%</td><td>Navy band. Lifted off raw Midnight, which measures 1.08 and disappears; white on it clears 15.42:1.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sg-sub">Token traps</h3>
+    <p class="sg-desc">Seven places where the obvious token is the wrong one. Each is checked against <code>style.css</code>, not inferred from the model.</p>
+    <ul class="rule-list">
+      <li><b><code>--brand-ink</code> and <code>--brand-primary</code> diverge only inside an island.</b> Both are Azure on the page, so they look interchangeable. In an island <code>--brand-ink</code> becomes Midnight and <code>--brand-primary</code> does not move. Pick by intent: <code>--brand-ink</code> for anything that should re-ink with its surface.</li>
+      <li><b><code>--u-ink</code> and <code>--u-gray-700</code> diverge only outside one.</b> Both are <code>#3C4554</code> inside an island. On the page <code>--u-gray-700</code> is <code>#C6D1E1</code> and <code>--u-ink</code> never moves. For text, use <code>--text-body</code>.</li>
+      <li><b><code>--grad-dark</code> is never remapped.</b> Its stops are <code>#061156</code>, <code>#020D4C</code> and <code>#01081f</code>, measuring 1.13, 1.08 and 1.02 against the page &mdash; the last stop is all but the page itself. Always pair the band with a 1px <code>--border-subtle</code> hairline, or use flat <code>--surface-dark</code> instead.</li>
+      <li><b>An island flips tokens, not literals.</b> <code>.bodie-preview</code> carries the attribute but paints itself <code>#0A1238</code> and its chat column in <code>rgba(255,255,255,&hellip;)</code>; only <code>.bodie-list</code>, which reads <code>var(--surface-card)</code>, turns white. Hard-coded values ignore the scope entirely.</li>
+      <li><b>Tokens with no light override still resolve.</b> <code>--surface-dark</code>, <code>--surface-nav</code>, <code>--surface-nav-scrolled</code> and all four gradients keep their dark values inside an island. Nothing errors &mdash; it renders dark on white.</li>
+      <li><b><code>--surface-card-ring</code> gets whiter in the island.</b> <code>rgba(255,255,255,0.06)</code> &rarr; <code>rgba(255,255,255,0.35)</code>. It is a halo around a white card floating on the dark page, not a ring for a light page, so on a genuinely light ground it vanishes.</li>
+      <li><b>Undefined tokens fail silently.</b> <code>--surface-1</code>, <code>--u-gray-500</code>, <code>--u-gray-800</code>, <code>--u-gray-900</code> and <code>--u-tint-green</code> appear nowhere in <code>style.css</code>; <code>var()</code> on any of them drops the property with no warning. The ramp has seven steps &mdash; 50, 100, 200, 300, 400, 600, 700, with no 500, 800 or 900 &mdash; the sunken surface is <code>--u-surface-1</code>, not <code>--surface-1</code>, and the shipped tints are <code>--u-tint-cyan</code>, <code>--u-tint-cyan-2</code> and <code>--u-tint-green-2</code>. There is no unsuffixed <code>--u-tint-green</code>.</li>
+    </ul>
+  </section>
+
+  <section class="sg-section">
     <h2>Gradients</h2>
-    <p class="sg-desc">Fixed compositions — none flip with the theme except the hero wash. <code>--grad-dark</code> bands always carry a 1px <code>--border-subtle</code> hairline: the darkest stop is ~1.02:1 against the page and the band edge vanishes without it.</p>
+    <p class="sg-desc">Four gradients, and no fifth — everything else in the system is a flat fill, with no textures or pattern overlays. On the shipped site none of the four flip with the theme: <code>style.css</code> declares one value each under “raw, do not flip”, and the light island overrides no gradient. The light <code>--grad-hero</code> below is this page's own light-mode value and has no counterpart in the site CSS.</p>
+    <ul class="rule-list">
+      <li><b>--grad-dark needs a hairline.</b> Its darkest stop <code>#01081f</code> is 1.02:1 against <code>--surface-page</code> — without a 1px <code>--border-subtle</code> border the band has no visible edge. Enforced on the Bodie band, footer CTA and tour frame.</li>
+      <li><b>--grad-cyan is decorative only.</b> White on it measures 1.98:1 at the cyan stop and 4.99:1 at the blue stop, so it fails AA across most of its length. Fine behind avatar initials; never behind informational text. On flat cyan, use Midnight <code>#020D4C</code> (9.10:1).</li>
+      <li><b>--grad-mint is the only sanctioned home for the green tint.</b> <code>--u-tint-green-2</code> is never a standalone fill.</li>
+    </ul>
     <div class="sg-grid" id="gradSwatches"></div>
   </section>
 
@@ -209,8 +514,82 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
 
   <section class="sg-section">
     <h2>Motion</h2>
-    <p class="sg-desc">One curve for everything: <code>--ease-out: cubic-bezier(0.22, 1, 0.36, 1)</code>. Two durations: <code>--dur-fast</code> 140ms for hovers and toggles, <code>--dur-base</code> 220ms for entrances and slides. Never animate layout properties; disable entrances under <code>prefers-reduced-motion</code>.</p>
+    <p class="sg-desc"><code>--ease-out: cubic-bezier(0.22, 1, 0.36, 1)</code> is the system curve and covers everything except one case. Durations are split by what they animate, not by how big the element is.</p>
+    <ul class="rule-list">
+      <li><b>--dur-fast, 140ms.</b> Transform and press feedback.</li>
+      <li><b>--dur-base, 220ms.</b> Color, background, border.</li>
+      <li><b>--dur-reveal, 600ms.</b> Scroll-triggered section entrances — fired once by <code>IntersectionObserver</code> at 20% visibility, never scroll-linked, never replayed.</li>
+      <li><b>--dur-slide, 620ms + --ease-slide.</b> The voices carousel track only. <code>--ease-slide</code> is a gentler ease-out (<code>cubic-bezier(0.22, 0.61, 0.36, 1)</code>) because the system curve arrives too abruptly across a 600px translate. It is the one sanctioned second curve — do not reach for it elsewhere.</li>
+      <li><b>Entrances rise 18px</b> and fade in. Staggered groups offset each child by 100–120ms. The testimonial panel is not staggered; it cross-fades as a unit.</li>
+      <li><b>Animate transform and opacity by default.</b> Three shipped components animate a layout property because no transform equivalent exists: the nav mega-panel's <code>max-height</code>, the testimonial progress bar's <code>width</code>, and the voices dot's <code>width</code>. Adding a fourth needs a reason.</li>
+      <li><b>One infinite loop exists</b> — the customer logo marquee, 36s linear, paused on hover and disabled under reduced motion. Nothing else loops.</li>
+      <li><b>Reduced motion</b> collapses every duration to 0.001ms globally. Note it zeroes <em>duration</em> only: <code>transition-delay</code> survives, so stagger offsets still apply. JS-driven motion is not covered at all — gate it on <code>matchMedia('(prefers-reduced-motion: reduce)')</code> and jump straight to the end state.</li>
+    </ul>
     <div class="motion-demo"><div class="motion-chip"></div><span style="font-size:13px;color:var(--text-muted);">Hover this panel — 220ms, ease-out, transform only.</span></div>
+  </section>
+
+  <section class="sg-section sg-icons">
+    <h2>Iconography</h2>
+    <p class="sg-desc">Inline Lucide SVG. No icon font is loaded anywhere on the site — the only webfonts are Poppins and IBM Plex Mono. Every glyph is drawn on a <code>0 0 24 24</code> viewBox with <code>fill="none"</code>, <code>stroke="currentColor"</code> and rounded caps and joins, sized in px by the component that holds it and colored by the text color it inherits. One asset serves both themes.</p>
+
+    <h3 class="sg-sub">Specimen</h3>
+    <p class="sg-desc" style="margin-bottom:16px;">Real path data lifted from the shipped pages. The two panels contain byte-identical SVG markup; only the <code>color</code> set on the panel differs, and <code>currentColor</code> carries it into every stroke. That is the whole reason no glyph needs a second asset for dark surfaces. Shown at 20px — a display size for this row, not one of the shipped sizes listed below.</p>
+    <div class="icon-spec">
+      <span class="icon-spec-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span class="icon-spec-name">search</span></span>
+      <span class="icon-spec-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.52 16h12.96"/></svg><span class="icon-spec-name">flask-conical</span></span>
+      <span class="icon-spec-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg><span class="icon-spec-name">layout-grid</span></span>
+      <span class="icon-spec-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/></svg><span class="icon-spec-name">sparkle</span></span>
+      <span class="icon-spec-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="icon-spec-name">arrow-right</span></span>
+    </div>
+    <div class="icon-spec icon-spec-dark">
+      <span class="icon-spec-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span class="icon-spec-name">search</span></span>
+      <span class="icon-spec-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.52 16h12.96"/></svg><span class="icon-spec-name">flask-conical</span></span>
+      <span class="icon-spec-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg><span class="icon-spec-name">layout-grid</span></span>
+      <span class="icon-spec-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/></svg><span class="icon-spec-name">sparkle</span></span>
+      <span class="icon-spec-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="icon-spec-name">arrow-right</span></span>
+    </div>
+
+    <h3 class="sg-sub">Markup</h3>
+    <p class="sg-desc" style="margin-bottom:10px;">Paste the glyph body inside this wrapper:</p>
+    <div class="icon-code-wrap"><code>&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"&gt;</code></div>
+    <p class="sg-desc" style="margin-top:10px;">Only two things on that element are ever yours to set. <code>stroke-width</code> is 1.75 unless the glyph qualifies for 2 under Stroke weight below, and <code>width</code>/<code>height</code> may be added when the component has no CSS rule to size the SVG — three shipped icons are sized that way. Nothing else belongs there: no <code>class</code> for color, no <code>stroke</code> other than <code>currentColor</code>, no <code>fill</code> other than <code>none</code>.</p>
+
+    <h3 class="sg-sub">Sizes in use</h3>
+    <p class="sg-desc" style="margin-bottom:8px;">There is no icon size token. Each component sizes its own SVG, either through a CSS rule on the parent or through inline <code>width</code>/<code>height</code> attributes. Reach for the nearest shipped size instead of introducing a new one. An SVG given neither renders at 300&times;150 — the CSS default for a replaced element with no intrinsic size, not a value this system chose.</p>
+    <div class="icon-size-row"><code>14px</code><span class="icon-size-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span><span>.bodie-prompt svg &middot; .bodie-send svg &middot; .nav-suites-foot svg &mdash; the last sized by inline attributes</span></div>
+    <div class="icon-size-row"><code>15px</code><span class="icon-size-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span><span>.industry-pill svg &middot; .bodie-rail svg &middot; .case-read svg</span></div>
+    <div class="icon-size-row"><code>16px</code><span class="icon-size-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span><span>.dash-rec-head svg &mdash; sized by inline attributes</span></div>
+    <div class="icon-size-row"><code>19px</code><span class="icon-size-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:19px;height:19px;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span><span>.mega-item-icon svg &mdash; centered in a 38px tile</span></div>
+    <div class="icon-size-row"><code>22px</code><span class="icon-size-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span><span>.bodie-feature svg</span></div>
+    <div class="icon-size-row" style="border-bottom:none;"><code>28px</code><span class="icon-size-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span><span>.tour-play-btn svg &mdash; the largest icon in the component CSS</span></div>
+
+    <h3 class="sg-sub">Color</h3>
+    <p class="sg-desc" style="margin-bottom:8px;">Icons carry no color of their own; the parent sets it and <code>currentColor</code> follows. The shipped assignments:</p>
+    <ul class="rule-list">
+      <li><b><code>--u-blue-600</code>.</b> Nav mega-menu icons and industry pills. Both live inside <code>.nav-panel</code>, which is <code>--surface-card</code> with no light island around it — so on the shipped pages this is Azure on a <i>dark</i> panel, not a light one: 3.65:1 on the <code>--u-surface-1</code> icon tile, 3.45:1 on the panel itself. Both clear the 3:1 bar for graphical objects with very little headroom, so do not darken those surfaces further. The same token is 4.99:1 on white if you need it on a light island.</li>
+      <li><b><code>--u-cyan</code>.</b> Accent icons inside the dark Bodie band (<code>.bodie-prompt</code>, <code>.bodie-feature</code>) &mdash; 8.5:1 or better against every stop of <code>--grad-dark</code>. Rail icons in that same band drop to <code>rgba(255,255,255,0.4)</code> (3.64:1 composited) because they read as inactive chrome, not accent.</li>
+      <li><b><code>--text-link</code>.</b> Inline &ldquo;go&rdquo; affordances &mdash; the recommendation header, and the case-study read arrow, which inherits from <code>.case-read</code> rather than setting its own color.</li>
+      <li><b><code>--text-strong</code>.</b> Neutral chrome &mdash; the Solutions panel footer (<code>.nav-suites-foot svg</code>), the one icon whose color is set separately from the muted text beside it.</li>
+      <li><b><code>--u-navy</code>.</b> Icons sitting on a Sky Cyan fill: the tour play triangle and the Bodie send arrow, both 9.10:1. Contrast comes from the fill beneath, so the icon takes the darkest token available.</li>
+    </ul>
+
+    <h3 class="sg-sub">Stroke weight</h3>
+    <p class="sg-desc" style="margin-bottom:16px;">Two weights ship. 1.75 is the default and covers 38 of the 43 icons on <code>index.html</code> and <code>customers.html</code>. The five at 2 are bare geometric marks rather than pictographs &mdash; the tour play triangle and four arrows &mdash; where 1.75 goes weedy against a large fill or beside 14px type. Pictographs stay at 1.75; use 2 only for an arrow or a triangle. If you grep and find a third value, <code>stroke-width="3"</code> appears twice: both are polylines inside the two chart SVGs, which are drawings, not icons.</p>
+    <div class="icon-spec">
+      <span class="icon-spec-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="icon-spec-name">1.75 &mdash; default</span></span>
+      <span class="icon-spec-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="icon-spec-name">2 &mdash; arrows, triangles</span></span>
+    </div>
+
+    <h3 class="sg-sub">Rules</h3>
+    <ul class="rule-list">
+      <li><b>The No-Emoji Rule.</b> Emoji are never UI iconography &mdash; not as a stand-in for a missing icon, not as flair in a toggle, badge, or status chip. An emoji renders in whatever font the OS ships, so its color, weight, and style all sit outside the system, and it obeys none of the sizing, stroke, or color-token discipline above. Use a Lucide glyph instead. Nothing in the shipped source breaks this today; keep it that way.</li>
+      <li><b>Unicode arrows are the one exception.</b> <code>&amp;larr; &amp;rarr; &amp;uarr;</code> set as type: the announcement link, the carousel controls (18px glyph inside a 64px <code>.icon-btn-lg</code>), the <code>.flow-arrow</code> connectors, and the <code>&uarr;</code> in <code>.statblock-accent</code> at <code>clamp(40px, 6vw, 76px)</code>. Those are Poppins characters, not icons &mdash; they scale with type and take no stroke attributes. The exception covers arrows and nothing else.</li>
+      <li><b>Lucide only.</b> One library, pulled from lucide.dev. It is also what the Academy app ships (<code>lucide-react</code>), so both surfaces draw from the same set. Note the conflict with DESIGN.md: it names Material Symbols Rounded as the icon family and permits Lucide only under a &ldquo;non-brand exception&rdquo; scoped to tools needing two or three glyphs. The marketing pages ship 43. No Material Symbols font is loaded on any page, so Lucide is what is actually shipped &mdash; but the exception no longer describes the situation, and DESIGN.md and this page should be reconciled rather than left to disagree.</li>
+      <li><b><code>currentColor</code>, always.</b> A hardcoded <code>stroke="#046CDE"</code> survives one theme and breaks in the other. Set color on the parent so the same glyph works on white and on <code>--grad-dark</code>.</li>
+      <li><b>Stroked, not filled.</b> Every icon on the site is <code>fill="none"</code>. The only filled marks are the six data points inside the two chart SVGs and the 9px <code>.suite-dot</code>, which is a CSS element rather than an icon.</li>
+      <li><b>Size the parent, never the path.</b> Width and height belong on the SVG element via the component's CSS rule or inline attributes. Do not scale a glyph by editing its path data.</li>
+      <li><b>Pull fresh path data.</b> A few shipped glyphs are variants whose path data no longer matches the current Lucide release. Copy from lucide.dev, not from a neighboring element on the page.</li>
+    </ul>
   </section>
 
   <section class="sg-section">
@@ -247,13 +626,134 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
   </section>
 
   <section class="sg-section">
-    <h2>Search Field</h2>
-    <p class="sg-desc">The one input pattern on the site (hero email capture): borderless input on a floating card, 8px ring via <code>--surface-card-ring</code>, paired with a CTA button. That ring is a white glow meant for a light card floating on the site's dark page — toggle this guide to Light and it goes invisible against the white page background. That's the token working as shipped, not a bug in this demo.</p>
-    <div class="searchfield-demo">
-      <input type="email" placeholder="Enter your work email" aria-label="Work email">
-      <span class="btn btn-cta" style="padding:10px 20px;font-size:14px;">Request a demo</span>
+    <h2>Interaction States</h2>
+    <p class="sg-desc">Hover, press, focus, disabled. Every value below is read off <code>style.css</code> — that file is the contract. Where the Figma motion page disagrees, the shipped rule is documented and the gap is named.</p>
+
+    <h3 class="sg-sub">Hover</h3>
+    <ul class="rule-list">
+      <li><b>Buttons lift 1px.</b> <code>.btn:hover</code> is <code>translateY(-1px)</code> plus a <code>text-decoration: none</code> reset, and nothing more — the shadow never steps. Figma's Motion page opens by claiming a 2px hover lift; nothing on the site moves 2px.</li>
+      <li><b>Cards lift 4px.</b> <code>.case-card:hover</code> is <code>translateY(-4px)</code> plus <code>--shadow-xl</code>. It is the only card with a hover transform — <code>.voices-card</code> and <code>.testi-quote-card</code> also move, but off state classes, never off the pointer. <code>.res-card</code> carries <code>cursor: pointer</code> and no hover rule at all, and <code>.sol-card</code> has neither.</li>
+      <li><b>Solid fills swap, Accent inverts.</b> CTA darkens to <code>--u-blue-700</code> through <code>--brand-primary-hover</code>. Primary lands on the same colour but writes it as a literal <code>#0356B4</code>, twice — the one hover in the file that ignores the palette's own &ldquo;reference by variable name, never by hex&rdquo; rule. Accent goes the other way and lightens to <code>--u-tint-cyan</code>; its label is Midnight, so that pairing widens from 9.10:1 to 12.31:1 instead of compressing.</li>
+      <li><b>Outlines fill, they do not thicken.</b> <code>.btn-outline:hover</code> takes <code>--u-surface-1</code>; <code>.btn-outline-light:hover</code> takes <code>rgba(255,255,255,0.12)</code> and a <code>#fff</code> border. Hover moves <code>border-color</code> only — the 1.5px border is what gives solid and outline an identical footprint, and thickening it on hover would shove the row sideways.</li>
+      <li><b>Icon buttons invert, never lift.</b> <code>.icon-btn-outline:hover</code> fills with <code>--brand-ink</code>, sets <code>#fff</code> glyph and a matching border. There is no transform: <code>.icon-btn</code>'s transition list is <code>background</code> and <code>border-color</code> only. <code>color</code> is absent, so the glyph snaps while the fill takes 220ms — for that window on the way out the arrow is <code>--text-strong</code> sitting on a fill that has not finished clearing, and it disappears. Shipped as-is; add <code>color</code> to the transition list if you fix it.</li>
+      <li><b>The tour play button scales.</b> <code>.tour-play:hover .tour-play-btn</code> is <code>scale(1.06)</code> — the one control that grows rather than lifts: it sits centered on the video frame, where a lift has no edge to read against.</li>
+      <li><b>Rows and links tint their ground.</b> Nav mega-items and suite links take <code>--u-surface-2</code>; the suite link also goes <code>--text-link</code>. Industry pills take <code>--u-blue-600</code> for border and text over that same ground. Marquee logos are the one link that recolors instead of tinting — <code>.cust-logo:hover</code> goes <code>--text-link</code> with no underline. Bare links fall back to <code>a:hover</code>, an underline.</li>
+      <li><b>Transform 140ms, color 220ms.</b> That split holds on <code>.btn</code>. Two hover transforms break it and run at <code>--dur-base</code>: <code>.case-card</code> and <code>.tour-play-btn</code>. Transforms that are not hover run on their own budgets — <code>--dur-reveal</code> for entrances, <code>--dur-slide</code> for the carousel, and one unbudgeted <code>0.35s</code> literal on the testimonial cross-fade. A third hover exception needs a reason.</li>
+      <li><b>Gate hover behind a pointer query only when it withholds something.</b> The logo marquee's hover-to-pause sits inside <code>@media (hover: hover) and (pointer: fine)</code> — the only such gate in the file — because a touch device would otherwise never resume. Everything else here is decorative and stays ungated.</li>
+    </ul>
+
+    <h3 class="sg-sub">Press</h3>
+    <ul class="rule-list">
+      <li><b>Press is <code>scale(0.97)</code>.</b> <code>.btn:active</code>, at <code>--dur-fast</code>. It matches the Figma spec exactly.</li>
+      <li><b>Press replaces the lift, it does not stack.</b> Both states write <code>transform</code>, and <code>:active</code> is declared after <code>:hover</code> at equal specificity, so a held button sits flat and shrunk rather than lifted and shrunk. Keep that source order in any copy of this pattern.</li>
+      <li><b>Nothing else has an <code>:active</code> rule.</b> <code>.btn:active</code> is the only one in the file. Icon buttons, case cards, the play button and the carousel dots do not respond to being held. Adding press feedback means adding it to the whole control family, not to one component.</li>
+    </ul>
+
+    <h3 class="sg-sub">Focus</h3>
+    <ul class="rule-list">
+      <li><b>No custom focus ring ships.</b> There is no <code>:focus</code> or <code>:focus-visible</code> rule anywhere in <code>style.css</code>; every control shows the browser default. The Core Palette above still labels <code>--u-blue-400</code> the focus-ring colour — that ring was specified and never built. Do not replace the default with something quieter: match it or beat it, and <code>--u-blue-400</code> is the value waiting for whoever does.</li>
+      <li><b>Hover styling is not focus styling.</b> <code>.icon-btn-outline:hover</code> fires on pointer only. A keyboard user reaching that button gets the default ring and no fill, which is why the ring has to survive.</li>
+      <li><b>Two elements suppress the outline.</b> <code>.searchfield-input</code> and <code>.voices-viewport</code> both set <code>outline: none</code>. They are the only two. The search field's 8px <code>--surface-card-ring</code> is static and does not stand in for a focus ring.</li>
+      <li><b>The voices viewport is the live gap.</b> It is <code>tabindex="0"</code>, it owns the Arrow&nbsp;Left / Arrow&nbsp;Right handler, and its outline is off — a keyboard user can drive the carousel with no visible sign of where focus sits. Fix it before copying the pattern.</li>
+    </ul>
+
+    <h3 class="sg-sub">Disabled</h3>
+    <ul class="rule-list">
+      <li><b>Disabled is <code>opacity: 0.4</code> plus <code>cursor: not-allowed</code>.</b> <code>.icon-btn:disabled</code>. No color or border swap — one opacity carries the state in both themes.</li>
+      <li><b>Kill the hover on the disabled element.</b> <code>.icon-btn-outline:disabled:hover</code> restores transparent, <code>--text-strong</code>, <code>--border-default</code>. CSS still matches <code>:hover</code> on a disabled button, so without that line a dead arrow fills with <code>--brand-ink</code> at 40% and reads as live.</li>
+      <li><b>Set it as a property, not a class.</b> The voices carousel sets the button's <code>disabled</code> property at each end of the range, so the state reaches assistive tech for free. A visual-only <code>is-disabled</code> class does not.</li>
+      <li><b><code>.btn</code> has no disabled state.</b> Nothing styles <code>.btn:disabled</code>, and most buttons on the site are anchors. If one is needed, mirror the icon-button recipe rather than inventing a third treatment.</li>
+    </ul>
+
+    <h3 class="sg-sub">Across all four</h3>
+    <ul class="rule-list">
+      <li><b>The transition lives on the base class.</b> <code>.btn</code>, <code>.icon-btn</code>, <code>.case-card</code> and <code>.tour-play-btn</code> declare it; the pseudo-class only sets the end value. That is what makes the state ease back out as well as in.</li>
+      <li><b>Reduced motion keeps the state and drops the tween.</b> The global rule zeroes <code>transition-duration</code>, so a hover still lifts and a press still shrinks — they just arrive instantly. Never branch on reduced motion to remove the transform; the state has to stay readable.</li>
+    </ul>
+
+    <h3 class="sg-sub">Live states</h3>
+    <p class="sg-desc">Hover each control, then hold it. Tab through the row to see the default focus ring the system relies on.</p>
+    <div class="comp-row state-row">
+      <div class="state-demo">
+        <button class="btn btn-cta">Request a demo</button>
+        <span class="state-caption">Hover <code>translateY(-1px)</code> at 140ms + fill to <code>--u-blue-700</code> at 220ms. Hold: <code>scale(0.97)</code>.</span>
+      </div>
+      <div class="state-demo">
+        <button class="btn btn-outline">See the platform</button>
+        <span class="state-caption">Hover fills <code>--u-surface-1</code>. Border color holds; width never moves off 1.5px.</span>
+      </div>
+      <div class="state-demo">
+        <div class="card-demo card-demo-lift">
+          <p style="font-size:13px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin:0 0 8px;">Case study</p>
+          <h3 style="font-size:20px;">1,000+ users</h3>
+        </div>
+        <span class="state-caption">Hover <code>translateY(-4px)</code> + <code>--shadow-xl</code>, both at 220ms.</span>
+      </div>
+      <div class="state-demo">
+        <button class="state-play" aria-label="Play the product tour">
+          <span class="tour-demo-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg></span>
+        </button>
+        <span class="state-caption">Hover <code>scale(1.06)</code> at 220ms. No lift, no shadow step.</span>
+      </div>
+      <div class="state-demo">
+        <div class="comp-row" style="margin-bottom:0;">
+          <button class="icon-btn-demo" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg></button>
+          <button class="icon-btn-demo" aria-label="Previous, disabled" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg></button>
+        </div>
+        <span class="state-caption">Hover fills <code>--brand-ink</code>. The disabled twin holds at <code>opacity: 0.4</code> and refuses the hover.</span>
+      </div>
     </div>
   </section>
+
+  <section class="sg-section">
+  <h2>Forms</h2>
+  <p class="sg-desc">Two patterns ship. The labelled text input carries the button's 1.5px border on the 6px control radius, so a field and the button beside it share an identical footprint. The hero search field is the one sanctioned exception — a borderless input inside a card. Both bind label and value to <code>--text-strong</code> — never a raw brand hue, which is exactly what breaks when the surface flips.</p>
+
+  <h3 class="sg-sub">Text input</h3>
+  <p class="sg-desc" style="margin-bottom:16px;">Label is 14px / 500 in <code>--text-strong</code>, 8px above the field. The field is 46px tall — the same height as <code>.btn-md</code> — so an input and its submit button align on one row. Border and focus colors fade over <code>--dur-base</code>, the same 220ms every other color change uses.</p>
+  <div class="comp-row" style="align-items:flex-start;">
+    <div class="input-demo">
+      <label class="input-demo-label" for="sgInputRest">Project name</label>
+      <input class="input-demo-field" id="sgInputRest" type="text" placeholder="Coating Series A">
+      <span class="input-demo-msg">Rest — 1.5px <code>--border-default</code>.</span>
+    </div>
+    <div class="input-demo">
+      <label class="input-demo-label" for="sgInputFocus">Project name</label>
+      <input class="input-demo-field is-focus" id="sgInputFocus" type="text" value="Coating Series A">
+      <span class="input-demo-msg">Focus — border and 3px ring both <code>--u-blue-400</code>.</span>
+    </div>
+    <div class="input-demo is-error">
+      <label class="input-demo-label" for="sgInputError">Project name</label>
+      <input class="input-demo-field" id="sgInputError" type="text" value="Coating Series A" aria-invalid="true" aria-describedby="sgInputErrorMsg">
+      <span class="input-demo-msg" id="sgInputErrorMsg">A project with this name already exists.</span>
+    </div>
+  </div>
+
+  <h3 class="sg-sub">Search field</h3>
+  <p class="sg-desc" style="margin-bottom:16px;">The hero email capture, and the one place a borderless input is correct: the shell is a floating card at <code>--radius-lg</code>, not a bare 6px control, so the input inside drops its own border and the card carries the shape. Paired with a CTA button. The 8px <code>--surface-card-ring</code> is a white glow meant for a light card on the site's dark page — toggle this guide to Light and it goes invisible against the white page. That is the token working as shipped, not a bug in this demo.</p>
+  <div class="searchfield-demo">
+    <input type="email" placeholder="Enter your work email" aria-label="Work email">
+    <span class="btn btn-cta" style="padding:10px 20px;font-size:14px;">Request a demo</span>
+  </div>
+
+  <h3 class="sg-sub">Focus ring</h3>
+  <p class="sg-desc" style="margin-bottom:16px;">Tab into either demo above. Nothing in <code>style.css</code> defines a focus style today — this is the specification, not a description of shipped code.</p>
+  <ul class="rule-list">
+    <li><b>The ring is 3px --u-blue-400 (#2E86E8)</b> with the field's 1.5px border switching to the same color. It clears the 3:1 non-text bar on both grounds — 5.26:1 against <code>--surface-page</code> on dark, 3.69:1 against white. Blue-400 is the focus color and has no other job in the system — it is otherwise a chart and illustration accent.</li>
+    <li><b>Focus outranks error.</b> A field in the error state still takes the blue border and ring when focused; the message below is what keeps carrying the error. Scope the focus rule so it wins the cascade against the error rule rather than losing to it on specificity.</li>
+    <li><b>Composite controls take the ring on the shell.</b> The search field puts it on <code>.searchfield</code> via <code>:focus-within</code>, not on the borderless input inside — a ring drawn around a transparent input floating in a card reads as a misprint.</li>
+    <li><b>Nothing ships today.</b> <code>style.css</code> contains no <code>:focus-visible</code> rule at all, and two elements clear the native indicator with no replacement: <code>.searchfield-input</code>, and <code>.voices-viewport</code>, which is <code>tabindex="0"</code> and therefore genuinely reachable. A keyboard user tabbing to the hero email field currently gets no visible target. Fix the removal before adding the ring anywhere else.</li>
+  </ul>
+
+  <h3 class="sg-sub">Rules</h3>
+  <ul class="rule-list">
+    <li><b>1.5px border, 6px radius.</b> Same border weight as <code>.btn</code> and the same <code>--radius-control</code>, so a field and its button have an identical footprint. The search field is the documented exception: its shell is a card at <code>--radius-lg</code>.</li>
+    <li><b>Bind label and value to --text-strong.</b> Shipped <code>.searchfield-input</code> still hard-codes <code>--u-navy</code>. It survives only because the hero wraps the field in a <code>data-theme="light"</code> island — the same field on the dark page measures 1.05:1 against <code>--surface-card</code> and disappears.</li>
+    <li><b>Placeholder is not a label.</b> Placeholder is <code>--text-muted</code> and vanishes the moment someone types. Every field carries a visible <code>&lt;label&gt;</code>, or an <code>aria-label</code> where the layout genuinely has no room — the search field is the only one that qualifies.</li>
+    <li><b>Errors turn the border --u-orange and add a message below.</b> Never carry the error in color alone: Amber is 1.84:1 against white, under the 3:1 bar a state indicator has to clear, so on a light island the border shift alone does not register as a signal — it swaps one low-contrast edge for another. The message text is <code>--text-body</code> — the palette has no error text token, and Amber type fails on light.</li>
+    <li><b>Native controls follow color-scheme.</b> Both theme scopes in <code>style.css</code> declare it, so date pickers, select menus, autofill chrome, and scrollbars match the surface without extra styling. A new theme scope that omits it will render light OS chrome on a dark card.</li>
+  </ul>
+</section>
 
   <section class="sg-section">
     <h2>Tags &amp; Avatars</h2>
@@ -339,6 +839,234 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     </div>
   </section>
 
+  <section class="sg-section">
+    <h2>Section Recipes</h2>
+    <p class="sg-desc">Every page is a stack of full-bleed bands. A band owns its background and its vertical padding; a 1280px container inside it owns the horizontal edge. The content shape barely varies — eyebrow, left-aligned display headline, then the payload.</p>
+
+    <h3 class="sg-sub">The frame</h3>
+    <ul class="rule-list">
+      <li><b>One container, 1280px.</b> <code>.container-max</code> is <code>max-width:1280px; margin:0 auto; padding:0 clamp(20px,3vw,40px)</code>. The nav bar, the mega-panel and the footer inner all repeat those same three declarations, so the page edge never shifts between chrome and content.</li>
+      <li><b>The gutter is <code>clamp(20px,3vw,40px)</code>.</b> 20px on phones, 40px from roughly 1333px up. It is the only horizontal inset in the system — no section invents its own.</li>
+      <li><b>Standard rhythm is <code>clamp(56px,8vw,112px)</code>,</b> top and bottom, set on the <code>&lt;section&gt;</code> rather than the inner wrapper so the background fills the whole band. Solutions, Stats, Testimonials, Resources, Voices, Tour and Case Studies all use it. Deviations are deliberate, few, and always smaller: hero <code>clamp(40px,5.5vw,88px)</code>, Bodie <code>clamp(48px,7vw,96px)</code>, footer CTA <code>clamp(56px,7vw,104px)</code>, logo marquee a flat <code>40px 0 48px</code>.</li>
+      <li><b>The head block is near-fixed.</b> <code>.eyebrow</code>, the display headline 14px below it, then 40px to the content. The head row — one shared rule for <code>.solutions-head</code>, <code>.resources-head</code> and <code>.stats-head</code> — is <code>flex</code> with <code>align-items:flex-end</code> and <code>justify-content:space-between</code> at 24px gap, so a trailing button or arrow pair sits flush with the bottom of the headline instead of floating above the cards. Testimonials is the exception: no head row at all, and 48px under the headline.</li>
+      <li><b>Carousel tracks break the container on purpose.</b> <code>.sol-track</code> and <code>.res-track</code> run edge to edge and carry the gutter as their own <code>padding:4px clamp(20px,3vw,40px) 20px</code>. The first card lines up with the container, the rest bleed off the right edge to signal there is more. 22px gap, <code>scroll-snap-type:x mandatory</code>.</li>
+      <li><b>New sections use the class.</b> <code>index.html</code> predates <code>.container-max</code> and never references it; instead seven rules of its own re-declare those three properties — <code>.hero-inner</code>, <code>.customers-mask</code>, the shared <code>.solutions-head/.resources-head/.stats-head</code>, <code>.stats-feature</code>, <code>.stats-row</code>, <code>.testimonials</code> and <code>.footer-links-inner</code>. <code>customers.html</code> uses the class. Build the second way.</li>
+    </ul>
+
+    <h3 class="sg-sub">Band order</h3>
+    <p class="sg-desc">The homepage grounds, top to bottom — the sticky nav floats over them and is not a band of its own. The ground changes when the content type changes, not on a fixed cadence, which is why three page-ground bands run consecutively through the middle of the page.</p>
+    <div class="band-stack">
+      <div class="band-row band-cyan"><b>Announce</b><code>--u-tint-cyan</code></div>
+      <div class="band-row band-hero"><b>Hero</b><code>--grad-hero</code></div>
+      <div class="band-row band-page"><b>Logo marquee</b><code>--surface-page</code></div>
+      <div class="band-row band-tint"><b>Feature band — Bodie</b><code>--u-surface-1</code></div>
+      <div class="band-row band-page"><b>Solutions carousel</b><code>--surface-page</code></div>
+      <div class="band-row band-page"><b>Stat wall</b><code>--surface-page</code></div>
+      <div class="band-row band-page"><b>Testimonials</b><code>--surface-page</code></div>
+      <div class="band-row band-tint"><b>Resources</b><code>--u-surface-1</code></div>
+      <div class="band-row band-dark"><b>Footer CTA</b><code>--grad-dark</code></div>
+      <div class="band-row band-navy"><b>Footer links</b><code>--u-navy</code></div>
+    </div>
+    <ul class="rule-list">
+      <li><b>Tinted never touches tinted.</b> <code>--u-surface-1</code> is punctuation. Two in a row read as one long band and the separation is lost.</li>
+      <li><b>A band goes dark for three reasons only.</b> A product moment that needs cyan accents (Bodie, Tour), a conversion moment (footer CTA), or chrome (footer links). Nothing else earns <code>--grad-dark</code>.</li>
+      <li><b>Dark surfaces need an edge.</b> Every <code>--grad-dark</code> band carries a 1px <code>--border-subtle</code> hairline — top and bottom on the footer CTA and the tour, all four sides on the Bodie panel — because <code>--grad-dark</code> bottoms out at <code>#01081f</code>, 1.02:1 against the page. The navy footer has no border of its own, so that footer-CTA hairline is also the only thing separating the two: the one place two dark surfaces meet.</li>
+      <li><b>Inset the dark panel when it shows product, full-bleed it when it asks for the click.</b> The Bodie band is a <code>--radius-xl</code> panel floating inside a tinted section; the footer CTA and the product tour are true full-bleed.</li>
+    </ul>
+
+    <h3 class="sg-sub">Recipes</h3>
+    <ul class="rule-list">
+      <li><b>Sticky nav.</b> Translucent page-navy <code>--surface-nav</code> over <code>saturate(180%) blur(14px)</code>, stepping to <code>--surface-nav-scrolled</code> plus a <code>--border-subtle</code> bottom hairline once scrolled; 1280px container, 14px block padding. Both nav tokens are site-only — <code>style.css</code> declares them, this guide's semantic table does not carry them.</li>
+      <li><b>Hero.</b> Full-bleed <code>--grad-hero</code>; 1280px two-column grid <code>minmax(0,0.92fr) minmax(0,1.08fr)</code> at <code>clamp(28px,4vw,64px)</code> gap; <code>clamp(40px,5.5vw,88px)</code> block padding; the preview pulls past the gutter with <code>margin-right:clamp(-72px,-5vw,-24px)</code>.</li>
+      <li><b>Logo marquee.</b> <code>--surface-page</code> at a flat <code>40px 0 48px</code> — the shortest content band on the page, because it is a proof strip rather than a section. The container and gutter ride on the mask, which clips a <code>width:max-content</code> track and fades it out at 10% and 90%.</li>
+      <li><b>Feature band.</b> <code>--u-surface-1</code> section at <code>clamp(48px,7vw,96px)</code> holding a 1280px <code>--grad-dark</code> panel at <code>--radius-xl</code> with <code>--shadow-xl</code> and a hairline; interior pads <code>clamp(40px,5vw,72px) clamp(28px,4vw,64px) clamp(36px,4vw,56px)</code>, then a <code>rgba(255,255,255,0.10)</code> divider and a 3-up capability grid.</li>
+      <li><b>Solutions carousel.</b> <code>--surface-page</code> at standard rhythm; head inside the container, track full-bleed; <code>.card.card-tinted.sol-card</code> at a fixed 440px height and <code>flex:0 0 clamp(300px,38vw,420px)</code> — the sizing is on <code>.sol-card</code>, the fill on <code>.card-tinted</code>. Arrows sit top-right in the head row — never centered over the cards.</li>
+      <li><b>Stat wall.</b> <code>--surface-page</code> at standard rhythm; feature panel 56px under the head on a <code>minmax(0,1.3fr) minmax(0,1fr)</code> split, then a <code>--border-subtle</code> rule <code>clamp(40px,5vw,72px)</code> down with <code>clamp(32px,4vw,56px)</code> of air above a <code>repeat(auto-fit,minmax(180px,1fr))</code> row. That row is the homepage's one staggered reveal.</li>
+      <li><b>Testimonials.</b> <code>--surface-page</code> at standard rhythm; the section is its own container — 1280px and gutter applied directly, no inner wrapper. Panel splits <code>minmax(0,1.7fr) minmax(0,1fr)</code> at 18px gap: a <code>.card-dark</code> quote beside a <code>--u-surface-1</code> stat card, both at <code>3rem</code> padding. Tab rail 64px below, behind a <code>--border-subtle</code> rule with 32px of clearance.</li>
+      <li><b>Resources.</b> <code>--u-surface-1</code> at standard rhythm; same head and full-bleed track as Solutions. Cards are <code>--surface-card</code> with a 190px header — <code>--grad-dark</code>, <code>--grad-mint</code> or <code>--grad-cyan</code>, plus one flat <code>#03061a</code> variant — closing on a <code>.tag</code> row. The only card in the system whose top is a gradient.</li>
+      <li><b>Footer CTA.</b> Full-bleed <code>--grad-dark</code>, hairline top and bottom, centered; no 1280px container — the title caps at 1100px and centers itself. <code>clamp(56px,7vw,104px)</code> above the headline and below the buttons: just under the standard band rhythm, never over it.</li>
+      <li><b>Footer links.</b> Flat <code>--u-navy</code>; 1280px container at <code>clamp(48px,6vw,80px)</code> top and 32px bottom; <code>1.4fr repeat(4,1fr)</code> grid; the legal bar sits 56px down behind a <code>rgba(255,255,255,0.14)</code> rule.</li>
+    </ul>
+  </section>
+
+  <section class="sg-section">
+    <h2>Voice &amp; Content</h2>
+    <p class="sg-desc">Precise, confident, technical but human. The reader is <em>you</em>; the company is <em>we</em>. We sell momentum, not features. Casing is enforced in CSS wherever it can be — type strings in sentence case and let <code>text-transform</code> uppercase them.</p>
+
+    <h3 class="sg-sub">Rules</h3>
+    <ul class="rule-list">
+      <li><b>Headlines are typed in sentence case.</b> Including the ones that render in caps: every <code>--text-display-lg</code> section title carries <code>text-transform:uppercase</code>, so &ldquo;Proof, at production scale&rdquo; ships as typed and renders as PROOF, AT PRODUCTION SCALE. <code>--text-display-xl</code> — hero and footer CTA — has no transform and renders exactly as written.</li>
+      <li><b>Periods inside short headlines.</b> Two- and three-beat headlines take terminal periods for cadence: &ldquo;Less guessing. More discovery.&rdquo; and &ldquo;Run. Capture. Predict.&rdquo; A single-clause headline takes none — the hero H1 is &ldquo;Reach the answer in fewer experiments&rdquo; with no period.</li>
+      <li><b>CTAs are verb-first sentence case.</b> The shipped <code>.btn</code> set is Request a demo, Book a demo, Talk to sales, See the platform, See all case studies — two to four words, no terminal period, never Title Case. Inline link CTAs follow the same rule: Read the announcement &rarr;, Read case study. Those two carry their arrow differently — <code>.announce-link</code> uses a typographic &rarr; inside the string, <code>.case-read</code> appends an inline Lucide arrow — so match the component you are writing into rather than picking one. <code>.btn</code> sets <code>white-space:nowrap</code>, so a long label widens the button rather than wrapping.</li>
+      <li><b>Eyebrows are typed in sentence case too.</b> <code>.eyebrow</code> supplies <code>text-transform:uppercase</code> and <code>--tracking-eyebrow</code> (0.14em), so write &ldquo;By the numbers&rdquo;, not &ldquo;BY THE NUMBERS&rdquo; — the string stays legible in markup, in search, and in a CMS field. The same holds for every other uppercase-by-CSS label: <code>.dash-head</code>, <code>.voices-company</code>, <code>.footer-col-title</code>, <code>.tour-play-label</code>. Type caps only where the class carries no transform — <code>.res-kicker</code> (PLAYBOOK, CASE STUDY), <code>.testi-tab-label</code>, <code>.viz-label</code> — or where the string is an acronym or a wordmark, which keep their own casing everywhere (ELN, QMS, BEHR, SOPREMA).</li>
+      <li><b>An eyebrow names its container and nothing else.</b> Section eyebrows: Platform, By the numbers, Our customers, Resources, Customers, In their words, The platform, Case studies. The <code>.eyebrow-muted</code> variant does the same job one level down, naming a single card — Design of Experiments, ML Recommendations, Analytics. Either level: no item counts, no parentheticals.</li>
+      <li><b>Stats read figure first, label beneath.</b> Two shipped patterns, and a block commits to one. Standalone: <code>.statblock-value</code> (Poppins 500, <code>-0.04em</code>) over a sentence-case <code>.statblock-label</code> with no terminal period — 40% above Fewer experiments. Continuation: <code>.cust-proof-value</code> over a lowercase <code>.cust-proof-label</code> that finishes the phrase — 30% above less time spent reconciling data. Only a stat that expands into a full sentence takes a period — &ldquo;Increase in experiment throughput in the first year.&rdquo;</li>
+      <li><b>Numbers stay compact.</b> % never &ldquo;percent&rdquo;; comma-group at four digits (1,000+); trailing + for open-ended counts (12M+, 250+); ~ and &gt; for approximations (~75%, &gt;50%); abbreviated units take no period (6 mo, 3 min).</li>
+      <li><b>Math glyphs, not keyboard stand-ins.</b> &minus;40% uses U+2212 MINUS SIGN, not a hyphen, and 3&times; uses U+00D7 MULTIPLICATION SIGN, not a lowercase x. Both are cut to the width and height the digits expect; the keyboard substitutes sit too small and too low beside a <code>--text-display-lg</code> figure.</li>
+      <li><b>Mono is for tabular data and readout labels — never for the figure itself.</b> <code>--font-mono</code> carries the experiment matrix (<code>.dash-grid</code> — A-01, EP-2, 12, 120, 88), the label above a readout (<code>.dash-rec-label</code>), viz labels and rows, and the carousel counter (<code>.voices-counter</code> — 01 / 04, zero-padded to two digits). Every headline figure stays in Poppins, the dashboard&rsquo;s own 96.4 and +5.4 included: <code>.dash-rec-value</code> is <code>--font-display</code> and <code>.dash-rec-delta</code> is <code>--font-body</code>.</li>
+      <li><b>Banned vocabulary.</b> No leverage, enable, optimize, advanced algorithms, or data-driven. Name the action and the result instead. Two exceptions survive in house copy: OPTIMIZATION is a <code>.viz-label</code> naming a real optimization run — a technical noun on a chart is not the marketing verb — while &ldquo;data-driven&rdquo; in one resource blurb is plain debt. Fix the second; cite neither as precedent.</li>
+      <li><b>Quotes run verbatim.</b> A customer quote keeps the customer&rsquo;s words, banned vocabulary included — one shipped quote reads &ldquo;has enabled our R&amp;D organization&hellip;&rdquo;. Trim with an ellipsis; never rewrite a quote into house voice.</li>
+      <li><b>No emoji, in copy or in UI.</b> Every glyph is either type or an inline Lucide SVG with <code>stroke="currentColor"</code>. Emoji render as a third, uncontrolled typeface — a different weight and style on every OS — and are not brand-approved marks.</li>
+    </ul>
+
+    <h3 class="sg-sub">Do / Don&rsquo;t</h3>
+    <div class="voice-pair">
+      <div class="voice-col">
+        <div class="voice-col-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Do</div>
+        <p class="voice-line">&ldquo;You run the experiments. We find the pattern.&rdquo;</p>
+        <p class="voice-line">&ldquo;Reach the answer in fewer experiments&rdquo;</p>
+        <p class="voice-line">&ldquo;40%&rdquo; above &ldquo;Fewer experiments&rdquo;</p>
+      </div>
+      <div class="voice-col">
+        <div class="voice-col-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Don&rsquo;t</div>
+        <p class="voice-line">&ldquo;Our platform leverages advanced algorithms to enable data-driven experimentation.&rdquo;</p>
+        <p class="voice-line">&ldquo;Optimize your R&amp;D workflow efficiency.&rdquo;</p>
+        <p class="voice-line">&ldquo;A 40 percent reduction in required experiments&rdquo;</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sg-section">
+    <h2>What We Don&rsquo;t Do</h2>
+    <p class="sg-desc">Patterns banned outright, because they read as generic template output rather than as Uncountable. If a layout only works with one of these, the layout is the problem &mdash; rework it. Every ban below was audited against <code>style.css</code>, <code>index.html</code>, <code>customers.html</code> and this guide; where a shipped exception exists it is named, not glossed.</p>
+    <ul class="rule-list">
+      <li><b>No colored accent borders.</b> No 2px, 3px or 4px accent stripe on the top, left, right or bottom edge of a card, callout, list item, alert, nav item or panel &mdash; not in brand colors, not in status colors, not in a gradient. Decorative, never meaningful, and instantly recognisable as filler. Use a tag, a tinted ground, a leading numeral, or nothing. This applies to every Uncountable page, not just this one: of the 23 width-bearing directional border declarations in the system, every single one is 1px, and the Academy bundle adds none wider.</li>
+      <li><b>No gradient text.</b> <code>background-clip: text</code> over a gradient is decoration standing in for hierarchy. One solid color, with emphasis carried by size and tracking. Zero occurrences of <code>background-clip</code>, <code>-webkit-background-clip</code> or <code>text-fill-color</code> ship.</li>
+      <li><b>No glassmorphism as a default.</b> Frosted panels used everywhere flatten the page and cost legibility. The sticky nav is the one sanctioned surface &mdash; <code>backdrop-filter: saturate(180%) blur(14px)</code> over <code>--surface-nav</code>, and the only backdrop-filtered surface in the stylesheet.</li>
+      <li><b>No identical card grids.</b> Icon, heading, two lines of text, repeated nine times says nothing. Vary card size and density to match what each card actually holds. One bounded uniform grid per page is the cap &mdash; see the exception below.</li>
+      <li><b>No nested cards.</b> A card inside a card inside a card reads as indecision. One level only: an inset panel may sit on a card, and nothing sits on the inset panel. Three shipped patterns use that level and no shipped panel goes deeper &mdash; see the exception below.</li>
+      <li><b>No decorative textures.</b> The system&rsquo;s surfaces are deliberately flat and clean &mdash; no noise overlays, no repeating patterns, no image fills behind type. Flat fills, or one of the four gradient tokens: <code>--grad-hero</code>, <code>--grad-dark</code>, <code>--grad-cyan</code>, <code>--grad-mint</code>. The stylesheet contains no <code>background-image</code>, no <code>radial-gradient</code> and no <code>data:</code> fill. Two raw gradients exist and neither is decoration: the <code>.tour-scrim</code> legibility wash over the tour poster, and the fade mask on the customer marquee.</li>
+      <li><b>No emoji.</b> Not as a UI icon, not as a status marker, not as informal flair. An emoji renders in whatever font the OS ships &mdash; color, weight and style all outside the system&rsquo;s control &mdash; so it carries none of the sizing and color-token discipline every other glyph on the page obeys. Use a Lucide icon as inline SVG with <code>fill="none"</code> and <code>stroke="currentColor"</code>, or nothing. All 45 icons across the shipped pages are inline SVG, and no page in the system &mdash; marketing or Academy &mdash; contains a single pictographic codepoint.</li>
+      <li><b>No font weight above 500.</b> It breaks the single constraint the whole type system is built on, and only the 400 and 500 Poppins faces are loaded &mdash; 600 silently faux-bolds or falls back. Emphasize with size, tracking and color instead. No <code>font-weight</code> above 500 is declared in <code>style.css</code>, either marketing page or this guide, and the five shipped <code>&lt;strong&gt;</code> elements are all reset to 500. The Academy app&rsquo;s Tailwind bundle still carries a <code>.font-bold</code> (700) utility on two elements &mdash; the one outstanding violation in the system, not a licence for a second. See Typography.</li>
+      <li><b>No bounce or elastic easing.</b> It reads as playful; this is a platform for scientists. Ease-out only: hover lifts <code>translateY(-1px)</code>, press is <code>scale(0.97)</code>. The stylesheet defines exactly two custom curves, <code>--ease-out</code> and <code>--ease-slide</code>, and neither overshoots. See Motion.</li>
+    </ul>
+
+    <h3 class="sg-sub">Sanctioned exceptions</h3>
+    <p class="sg-desc">Four places the site does the adjacent-but-permitted thing. Stated precisely, so no ban above is read wider than it is.</p>
+    <ul class="rule-list">
+      <li><b>1px neutral hairlines are structure, not decoration.</b> The stripe ban targets colored decorative accents. A 1px divider in <code>--border-subtle</code> separating columns or rows is correct and used throughout &mdash; <code>.nav-suite</code>, <code>.cust-proof-item</code>, <code>.stats-row</code>. Width and color are both load-bearing: 1px, and never a brand or status hue.</li>
+      <li><b>The sticky nav is the only glass surface.</b> <code>.nav</code> alone. A second frosted panel anywhere is the failure, not a precedent.</li>
+      <li><b>One bounded uniform grid per page.</b> The product band&rsquo;s feature grid (<code>.bodie-grid</code>) is <code>repeat(3, minmax(0,1fr))</code> holding six identical icon-heading-paragraph cells. That is the cap, not the license &mdash; every other group on the page varies deliberately: the resource carousel sizes cards at <code>clamp(300px, 32vw, 380px)</code>, the testimonial panel splits <code>1.7fr / 1fr</code>, and the stats row is <code>auto-fit</code>. A second uniform grid on the same page is the failure.</li>
+      <li><b>One inset panel is the one nesting level.</b> Three patterns use it and stop there: a resource card&rsquo;s gradient head (<code>.res-card-head</code>) inside the <code>--surface-card</code> card, the light-island data panel (<code>.viz</code>) inside a tinted solution card, and the recommendation card (<code>.dash-rec-card</code>) inside the hero dashboard preview. Anything deeper is banned.</li>
+    </ul>
+  </section>
+
+  <section class="sg-section">
+    <h2>Accessibility</h2>
+    <p class="sg-desc">Every ratio below was computed from the shipped values in <code>style.css</code> with the WCAG 2.1 relative-luminance formula — none are estimated. The bar is 4.5:1 for text and 3:1 for large text, icons, and UI boundaries. Large means 24px and up: WCAG's 18.66px allowance requires weight 700, and this system stops at 500, so 24px is the only large-text threshold that applies here. Swatches in these tables are literal hex, not tokens, so the numbers stay true when you toggle this guide.</p>
+
+    <h3 class="sg-sub">Contrast — dark page</h3>
+    <div class="contrast-scroll" tabindex="0" role="region" aria-label="Contrast ratios on the dark page">
+      <table class="contrast-table">
+        <thead><tr><th scope="col">Foreground</th><th scope="col">Background</th><th scope="col">Ratio</th><th scope="col">Verdict</th></tr></thead>
+        <tbody>
+          <tr><td><span class="cx-swatch" style="background:#EDF2FA"></span><code>--text-strong</code> #EDF2FA</td><td><span class="cx-swatch" style="background:#070C1F"></span><code>--surface-page</code> #070C1F</td><td class="cx-ratio">17.28</td><td><span class="cx-verdict">AAA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#DDE8F8"></span><code>--text-heading</code> #DDE8F8</td><td><span class="cx-swatch" style="background:#070C1F"></span><code>--surface-page</code> #070C1F</td><td class="cx-ratio">15.69</td><td><span class="cx-verdict">AAA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#AEBBD0"></span><code>--text-body</code> #AEBBD0</td><td><span class="cx-swatch" style="background:#070C1F"></span><code>--surface-page</code> #070C1F</td><td class="cx-ratio">10.00</td><td><span class="cx-verdict">AAA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#00C7FE"></span><code>--u-cyan</code> #00C7FE</td><td><span class="cx-swatch" style="background:#070C1F"></span><code>--surface-page</code> #070C1F</td><td class="cx-ratio">9.80</td><td><span class="cx-verdict">AAA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#FFAF0F"></span><code>--u-orange</code> #FFAF0F</td><td><span class="cx-swatch" style="background:#070C1F"></span><code>--surface-page</code> #070C1F</td><td class="cx-ratio">10.53</td><td><span class="cx-verdict">AAA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#57A6F6"></span><code>--text-link</code> #57A6F6</td><td><span class="cx-swatch" style="background:#070C1F"></span><code>--surface-page</code> #070C1F</td><td class="cx-ratio">7.57</td><td><span class="cx-verdict">AAA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#7C8AA3"></span><code>--text-muted</code> #7C8AA3</td><td><span class="cx-swatch" style="background:#070C1F"></span><code>--surface-page</code> #070C1F</td><td class="cx-ratio">5.57</td><td><span class="cx-verdict">AA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#AEBBD0"></span><code>--text-body</code> #AEBBD0</td><td><span class="cx-swatch" style="background:#101A33"></span><code>--surface-card</code> #101A33</td><td class="cx-ratio">8.89</td><td><span class="cx-verdict">AAA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#7C8AA3"></span><code>--text-muted</code> #7C8AA3</td><td><span class="cx-swatch" style="background:#101A33"></span><code>--surface-card</code> #101A33</td><td class="cx-ratio">4.95</td><td><span class="cx-verdict">AA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#7C8AA3"></span><code>--text-muted</code> #7C8AA3</td><td><span class="cx-swatch" style="background:#0C142B"></span><code>--u-surface-1</code> #0C142B</td><td class="cx-ratio">5.23</td><td><span class="cx-verdict">AA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#7C8AA3"></span><code>--text-muted</code> #7C8AA3</td><td><span class="cx-swatch" style="background:#16203C"></span><code>--u-surface-2</code> #16203C</td><td class="cx-ratio">4.61</td><td><span class="cx-verdict">AA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#FFFFFF"></span>White #FFFFFF</td><td><span class="cx-swatch" style="background:#046CDE"></span><code>--u-blue-600</code> #046CDE</td><td class="cx-ratio">4.99</td><td><span class="cx-verdict">AA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#FFFFFF"></span>White #FFFFFF</td><td><span class="cx-swatch" style="background:#0356B4"></span><code>--u-blue-700</code> #0356B4</td><td class="cx-ratio">7.01</td><td><span class="cx-verdict">AAA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#020D4C"></span><code>--u-navy</code> #020D4C</td><td><span class="cx-swatch" style="background:#00C7FE"></span><code>--u-cyan</code> #00C7FE</td><td class="cx-ratio">9.10</td><td><span class="cx-verdict">AAA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#020D4C"></span><code>--u-navy</code> #020D4C</td><td><span class="cx-swatch" style="background:#80E3FE"></span><code>--u-tint-cyan</code> #80E3FE</td><td class="cx-ratio">12.31</td><td><span class="cx-verdict">AAA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#0356B4"></span><code>--u-blue-700</code> #0356B4</td><td><span class="cx-swatch" style="background:#80E3FE"></span><code>--u-tint-cyan</code> #80E3FE</td><td class="cx-ratio">4.79</td><td><span class="cx-verdict">AA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#FFFFFF"></span>White #FFFFFF</td><td><span class="cx-swatch" style="background:#0C1C63"></span><code>--surface-dark</code> #0C1C63</td><td class="cx-ratio">15.42</td><td><span class="cx-verdict">AAA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#FFFFFF"></span>White #FFFFFF</td><td><span class="cx-swatch" style="background:#020D4C"></span><code>--u-navy</code> #020D4C</td><td class="cx-ratio">18.03</td><td><span class="cx-verdict">AAA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#C1C4D5"></span>White at 75% &rarr; #C1C4D5</td><td><span class="cx-swatch" style="background:#061156"></span><code>--grad-dark</code> top stop #061156</td><td class="cx-ratio">9.87</td><td><span class="cx-verdict">AAA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#84889C"></span>White at 50% &rarr; #84889C</td><td><span class="cx-swatch" style="background:#0A1238"></span><code>.bodie-preview</code> #0A1238</td><td class="cx-ratio">5.20</td><td><span class="cx-verdict">AA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#8086A6"></span>White at 50% &rarr; #8086A6</td><td><span class="cx-swatch" style="background:#020D4C"></span><code>--u-navy</code> #020D4C</td><td class="cx-ratio">5.05</td><td><span class="cx-verdict">AA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#046CDE"></span><code>--u-blue-600</code> #046CDE</td><td><span class="cx-swatch" style="background:#070C1F"></span><code>--surface-page</code> #070C1F</td><td class="cx-ratio">3.89</td><td><span class="cx-verdict cx-verdict-flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Large / non-text</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#6C4BD8"></span><code>--u-plum</code> #6C4BD8</td><td><span class="cx-swatch" style="background:#070C1F"></span><code>--surface-page</code> #070C1F</td><td class="cx-ratio">3.36</td><td><span class="cx-verdict cx-verdict-flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Large / non-text</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#6C4BD8"></span><code>--u-plum</code> #6C4BD8</td><td><span class="cx-swatch" style="background:#101A33"></span><code>--surface-card</code> #101A33</td><td class="cx-ratio">2.99</td><td><span class="cx-verdict cx-verdict-fail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Fails</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#0356B4"></span><code>--u-blue-700</code> #0356B4</td><td><span class="cx-swatch" style="background:#070C1F"></span><code>--surface-page</code> #070C1F</td><td class="cx-ratio">2.77</td><td><span class="cx-verdict cx-verdict-fail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Fails</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#0356B4"></span><code>--u-blue-700</code> #0356B4</td><td><span class="cx-swatch" style="background:#101A33"></span><code>--surface-card</code> #101A33</td><td class="cx-ratio">2.46</td><td><span class="cx-verdict cx-verdict-fail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Fails</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#020D4C"></span><code>--u-navy</code> #020D4C</td><td><span class="cx-swatch" style="background:#101A33"></span><code>--surface-card</code> #101A33</td><td class="cx-ratio">1.05</td><td><span class="cx-verdict cx-verdict-fail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Fails</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cx-foot">Alpha foregrounds are measured as their composite over the stated ground, and the swatch shows that composite — <code>.footer-cta-sub</code> is white at 75%, <code>.bodie-try</code> and <code>.footer-col-title</code> white at 50%. Ratios against <code>--grad-dark</code> use its lightest stop, #061156 — the worst case for white on that band. Opaque panels that sit <em>inside</em> a gradient band are measured against their own fill, not the band: <code>.bodie-preview</code> paints #0A1238 over <code>--grad-dark</code>, and <code>.footer-col-title</code> lives in <code>.footer-links</code> on flat <code>--u-navy</code>.</p>
+
+    <h3 class="sg-sub">Contrast — light islands</h3>
+    <p class="sg-desc">Panels marked <code>data-theme="light"</code> — the hero email capture, the dashboard, the Bodie preview, the six solution vizzes, the tour frame — resolve the semantic tokens to their light values while sitting on the dark page. They are a second contrast system, and three shipped text pairings sit under the bar.</p>
+    <div class="contrast-scroll" tabindex="0" role="region" aria-label="Contrast ratios inside light islands">
+      <table class="contrast-table">
+        <thead><tr><th scope="col">Foreground</th><th scope="col">Background</th><th scope="col">Ratio</th><th scope="col">Verdict</th></tr></thead>
+        <tbody>
+          <tr><td><span class="cx-swatch" style="background:#020D4C"></span><code>--u-navy</code> #020D4C</td><td><span class="cx-swatch" style="background:#FFFFFF"></span><code>--surface-card</code> #FFFFFF</td><td class="cx-ratio">18.03</td><td><span class="cx-verdict">AAA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#020D4C"></span><code>--u-navy</code> #020D4C</td><td><span class="cx-swatch" style="background:#EAF2F9"></span><code>--u-surface-1</code> #EAF2F9</td><td class="cx-ratio">15.94</td><td><span class="cx-verdict">AAA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#020D4C"></span><code>--u-navy</code> #020D4C</td><td><span class="cx-swatch" style="background:#DFE3EA"></span><code>--u-surface-2</code> #DFE3EA</td><td class="cx-ratio">14.01</td><td><span class="cx-verdict">AAA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#3C4554"></span><code>--u-ink</code> #3C4554</td><td><span class="cx-swatch" style="background:#FFFFFF"></span><code>--surface-card</code> #FFFFFF</td><td class="cx-ratio">9.67</td><td><span class="cx-verdict">AAA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#3C4554"></span><code>--u-ink</code> #3C4554</td><td><span class="cx-swatch" style="background:#EAF2F9"></span><code>--u-surface-1</code> #EAF2F9</td><td class="cx-ratio">8.55</td><td><span class="cx-verdict">AAA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#046CDE"></span><code>--u-blue-600</code> #046CDE</td><td><span class="cx-swatch" style="background:#FFFFFF"></span><code>--surface-card</code> #FFFFFF</td><td class="cx-ratio">4.99</td><td><span class="cx-verdict">AA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#6B7689"></span><code>--text-muted</code> #6B7689</td><td><span class="cx-swatch" style="background:#FFFFFF"></span><code>--surface-card</code> #FFFFFF</td><td class="cx-ratio">4.59</td><td><span class="cx-verdict">AA</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#6B7689"></span><code>--text-muted</code> #6B7689</td><td><span class="cx-swatch" style="background:#F6F8FB"></span><code>--u-gray-50</code> #F6F8FB</td><td class="cx-ratio">4.31</td><td><span class="cx-verdict cx-verdict-flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Large / non-text</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#01A955"></span><code>--u-green</code> #01A955</td><td><span class="cx-swatch" style="background:#FFFFFF"></span><code>--surface-card</code> #FFFFFF</td><td class="cx-ratio">3.08</td><td><span class="cx-verdict cx-verdict-flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Large / non-text</span></td></tr>
+          <tr><td><span class="cx-swatch" style="background:#9AA5B6"></span><code>--u-gray-400</code> #9AA5B6</td><td><span class="cx-swatch" style="background:#FFFFFF"></span><code>--surface-card</code> #FFFFFF</td><td class="cx-ratio">2.49</td><td><span class="cx-verdict cx-verdict-fail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Fails</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sg-sub">Under the bar</h3>
+    <ul class="rule-list">
+      <li><b>Azure is a fill on dark, never text.</b> <code>--u-blue-600</code> is 3.89:1 against <code>--surface-page</code> and <code>--u-blue-700</code> is 2.77:1. Links use <code>--text-link</code> #57A6F6 at 7.57:1. The raw brand blues stay in button and chart fills.</li>
+      <li><b>Suite dots are decoration, not signal.</b> The 9px dot in the Solutions nav panel sits on <code>--surface-card</code>, not on the page: Emerald reads 5.59:1 and Amber 9.36:1 there, but Plum is 2.99:1 and Azure 700 is 2.46:1 — both under the 3:1 bar. They pass only because the suite name beside each dot carries the meaning; never let a dot be the sole difference between two suites.</li>
+      <li><b>Plum is graphics only.</b> Its best case anywhere on the dark page is 3.36:1 against <code>--surface-page</code> — enough for a large shape, never for a glyph and never for text.</li>
+      <li><b>Midnight never touches a dark ground.</b> <code>--u-navy</code> is 1.05:1 on <code>--surface-card</code>. Dark cards use <code>--surface-dark</code> #0C1C63 — 15.42:1 for white — for exactly this reason.</li>
+      <li><b>Amber and Sky Cyan invert on dark.</b> Both are safe as text here — <code>--u-orange</code> is 10.53:1 and <code>--u-cyan</code> is 9.80:1 against <code>--surface-page</code>. What stays broken is white on either <em>fill</em>: 1.84:1 and 1.98:1, below even the 3:1 non-text bar. Set <code>--u-navy</code> on those fills — 9.78:1 on amber, 9.10:1 on cyan — as every shipped cyan surface already does.</li>
+      <li><b>Muted has the least headroom.</b> <code>--text-muted</code> is 4.61:1 on <code>--u-surface-2</code>, the thinnest passing margin on the dark page. Do not lift that surface further and do not reuse muted on anything lighter.</li>
+      <li><b>Three light-island text pairings ship under the bar.</b> <code>.bodie-row-meta</code> sets <code>--u-gray-400</code> on white at 10.5px (2.49:1), <code>.dash-rec-delta</code> sets <code>--u-green</code> on white at 12px (3.08:1), and <code>.dash-tab</code> inherits <code>--text-muted</code> from <code>.dash-tabs</code> onto the <code>--u-gray-50</code> topbar at 13px (4.31:1). All three are preview chrome standing in for product UI — fix them before any of it becomes real.</li>
+    </ul>
+
+    <h3 class="sg-sub">Targets &amp; labels</h3>
+    <ul class="rule-list">
+      <li><b>44px is the floor, and most controls miss it.</b> Only four clear it: <code>.btn-md</code> 46px, <code>.btn-lg</code> 56px, <code>.icon-btn-lg</code> 64px, <code>.tour-play-btn</code> 76px. Under it, by declared height: <code>.btn-sm</code> 36px and <code>.voices-dot</code> 18&times;3px. Under it once you add font-size to padding at the 1.5 body line-height: <code>.industry-pill</code> ~42px, <code>.footer-col a</code> ~35px, <code>.suite-link</code> ~34px, <code>.nav-tab</code> and <code>.nav-link</code> ~23px (both set <code>padding: 0</code>), <code>.footer-legal a</code> ~20px. Every one of them needs a larger hit area, not a smaller label.</li>
+      <li><b>Hit area is not ink.</b> <code>.tour-play</code> stretches <code>inset: 0</code> across the whole 16:9 frame while the visible button stays 76px. Grow the target, leave the graphic alone — a padded pseudo-element does the same job for the nav and footer links.</li>
+      <li><b>Every control carries an accessible name.</b> Icon-only and glyph-only buttons get <code>aria-label</code> — the carousel arrows read "Previous" and "Next", the slider dots get "Show &lt;company&gt;" from <code>script.js</code>. Two gaps ship: the hero email input has a placeholder and no label, and a placeholder is not a name because it disappears on input; and <code>.tour-play</code> sets <code>aria-label="Play the platform tour"</code> over visible text reading "Watch the tour &middot; 3 min", so the name does not contain the label. Either match the visible words or drop the <code>aria-label</code> and let the inner text name the button.</li>
+      <li><b>Decorative graphics get an empty alt.</b> The dashboard monogram and both Bodie marks ship <code>alt=""</code>. Icons inside a labelled button should also take <code>aria-hidden="true"</code> so the name is never read twice — no SVG on either page does yet, the play glyph inside <code>.tour-play</code> included.</li>
+    </ul>
+    <div class="comp-row">
+      <span class="target-gauge"><span class="btn btn-primary" style="height:36px;padding:8px 12px;font-size:12px;">36</span></span>
+      <span class="target-note">.btn-sm &middot; 8px short</span>
+      <span class="btn btn-cta" style="height:46px;">.btn-md &middot; 46px</span>
+      <button class="icon-btn-demo" style="width:64px;height:64px;" aria-label="Next">&rarr;</button>
+      <span class="target-note">.icon-btn-lg &middot; 64px</span>
+    </div>
+
+    <h3 class="sg-sub">Focus</h3>
+    <p class="sg-desc"><code>style.css</code> declares no <code>:focus</code> or <code>:focus-visible</code> rule, so every control falls back to the browser's default ring — engine-dependent and not guaranteed to clear 3:1 on #070C1F. Two rules strip it outright: <code>.searchfield-input</code> and <code>.voices-viewport</code> both set <code>outline: none</code> with no replacement, and the viewport is <code>tabindex="0"</code> with arrow-key handlers — a keyboard control with no visible focus at all. The ring below is the fix.</p>
+    <ul class="rule-list">
+      <li><b>3px <code>--u-blue-400</code>, offset 2px.</b> #2E86E8 clears the 3:1 non-text bar on every dark ground and on white — 5.26:1 on <code>--surface-page</code>, 4.95:1 on <code>--u-surface-1</code>, 4.67:1 on <code>--surface-card</code>, 4.36:1 on <code>--u-surface-2</code>, 4.18:1 on <code>--surface-dark</code>, 4.66:1 on <code>--grad-dark</code>, 3.69:1 on a light island's white.</li>
+      <li><b>Two grounds need a darker ring.</b> The blue ring is 2.52:1 on <code>--u-tint-cyan</code> — the announcement bar, which holds a real focusable link — and 2.87:1 on the light island's <code>--u-surface-2</code> #DFE3EA. Swap to <code>--u-navy</code> there: 12.31:1 and 14.01:1.</li>
+      <li><b>The offset is load-bearing.</b> The same ring is 1.35:1 against <code>--u-blue-600</code> and 1.86:1 against <code>--u-cyan</code>. On the CTA and Accent buttons it must sit outside the fill, never on it. The offset does not rescue the announcement bar, where the fill and its surround are the same tint — that one needs the colour swap above.</li>
+      <li><b>Never remove it without a replacement.</b> A change of background alone is not a focus indicator. If you take the outline off, the substitute has to be at least as visible and at least 3:1 against both the control and its surround.</li>
+    </ul>
+    <div class="comp-row">
+      <button class="btn btn-cta a11y-ring">Tab to me</button>
+      <span class="btn btn-cta a11y-ring-static">Ring, shown</span>
+      <span class="target-note">3px &middot; --u-blue-400 &middot; offset 2px</span>
+    </div>
+
+    <h3 class="sg-sub">Motion &amp; system preferences</h3>
+    <ul class="rule-list">
+      <li><b>Reduced motion is a blanket.</b> One rule collapses every <code>animation-duration</code> and <code>transition-duration</code> to <code>0.001ms !important</code>. New components inherit it for free; nothing needs its own opt-in.</li>
+      <li><b>Loops and progress need an end state.</b> The blanket alone would leave the customer marquee thrashing and the 15s testimonial bar frozen at zero width, so <code>.cust-track</code> sets <code>animation: none</code> and <code>.testi-progress.is-running</code> sets <code>animation: none</code> plus <code>width: 100%</code> — the finished state, not a blank one. Any new looping or progress animation needs the same pair of overrides.</li>
+      <li><b>Both scopes declare <code>color-scheme</code>.</b> In <code>style.css</code>, <code>:root</code> is <code>dark</code> and <code>[data-theme="light"]</code> is <code>light</code>, so native scrollbars, form controls, and the text caret match the surface they sit on instead of the OS default.</li>
+    </ul>
+
+    <h3 class="sg-sub">Colour is never the only signal</h3>
+    <ul class="rule-list">
+      <li><b>Pair hue with shape and state.</b> The open nav tab turns <code>--text-link</code>, rotates its chevron 180&deg;, and flips <code>aria-expanded</code>. The active slider dot widens from 18px to 34px as well as changing fill, and sets <code>aria-current</code>. The active testimonial tab gains a progress track and sets <code>aria-selected</code>. The highlighted dashboard cell adds a tinted ground and weight 500.</li>
+      <li><b>The current page is the one exception.</b> <code>.nav-link-active</code> marks it with <code>--text-link</code> and nothing else — no <code>aria-current="page"</code>, no underline. Colour alone, and the only such case in the system.</li>
+      <li><b>There is no red in this palette.</b> Nothing here encodes failure by hue, so say the outcome in words. This section's own tables print "Fails" rather than turning a row red.</li>
+    </ul>
+  </section>
+
 </div>
 
 <script>
@@ -347,7 +1075,8 @@ const CORE = [
   ['Royal Blue', '--u-blue-900', '#01318F', 'Brand headline blue on light surfaces. 11.43:1 on white.'],
   ['Azure',      '--u-blue-600', '#046CDE', 'Primary CTA and links. 4.99:1 on white — AA with no headroom.'],
   ['Azure 700',  '--u-blue-700', '#0356B4', 'Azure hover state (--brand-primary-hover).'],
-  ['Azure 400',  '--u-blue-400', '#2E86E8', 'Chart and illustration accent only.'],
+  ['Azure 400',  '--u-blue-400', '#2E86E8', 'Focus-ring colour. Also chart and illustration accent.'],
+  ['Azure 200',  '--u-blue-200', '#9CC4F6', 'Chart fills on dark — the dashboard bar series.'],
   ['Sky Cyan',   '--u-cyan',     '#00C7FE', 'Signature accent on dark. 9.1:1 on Midnight. Rare and precious.'],
   ['Emerald',    '--u-green',    '#01A955', 'Success — icons and graphics, never small text.'],
   ['Amber',      '--u-orange',   '#FFAF0F', 'Dark surfaces only — 1.8:1 on white fails even large text.'],
@@ -363,8 +1092,7 @@ const SUITE = [
 const TINTS = [
   ['Tint Sky',     '--u-tint-cyan',    '#80E3FE', ''],
   ['Tint Ice',     '--u-tint-cyan-2',  '#BFF1FF', ''],
-  ['Tint Mint',    '--u-tint-green',   '#80D4AA', ''],
-  ['Tint Seafoam', '--u-tint-green-2', '#BFE9D4', ''],
+  ['Tint Seafoam', '--u-tint-green-2', '#BFE9D4', 'Only inside --grad-mint. Never a standalone fill.'],
 ];
 const GRAYS = ['--u-gray-50','--u-gray-100','--u-gray-200','--u-gray-300','--u-gray-400','--u-gray-600','--u-gray-700'];
 const SEMANTIC = [
@@ -373,10 +1101,10 @@ const SEMANTIC = [
   '--border-subtle', '--border-default', '--border-strong',
 ];
 const GRADS = [
-  ['Hero wash',  '--grad-hero', 'Hero backgrounds. The only gradient that flips with the theme.'],
-  ['Dark band',  '--grad-dark', 'Bodie band, footer CTA, tour frame. Always add the 1px hairline.'],
-  ['Cyan sweep', '--grad-cyan', 'Avatars and small accent fills.'],
-  ['Mint wash',  '--grad-mint', 'Resource-card headers (light wash, graphics only).'],
+  ['Hero wash',  '--grad-hero', '160°, 3 stops. Hero backgrounds. Ships dark-only; the light wash is style-guide-local.'],
+  ['Dark band',  '--grad-dark', '155°, #061156 → #020D4C 60% → #01081f. Bodie band, footer CTA, tour frame. Always add the 1px hairline.'],
+  ['Cyan sweep', '--grad-cyan', '135°, #00C7FE → #046CDE. Avatar fallbacks and small accent fills. Decorative only — see the note above.'],
+  ['Mint wash',  '--grad-mint', '135°, #BFE9D4 → #80E3FE. Resource-card headers. Graphics only, never text.'],
 ];
 const SPACE = [['space-1','4px'],['space-2','8px'],['space-3','12px'],['space-4','16px'],['space-5','24px'],['space-6','32px'],['space-8','48px'],['space-9','64px']];
 

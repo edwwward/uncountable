@@ -24,6 +24,7 @@
   --u-blue-600:   #046CDE;
   --u-blue-700:   #0356B4;
   --u-blue-400:   #2E86E8;
+  --u-blue-200:   #9CC4F6;
   --u-cyan:       #00C7FE;
   --u-green:      #01A955;
   --u-orange:     #FFAF0F;
@@ -37,9 +38,9 @@
   --u-lifecycle:  var(--u-plum);
   --u-ppm:        var(--u-orange);
 
+  /* Tints are gradient stops only — never a standalone fill, never text. */
   --u-tint-cyan:    #80E3FE;
   --u-tint-cyan-2:  #BFF1FF;
-  --u-tint-green:   #80D4AA;
   --u-tint-green-2: #BFE9D4;
 
   /* ---- Neutrals (dark chrome) ---- */
@@ -122,9 +123,18 @@
   --radius-xl: 12px;
   --radius-control: 6px;
 
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --dur-fast: 140ms;
-  --dur-base: 220ms;
+  /* --ease-out is the system curve. --ease-slide is gentler (y1 0.61 vs 1) and
+     exists only for the voices carousel, where the system curve arrives too
+     abruptly over a 600px+ translate. Do not reach for it elsewhere. */
+  --ease-out:   cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-slide: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* fast = transform and press feedback. base = color, background, border.
+     reveal = scroll-triggered section entrances. slide = the carousel track. */
+  --dur-fast:   140ms;
+  --dur-base:   220ms;
+  --dur-reveal: 600ms;
+  --dur-slide:  620ms;
 
   color-scheme: dark;
 }
@@ -538,7 +548,7 @@ button { font-family: inherit; }
 .stats-feature-copy { font-family: var(--font-display); font-weight: 500; font-size: clamp(22px,2.4vw,32px); color: var(--text-strong); letter-spacing: -0.02em; line-height: 1.2; margin: 0; }
 @media (max-width: 920px) { .stats-feature { grid-template-columns: 1fr; } }
 .stats-row { max-width: 1280px; margin: clamp(40px,5vw,72px) auto 0; padding: clamp(32px,4vw,56px) clamp(20px,3vw,40px) 0; border-top: 1px solid var(--border-subtle); display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: clamp(20px,3vw,48px); }
-.stats-row .statblock-plain { opacity: 0; transform: translateY(18px); transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out); }
+.stats-row .statblock-plain { opacity: 0; transform: translateY(18px); transition: opacity var(--dur-reveal) var(--ease-out), transform var(--dur-reveal) var(--ease-out); }
 .stats-row.is-visible .statblock-plain { opacity: 1; transform: translateY(0); }
 .stats-row.is-visible .statblock-plain:nth-child(2) { transition-delay: 0.12s; }
 .stats-row.is-visible .statblock-plain:nth-child(3) { transition-delay: 0.24s; }
@@ -633,7 +643,7 @@ button { font-family: inherit; }
 @media (max-width: 920px) { .cust-hero { grid-template-columns: 1fr; } }
 
 .cust-proof { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: clamp(18px,2.5vw,36px); margin-top: clamp(40px,5vw,72px); border-top: 1px solid var(--border-subtle); padding-top: clamp(28px,3.5vw,44px); }
-.cust-proof-item { display: flex; flex-direction: column; gap: 10px; padding-left: clamp(18px,2.5vw,36px); border-left: 1px solid var(--border-subtle); opacity: 0; transform: translateY(18px); transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out); }
+.cust-proof-item { display: flex; flex-direction: column; gap: 10px; padding-left: clamp(18px,2.5vw,36px); border-left: 1px solid var(--border-subtle); opacity: 0; transform: translateY(18px); transition: opacity var(--dur-reveal) var(--ease-out), transform var(--dur-reveal) var(--ease-out); }
 .cust-proof-item:first-child { padding-left: 0; border-left: none; }
 .cust-proof.is-visible .cust-proof-item { opacity: 1; transform: translateY(0); }
 .cust-proof.is-visible .cust-proof-item:nth-child(2) { transition-delay: 0.1s; }
@@ -654,8 +664,8 @@ button { font-family: inherit; }
 .voices-controls { display: flex; align-items: center; gap: 16px; }
 .voices-counter { font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); letter-spacing: 0.06em; }
 .voices-viewport { overflow: hidden; outline: none; --voice-w: min(760px, 76vw); }
-.voices-track { display: flex; gap: 24px; width: max-content; align-items: stretch; padding-left: calc(50% - var(--voice-w) / 2); padding-right: calc(50% - var(--voice-w) / 2); transition: transform .62s cubic-bezier(.22,.61,.36,1); }
-.voices-card { flex: 0 0 var(--voice-w); display: flex; flex-direction: column; min-height: 340px; cursor: pointer; opacity: 0.34; filter: saturate(0.15); transform: scale(0.965); transition: opacity .5s var(--ease-out), filter .5s var(--ease-out), transform .62s cubic-bezier(.22,.61,.36,1); }
+.voices-track { display: flex; gap: 24px; width: max-content; align-items: stretch; padding-left: calc(50% - var(--voice-w) / 2); padding-right: calc(50% - var(--voice-w) / 2); transition: transform var(--dur-slide) var(--ease-slide); }
+.voices-card { flex: 0 0 var(--voice-w); display: flex; flex-direction: column; min-height: 340px; cursor: pointer; opacity: 0.34; filter: saturate(0.15); transform: scale(0.965); transition: opacity .5s var(--ease-out), filter .5s var(--ease-out), transform var(--dur-slide) var(--ease-slide); }
 .voices-card.is-active { cursor: default; opacity: 1; filter: none; transform: scale(1); }
 .voices-company { font-family: var(--font-display); font-size: 15px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--u-cyan); }
 .voices-quote { font-family: var(--font-display); font-weight: 500; font-size: clamp(20px,2.1vw,29px); line-height: 1.32; letter-spacing: -0.01em; color: #fff; margin: 22px 0 0; }
