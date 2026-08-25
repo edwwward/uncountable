@@ -341,8 +341,27 @@ button { font-family: inherit; }
 }
 .nav-tab:hover, .nav-link:hover { text-decoration: none; }
 .nav-tab[aria-expanded="true"] { color: var(--text-link); }
-.chev { display: inline-flex; font-size: 10px; transition: transform var(--dur-fast) var(--ease-out); }
+/* Lucide chevron-down. This was &#9660;, the Unicode BLACK DOWN-POINTING
+   TRIANGLE, which resolves from whatever fallback font the OS supplies —
+   the same uncontrolled-third-typeface problem the No-Emoji Rule covers,
+   and inconsistent with every other glyph on the site, which is inline
+   Lucide at stroke-width 1.75. Sized in px here, coloured by inheritance. */
+.chev { display: inline-flex; transition: transform var(--dur-fast) var(--ease-out); }
+.chev svg { width: 16px; height: 16px; }
 .nav-tab[aria-expanded="true"] .chev { transform: rotate(180deg); }
+/* Two-column link list for the Resources panel. Reuses .suite-links /
+   .suite-link from the Solutions panel rather than inventing a second link
+   style: these entries carry no icon and no description, so the mega-item
+   pattern (38px icon tile + title + desc) would be scaffolding around
+   nothing. Only the column head is new. */
+.nav-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 240px)); gap: 0 48px; }
+.nav-col-head {
+  margin: 0 0 10px; font-family: var(--font-body); font-size: var(--text-eyebrow);
+  font-weight: 500; letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;
+  color: var(--text-muted);
+}
+@media (max-width: 680px) { .nav-cols { grid-template-columns: 1fr; gap: 24px 0; } }
+
 .nav-actions { flex: 1 1 0; display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
 @media (max-width: 1120px) { .nav-links { display: none; } }
 
