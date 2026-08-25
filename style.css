@@ -27,6 +27,11 @@
   --u-blue-200:   #9CC4F6;
   --u-cyan:       #00C7FE;
   --u-green:      #01A955;
+  /* Emerald Text. The text-safe Emerald: 5.74:1 on white vs Emerald's 3.08:1.
+     Per the Emerald-Text Rule, the moment Emerald renders as a character
+     glyph rather than an icon or fill, it becomes this. LIGHT SURFACES ONLY —
+     3.38:1 on --surface-page, so it does not survive the dark page. */
+  --u-green-text: #01763C;
   --u-orange:     #FFAF0F;
   --u-plum:       #6C4BD8;
   --u-ink:        #3C4554;
@@ -427,7 +432,9 @@ button { font-family: inherit; }
 .dash-rec-card { background: var(--surface-card); border-radius: var(--radius-md); padding: 14px; box-shadow: var(--shadow-sm); margin-bottom: 12px; }
 .dash-rec-label { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
 .dash-rec-value { font-family: var(--font-display); font-size: 32px; font-weight: 500; color: var(--text-strong); letter-spacing: -0.03em; }
-.dash-rec-delta { font-family: var(--font-body); font-size: 12px; color: var(--u-green); font-weight: 500; }
+/* "+5.4 vs. best run" is a glyph, not a mark, so it takes Emerald Text.
+   It shipped as --u-green at 3.08:1 on the island's white ground. */
+.dash-rec-delta { font-family: var(--font-body); font-size: 12px; color: var(--u-green-text); font-weight: 500; }
 .dash-bars { display: flex; align-items: flex-end; gap: 6px; height: 70px; }
 .dash-bars span { flex: 1; border-radius: 3px 3px 0 0; background: var(--u-blue-200, #9CC4F6); }
 .dash-bars .dash-bar-hi { background: var(--u-cyan); }
@@ -496,7 +503,11 @@ button { font-family: inherit; }
 .bodie-list { flex: 1; background: var(--surface-card); padding: 14px 16px; min-width: 0; overflow: hidden; }
 .bodie-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--u-gray-100); }
 .bodie-row-name { font-family: var(--font-body); font-weight: 500; font-size: 12px; color: var(--text-strong); white-space: nowrap; }
-.bodie-row-meta { font-family: var(--font-body); font-size: 10.5px; font-style: italic; color: var(--u-gray-400); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* --u-gray-400 is a ramp step, not a text colour: 2.49:1 on the island's
+   white ground, the worst pairing in the system. De-emphasised text is
+   --text-muted (5.88:1). The token itself is untouched — it is still
+   correct on .testi-tab-label, which sits on the dark page at 5.57:1. */
+.bodie-row-meta { font-family: var(--font-body); font-size: 11px; font-style: italic; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .bodie-divider { height: 1px; background: rgba(255,255,255,0.10); margin: 0 clamp(28px,4vw,64px); }
 .bodie-grid { position: relative; padding: clamp(28px,3vw,40px) clamp(28px,4vw,64px) clamp(40px,5vw,72px); display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: clamp(14px,1.6vw,22px); }
