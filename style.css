@@ -153,7 +153,12 @@
   --text-strong:  var(--u-navy);
   --text-heading: var(--u-blue-900);
   --text-body:    var(--u-ink);
-  --text-muted:   #6B7689;
+  /* #6B7689 cleared AA on white (4.59) but failed on every tinted ground the
+     system actually puts it on: Canvas 4.31, Mist 4.06, Sunken 3.56. The
+     dashboard tabs inside the hero light island were shipping at 4.31.
+     #5C6575 is the least darkening that clears 4.5 on all four grounds
+     (5.88 / 5.52 / 5.20 / 4.57) and stays clearly lighter than --text-body. */
+  --text-muted:   #5C6575;
   --text-link:    var(--u-blue-600);
 
   --surface-page:      var(--u-white);
