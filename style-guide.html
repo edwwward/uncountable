@@ -79,7 +79,14 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-heading); font-weig
 .sg-toc a { display:block; color:var(--text-body); text-decoration:none; transition:color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out); }
 .sg-toc a:hover { color:var(--text-link); }
 .sg-toc a:focus-visible { outline:3px solid var(--u-blue-400); outline-offset:-2px; border-radius:var(--radius-sm); }
-.sg-toc a[aria-current="true"] { color:var(--text-link); background:var(--u-surface-1); font-weight:500; box-shadow:inset 2px 0 0 var(--text-link); }
+/* The current item takes --text-strong, not --text-link. Every entry here is a
+   link, so link-blue on the current one is redundant with the bar and the tint
+   — and it was the thing breaking contrast: Azure on Mist is 4.42:1, the exact
+   pairing DESIGN.md §5 flags as failing and the Academy app already deviates
+   from. Azure stays as the 2px bar, where it is a non-text state indicator
+   judged against WCAG 1.4.11's 3:1 bar rather than 4.5:1, and clears it at
+   4.42:1. Result: 15.94:1 light / 16.24:1 dark on the label, no new tokens. */
+.sg-toc a[aria-current="true"] { color:var(--text-strong); background:var(--u-surface-1); font-weight:500; box-shadow:inset 2px 0 0 var(--text-link); }
 
 @media (min-width:1121px) {
   .sg-shell { display:flex; align-items:flex-start; max-width:1280px; margin:0 auto; padding:0 clamp(20px,3vw,40px); }
