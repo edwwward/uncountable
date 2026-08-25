@@ -709,8 +709,28 @@ button { font-family: inherit; }
 .voices-counter { font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); letter-spacing: 0.06em; }
 .voices-viewport { overflow: hidden; outline: none; --voice-w: min(760px, 76vw); }
 .voices-track { display: flex; gap: 24px; width: max-content; align-items: stretch; padding-left: calc(50% - var(--voice-w) / 2); padding-right: calc(50% - var(--voice-w) / 2); transition: transform var(--dur-slide) var(--ease-slide); }
-.voices-card { flex: 0 0 var(--voice-w); display: flex; flex-direction: column; min-height: 340px; cursor: pointer; opacity: 0.34; filter: saturate(0.15); transform: scale(0.965); transition: opacity .5s var(--ease-out), filter .5s var(--ease-out), transform var(--dur-slide) var(--ease-slide); }
-.voices-card.is-active { cursor: default; opacity: 1; filter: none; transform: scale(1); }
+/* Inactive cards recede by surface, scale and elevation — never by opacity.
+   They used to carry opacity:.34 + saturate(.15), which fades the text and the
+   card ground toward the page together: the quote composited to 2.88:1, the
+   role to 2.02:1 and the company label to 1.97:1, i.e. five of the six cards
+   shipped unreadable. This is the failure mode DESIGN.md names directly —
+   signal inactive with a background-colour change, not opacity.
+   Four signals now, all contrast-safe: a flatter ground (--surface-card sits
+   1.13:1 against the page vs the active card's 1.26:1, so it reads as further
+   back), no shadow so only the active card floats, a 0.965 scale, and the
+   company label dropping out of Sky Cyan. That last one is deliberate — cyan
+   is "rare and precious", so letting only the active card carry it makes the
+   accent do the selection work instead of decorating all six.
+   Every pairing on the inactive ground now clears AA with room: quote and name
+   17.25:1, role 8.88:1, company 8.89:1. */
+.voices-card {
+  flex: 0 0 var(--voice-w); display: flex; flex-direction: column; min-height: 340px;
+  cursor: pointer; background: var(--surface-card); box-shadow: none; transform: scale(0.965);
+  transition: background-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out), transform var(--dur-slide) var(--ease-slide);
+}
+.voices-card .voices-company, .voices-card .voices-quote-mark { color: var(--text-body); transition: color var(--dur-base) var(--ease-out); }
+.voices-card.is-active { cursor: default; background: var(--surface-dark); box-shadow: var(--shadow-lg); transform: scale(1); }
+.voices-card.is-active .voices-company, .voices-card.is-active .voices-quote-mark { color: var(--u-cyan); }
 .voices-company { font-family: var(--font-display); font-size: 15px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--u-cyan); }
 .voices-quote { font-family: var(--font-display); font-weight: 500; font-size: clamp(20px,2.1vw,29px); line-height: 1.32; letter-spacing: -0.01em; color: #fff; margin: 22px 0 0; }
 .voices-quote-mark { color: var(--u-cyan); margin-right: 6px; }
