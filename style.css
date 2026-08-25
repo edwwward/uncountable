@@ -27,12 +27,15 @@
   --u-cyan:       #00C7FE;
   --u-green:      #01A955;
   --u-orange:     #FFAF0F;
+  --u-plum:       #6C4BD8;
   --u-ink:        #3C4554;
 
-  --u-rd:         #2E9E5B;
-  --u-quality:    #232AB6;
-  --u-lifecycle:  #6C4BD8;
-  --u-ppm:        #FFAF0F;
+  /* Suite accents alias core palette colors — reference the suite
+     variable in suite contexts so the mapping can evolve. */
+  --u-rd:         var(--u-green);
+  --u-quality:    var(--u-blue-700);
+  --u-lifecycle:  var(--u-plum);
+  --u-ppm:        var(--u-orange);
 
   --u-tint-cyan:    #80E3FE;
   --u-tint-cyan-2:  #BFF1FF;

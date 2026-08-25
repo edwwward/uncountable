@@ -10,34 +10,39 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --u-white:#FFFFFF; --u-navy:#020D4C; --u-blue-900:#01318F; --u-blue-600:#046CDE; --u-blue-700:#0356B4;
-  --u-cyan:#00C7FE; --u-green:#01A955; --u-orange:#FFAF0F; --u-ink:#3C4554;
-  --u-rd:#2E9E5B; --u-quality:#232AB6; --u-lifecycle:#6C4BD8; --u-ppm:#FFAF0F;
+  --u-white:#FFFFFF; --u-navy:#020D4C; --u-blue-900:#01318F; --u-blue-600:#046CDE; --u-blue-700:#0356B4; --u-blue-400:#2E86E8;
+  --u-cyan:#00C7FE; --u-green:#01A955; --u-orange:#FFAF0F; --u-plum:#6C4BD8; --u-ink:#3C4554;
+  /* Suite accents alias core palette colors — see the Core Palette section. */
+  --u-rd:var(--u-green); --u-quality:var(--u-blue-700); --u-lifecycle:var(--u-plum); --u-ppm:var(--u-orange);
   --u-tint-cyan:#80E3FE; --u-tint-cyan-2:#BFF1FF; --u-tint-green:#80D4AA; --u-tint-green-2:#BFE9D4;
   --u-gray-50:#F6F8FB; --u-gray-100:#EEF1F6; --u-gray-200:#E0E5ED; --u-gray-300:#C9D1DD;
-  --u-gray-400:#9AA5B6; --u-gray-500:#6B7689; --u-gray-600:#4E586B; --u-gray-700:#3C4554;
+  --u-gray-400:#9AA5B6; --u-gray-600:#4E586B; --u-gray-700:#3C4554;
   --text-strong:var(--u-navy); --text-heading:var(--u-blue-900); --text-body:var(--u-ink);
   --text-muted:#6B7689; --text-link:var(--u-blue-600);
-  --surface-page:var(--u-white); --surface-card:var(--u-white); --surface-subtle:#EAF2F9; --surface-sunken:#DFE3EA;
+  --surface-page:var(--u-white); --surface-card:var(--u-white); --surface-card-ring:rgba(255,255,255,0.35); --surface-subtle:#EAF2F9; --surface-sunken:#DFE3EA;
   --u-surface-1:#EAF2F9; --u-surface-2:#DFE3EA; --surface-dark:#0C1C63; --surface-success-soft:#E2F6EC;
   --border-subtle:#E0E5ED; --border-default:#C9D1DD; --border-strong:var(--u-navy);
   --brand-ink:var(--u-navy);
   --grad-hero:linear-gradient(160deg,#EAF2F9 0%,#DFE9F6 38%,#E6F8FF 100%);
   --grad-dark:linear-gradient(155deg,#061156 0%,#020D4C 60%,#01081f 100%);
   --grad-cyan:linear-gradient(135deg,var(--u-cyan) 0%,var(--u-blue-600) 100%);
-  --shadow-sm:0 2px 6px rgba(2,13,76,0.07); --shadow-md:0 8px 24px rgba(2,13,76,0.09); --shadow-lg:0 18px 44px rgba(2,13,76,0.12);
-  --radius-sm:4px; --radius-md:6px; --radius-lg:8px; --radius-control:6px;
+  --grad-mint:linear-gradient(135deg,var(--u-tint-green-2) 0%,var(--u-tint-cyan) 100%);
+  --shadow-xs:0 1px 2px rgba(2,13,76,0.06); --shadow-sm:0 2px 6px rgba(2,13,76,0.07); --shadow-md:0 8px 24px rgba(2,13,76,0.09); --shadow-lg:0 18px 44px rgba(2,13,76,0.12); --shadow-xl:0 32px 70px rgba(2,13,76,0.16);
+  --shadow-card:0 1px 0 rgba(255,255,255,0.6) inset, 0 10px 30px rgba(2,13,76,0.08);
+  --radius-sm:4px; --radius-md:6px; --radius-lg:8px; --radius-xl:12px; --radius-control:6px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1); --dur-fast:140ms; --dur-base:220ms;
   --font-display:'Poppins','Helvetica Neue',Arial,sans-serif; --font-body:'Poppins','Helvetica Neue',Arial,sans-serif; --font-mono:'IBM Plex Mono',ui-monospace,monospace;
 }
 [data-theme="dark"] {
   --text-strong:#EDF2FA; --text-heading:#DDE8F8; --text-body:#AEBBD0; --text-muted:#7C8AA3; --text-link:#57A6F6;
-  --surface-page:#070C1F; --surface-card:#101A33; --surface-subtle:#0C142B; --surface-sunken:#16203C;
+  --surface-page:#070C1F; --surface-card:#101A33; --surface-card-ring:rgba(255,255,255,0.06); --surface-subtle:#0C142B; --surface-sunken:#16203C;
   --u-surface-1:#0C142B; --u-surface-2:#16203C; --surface-success-soft:rgba(1,169,85,0.22);
   --border-subtle:rgba(255,255,255,0.09); --border-default:rgba(255,255,255,0.20); --border-strong:rgba(255,255,255,0.55);
   --brand-ink:var(--u-blue-600);
   --u-gray-50:#0E1730; --u-gray-100:rgba(255,255,255,0.08); --u-gray-200:rgba(255,255,255,0.12); --u-gray-300:rgba(255,255,255,0.22); --u-gray-400:#7C8AA3; --u-gray-600:#A3B1C7; --u-gray-700:#C6D1E1;
   --grad-hero:linear-gradient(160deg,#0A1330 0%,#0B1732 38%,#08213D 100%);
-  --shadow-sm:0 2px 6px rgba(0,0,0,0.45); --shadow-md:0 8px 20px rgba(0,0,0,0.45); --shadow-lg:0 18px 40px rgba(0,0,0,0.50);
+  --shadow-xs:0 1px 2px rgba(0,0,0,0.45); --shadow-sm:0 2px 6px rgba(0,0,0,0.45); --shadow-md:0 8px 20px rgba(0,0,0,0.45); --shadow-lg:0 18px 40px rgba(0,0,0,0.50); --shadow-xl:0 32px 70px rgba(0,0,0,0.55);
+  --shadow-card:0 1px 0 rgba(255,255,255,0.05) inset, 0 10px 30px rgba(0,0,0,0.40);
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -46,16 +51,21 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
 .sg-header { position:sticky; top:0; z-index:10; display:flex; align-items:center; justify-content:space-between; padding:18px clamp(20px,3vw,40px); background:var(--surface-card); border-bottom:1px solid var(--border-subtle); }
 .sg-header h1 { font-size:20px; }
 .sg-toggle { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-muted); cursor:pointer; background:var(--u-surface-1); border:1px solid var(--border-default); border-radius:var(--radius-control); padding:6px 12px; }
+.sg-toggle-icon { display:inline-flex; width:14px; height:14px; }
+.sg-toggle-icon svg { width:100%; height:100%; }
 .sg-wrap { max-width:1100px; margin:0 auto; padding:0 clamp(20px,3vw,40px) 80px; }
 .sg-section { padding:48px 0; border-bottom:1px solid var(--border-subtle); }
 .sg-section h2 { font-size:28px; text-transform:uppercase; letter-spacing:-0.02em; margin-bottom:8px; }
+.sg-section h3.sg-sub { font-size:13px; font-weight:500; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.08em; margin:32px 0 12px; }
 .sg-desc { color:var(--text-muted); font-size:14px; margin-bottom:28px; max-width:640px; }
-.sg-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:16px; }
-.swatch { border-radius:var(--radius-md); overflow:hidden; border:1px solid var(--border-subtle); cursor:pointer; }
+.sg-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:16px; }
+.swatch { border-radius:var(--radius-md); overflow:hidden; border:1px solid var(--border-subtle); }
 .swatch-fill { height:64px; }
-.swatch-label { padding:8px 10px; font-size:12px; background:var(--surface-card); }
-.swatch-label b { display:block; font-family:var(--font-mono); font-size:11px; color:var(--text-strong); }
+.swatch-label { padding:10px 12px; font-size:12px; background:var(--surface-card); }
+.swatch-label span.swatch-name { display:block; font-family:var(--font-display); font-weight:500; font-size:13px; color:var(--text-strong); margin-bottom:2px; }
+.swatch-label b { display:block; font-family:var(--font-mono); font-weight:400; font-size:11px; color:var(--text-body); }
 .swatch-label span { color:var(--text-muted); font-size:10.5px; }
+.swatch-label span.swatch-note { display:block; margin-top:5px; font-size:11px; line-height:1.45; color:var(--text-muted); }
 .type-row { display:flex; align-items:baseline; gap:24px; padding:16px 0; border-bottom:1px solid var(--border-subtle); }
 .type-row:last-child { border-bottom:none; }
 .type-row code { flex:0 0 160px; font-family:var(--font-mono); font-size:11px; color:var(--text-muted); }
@@ -65,17 +75,31 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
 .radius-row, .shadow-row { display:flex; gap:20px; flex-wrap:wrap; }
 .radius-box { width:80px; height:80px; background:var(--u-surface-1); border:1px solid var(--border-default); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:11px; color:var(--text-muted); }
 .shadow-box { width:120px; height:80px; background:var(--surface-card); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:11px; color:var(--text-muted); border-radius:var(--radius-md); }
+.grad-box { height:96px; border-radius:var(--radius-md); border:1px solid var(--border-subtle); }
+.motion-demo { display:flex; align-items:center; gap:24px; padding:20px; background:var(--u-surface-1); border:1px solid var(--border-subtle); border-radius:var(--radius-md); }
+.motion-chip { width:56px; height:56px; border-radius:var(--radius-md); background:var(--u-blue-600); transition:transform var(--dur-base) var(--ease-out); }
+.motion-demo:hover .motion-chip { transform:translateX(120px); }
+@media (prefers-reduced-motion: reduce) { .motion-chip { transition:none; } }
+.rule-list { margin:0; padding:0; list-style:none; max-width:720px; }
+.rule-list li { padding:12px 0; border-bottom:1px solid var(--border-subtle); font-size:14px; line-height:1.55; }
+.rule-list li:last-child { border-bottom:none; }
+.rule-list b { color:var(--text-strong); font-weight:500; }
+.logo-tile { width:260px; height:120px; display:flex; align-items:center; justify-content:center; border-radius:var(--radius-md); border:1px solid var(--border-subtle); }
 .comp-row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:16px; }
 .btn { display:inline-flex; align-items:center; justify-content:center; font-family:var(--font-body); font-weight:500; border-radius:var(--radius-control); cursor:pointer; border:1.5px solid transparent; padding:12px 24px; font-size:15px; text-decoration:none; }
 .btn-primary { background:var(--brand-ink); color:#fff; border-color:var(--brand-ink); }
 .btn-cta { background:var(--u-blue-600); color:#fff; border-color:var(--u-blue-600); }
+.btn-cta:hover { background:var(--u-blue-700); border-color:var(--u-blue-700); }
 .btn-accent { background:var(--u-cyan); color:var(--u-navy); border-color:var(--u-cyan); }
 .btn-outline { background:transparent; color:var(--text-strong); border-color:var(--border-strong); }
+.btn { transition:transform var(--dur-fast) var(--ease-out), background var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out); }
+.searchfield-demo { display:flex; align-items:center; gap:8px; background:var(--surface-card); border-radius:var(--radius-lg); padding:8px 8px 8px 24px; box-shadow:0 0 0 8px var(--surface-card-ring), var(--shadow-lg); max-width:480px; width:100%; }
+.searchfield-demo input { flex:1; border:none; outline:none; background:transparent; font-family:var(--font-body); font-size:16px; color:var(--text-strong); min-width:0; }
+.searchfield-demo input::placeholder { color:var(--text-muted); }
 .tag { display:inline-flex; padding:6px 14px; border-radius:var(--radius-sm); font-size:13px; font-weight:500; border:1px solid var(--border-default); color:var(--text-body); }
 .card-demo { background:var(--u-surface-1); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:24px; width:220px; box-shadow:var(--shadow-sm); }
 .card-demo-dark { background:var(--surface-dark); color:#fff; border-radius:var(--radius-lg); padding:24px; width:220px; box-shadow:var(--shadow-lg); }
 .avatar-demo { width:44px; height:44px; border-radius:50%; background:var(--grad-cyan); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:500; font-size:15px; }
-.avatar-demo-lg { width:46px; height:46px; font-size:15px; }
 
 .icon-btn-demo { display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:var(--radius-control); font-size:18px; color:var(--text-strong); background:transparent; border:1.5px solid var(--border-default); cursor:pointer; }
 .icon-btn-demo:disabled { cursor:not-allowed; opacity:0.4; }
@@ -102,34 +126,55 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
 
 .tour-demo-play { width:64px; height:64px; border-radius:50%; background:var(--u-cyan); display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-md); flex:none; }
 .tour-demo-play svg { width:24px; height:24px; color:var(--u-navy); margin-left:2px; }
-.tour-demo-frame { display:flex; align-items:center; gap:12px; background:var(--grad-dark); border-radius:var(--radius-lg); padding:20px; color:#fff; font-size:12.5px; }
+.tour-demo-frame { display:flex; align-items:center; gap:12px; background:var(--grad-dark); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:20px; color:#fff; font-size:12.5px; }
 </style>
 </head>
 <body data-theme="dark">
 
 <div class="sg-header">
   <h1>Uncountable 3.0 — Style Guide</h1>
-  <button class="sg-toggle" id="themeToggle">🌙 Dark</button>
+  <button class="sg-toggle" id="themeToggle"><span class="sg-toggle-icon" id="themeToggleIcon" aria-hidden="true"></span><span id="themeToggleLabel">Dark</span></button>
 </div>
 
 <div class="sg-wrap">
 
   <section class="sg-section">
-    <h2>Brand &amp; Product Colors</h2>
-    <p class="sg-desc">Raw brand hues — do not flip between themes. Reference by variable name, never by hex.</p>
-    <div class="sg-grid" id="brandSwatches"></div>
+    <h2>Core Palette</h2>
+    <p class="sg-desc">Raw brand hues — fixed values that do not flip between themes. Reference by variable name, never by hex. Human names match DESIGN.md so both docs speak the same language.</p>
+    <div class="sg-grid" id="coreSwatches"></div>
+
+    <h3 class="sg-sub">Suite accents</h3>
+    <p class="sg-desc">One accent per product suite, used for the suite dot in the Solutions nav panel and suite-scoped highlights. Each suite reuses a Core Palette color rather than introducing a new one — Plum is the only addition, for Product Lifecycle. R&amp;D is Emerald, Quality is Azure 700, and Innovation &amp; PM is Amber.</p>
+    <div class="sg-grid" id="suiteSwatches"></div>
+
+    <h3 class="sg-sub">Tints</h3>
+    <p class="sg-desc">Light washes for illustration fills and the mint/sky resource-card headers. Backgrounds and graphics only — never text.</p>
+    <div class="sg-grid" id="tintSwatches"></div>
+  </section>
+
+  <section class="sg-section">
+    <h2>Neutrals</h2>
+    <p class="sg-desc">The gray ramp flips with the theme: solid cool grays in light, white-alpha overlays in dark. Values below are live-resolved for the current theme.</p>
+    <div class="sg-grid" id="graySwatches"></div>
   </section>
 
   <section class="sg-section">
     <h2>Semantic Tokens</h2>
-    <p class="sg-desc">Flip between light and dark via <code>[data-theme]</code>. Always prefer these over raw brand colors for text and surfaces.</p>
+    <p class="sg-desc">Flip between light and dark via <code>[data-theme]</code>. Always prefer these over raw brand colors for text and surfaces. Values below are live-resolved for the current theme.</p>
     <div class="sg-grid" id="semanticSwatches"></div>
   </section>
 
   <section class="sg-section">
+    <h2>Gradients</h2>
+    <p class="sg-desc">Fixed compositions — none flip with the theme except the hero wash. <code>--grad-dark</code> bands always carry a 1px <code>--border-subtle</code> hairline: the darkest stop is ~1.02:1 against the page and the band edge vanishes without it.</p>
+    <div class="sg-grid" id="gradSwatches"></div>
+  </section>
+
+  <section class="sg-section">
     <h2>Typography</h2>
-    <p class="sg-desc">Poppins for display/heading/body (weights capped at 500), IBM Plex Mono for data.</p>
-    <div class="type-row"><code>--text-display-xl</code><span class="display" style="font-family:var(--font-display);font-weight:500;font-size:clamp(2.75rem,4.9vw,4.75rem);color:var(--text-strong);">Reach the answer</span></div>
+    <p class="sg-desc">Poppins for display/heading/body, IBM Plex Mono for data. Only the 400 and 500 faces are loaded — 500 is this system's bold. Emphasize with size, color, or tracking, never with a heavier weight.</p>
+    <div class="type-row"><code>--text-display-2xl</code><span style="font-family:var(--font-display);font-weight:500;font-size:clamp(3.25rem,6.4vw,6.5rem);line-height:1.02;letter-spacing:-0.04em;color:var(--text-strong);">96.4</span></div>
+    <div class="type-row"><code>--text-display-xl</code><span style="font-family:var(--font-display);font-weight:500;font-size:clamp(2.75rem,4.9vw,4.75rem);color:var(--text-strong);">Reach the answer</span></div>
     <div class="type-row"><code>--text-display-lg</code><span style="font-family:var(--font-display);font-weight:500;font-size:clamp(2.25rem,3.6vw,3.5rem);color:var(--text-strong);">Run. Capture. Predict.</span></div>
     <div class="type-row"><code>heading / h2</code><span style="font-size:24px;color:var(--text-strong);">The data behind every breakthrough</span></div>
     <div class="type-row"><code>body / 16px</code><span style="font-size:16px;color:var(--text-body);">The R&amp;D data platform that captures every experiment.</span></div>
@@ -138,33 +183,75 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
   </section>
 
   <section class="sg-section">
-    <h2>Spacing</h2>
-    <p class="sg-desc">4px base grid, --space-1 through --space-12.</p>
+    <h2>Spacing &amp; Layout</h2>
+    <p class="sg-desc">4px base grid. Page content sits in a 1280px container (<code>.container-max</code>) with a <code>clamp(20px, 3vw, 40px)</code> gutter — the same container and gutter the Academy app uses.</p>
     <div id="spaceRows"></div>
   </section>
 
   <section class="sg-section">
     <h2>Radii &amp; Shadows</h2>
+    <p class="sg-desc">Radii stop at 12px — nothing pill-shaped except avatars and the tour play button. Shadows are navy-tinted in light, black-based in dark; <code>--shadow-card</code> adds a 1px inset top highlight.</p>
     <div class="radius-row" style="margin-bottom:32px;">
-      <div class="radius-box" style="border-radius:4px;">sm · 4px</div>
-      <div class="radius-box" style="border-radius:6px;">md · 6px</div>
-      <div class="radius-box" style="border-radius:8px;">lg · 8px</div>
-      <div class="radius-box" style="border-radius:12px;">xl · 12px</div>
+      <div class="radius-box" style="border-radius:var(--radius-sm);">sm · 4px</div>
+      <div class="radius-box" style="border-radius:var(--radius-md);">md · 6px</div>
+      <div class="radius-box" style="border-radius:var(--radius-lg);">lg · 8px</div>
+      <div class="radius-box" style="border-radius:var(--radius-xl);">xl · 12px</div>
     </div>
     <div class="shadow-row">
+      <div class="shadow-box" style="box-shadow:var(--shadow-xs);">xs</div>
       <div class="shadow-box" style="box-shadow:var(--shadow-sm);">sm</div>
       <div class="shadow-box" style="box-shadow:var(--shadow-md);">md</div>
       <div class="shadow-box" style="box-shadow:var(--shadow-lg);">lg</div>
+      <div class="shadow-box" style="box-shadow:var(--shadow-xl);">xl</div>
+      <div class="shadow-box" style="box-shadow:var(--shadow-card);">card</div>
+    </div>
+  </section>
+
+  <section class="sg-section">
+    <h2>Motion</h2>
+    <p class="sg-desc">One curve for everything: <code>--ease-out: cubic-bezier(0.22, 1, 0.36, 1)</code>. Two durations: <code>--dur-fast</code> 140ms for hovers and toggles, <code>--dur-base</code> 220ms for entrances and slides. Never animate layout properties; disable entrances under <code>prefers-reduced-motion</code>.</p>
+    <div class="motion-demo"><div class="motion-chip"></div><span style="font-size:13px;color:var(--text-muted);">Hover this panel — 220ms, ease-out, transform only.</span></div>
+  </section>
+
+  <section class="sg-section">
+    <h2>Usage Rules</h2>
+    <p class="sg-desc">The rules that keep the palette accessible. Every ratio below is computed, not eyeballed — do the same before shipping a new pairing.</p>
+    <ul class="rule-list">
+      <li><b>The Amber Rule.</b> Amber is dark-surface only: 1.8:1 on white fails even the large-text bar. Chart thresholds, control-band markers, dark badges — never type on a light surface.</li>
+      <li><b>The Emerald rule.</b> Emerald is for icons, fills, and graphical marks (≥3:1 non-text bar). The moment it renders as a character glyph, switch to a darkened text variant.</li>
+      <li><b>Azure has no headroom as text.</b> 4.99:1 on white passes AA with almost nothing to spare — keep Azure text on white or lighter surfaces only, and never shrink it below 14px.</li>
+      <li><b>surface-dark is lifted.</b> Dark cards use #0C1C63, not raw Midnight — Midnight is 1.08:1 against the dark page and reads as invisible.</li>
+      <li><b>500 is bold.</b> Only Poppins 400/500 are loaded. A heavier weight will silently render as faux-bold or fall back — cap everything at 500.</li>
+      <li><b>No colored accent stripes.</b> Cards and callouts never get a colored side or top border. Use a tag, a tinted ground, or nothing.</li>
+    </ul>
+  </section>
+
+  <section class="sg-section">
+    <h2>Logo</h2>
+    <p class="sg-desc">White wordmark on dark chrome (nav, footer — rendered at 26px height). Navy monogram on light surfaces and as the favicon. Never recolor, never place the navy mark on a dark ground.</p>
+    <div class="comp-row">
+      <div class="logo-tile" style="background:var(--grad-dark);"><img src="assets/logo-white.svg" alt="Uncountable wordmark, white" height="26"></div>
+      <div class="logo-tile" style="background:var(--u-white);"><img src="assets/mark-navy.svg" alt="Uncountable monogram, navy" height="40"></div>
     </div>
   </section>
 
   <section class="sg-section">
     <h2>Buttons</h2>
+    <p class="sg-desc">CTA is Azure and darkens to <code>--u-blue-700</code> on hover. Accent (Sky Cyan with Midnight text) is reserved for dark bands. Color/border fade over 220ms (<code>--dur-base</code>); any transform (e.g. a hover lift) runs at 140ms (<code>--dur-fast</code>) — the same split as every other hover state on the site.</p>
     <div class="comp-row">
-      <a class="btn btn-primary">Primary</a>
-      <a class="btn btn-cta">CTA</a>
-      <a class="btn btn-accent">Accent</a>
-      <a class="btn btn-outline">Outline</a>
+      <span class="btn btn-primary">Primary</span>
+      <span class="btn btn-cta">CTA</span>
+      <span class="btn btn-accent">Accent</span>
+      <span class="btn btn-outline">Outline</span>
+    </div>
+  </section>
+
+  <section class="sg-section">
+    <h2>Search Field</h2>
+    <p class="sg-desc">The one input pattern on the site (hero email capture): borderless input on a floating card, 8px ring via <code>--surface-card-ring</code>, paired with a CTA button. That ring is a white glow meant for a light card floating on the site's dark page — toggle this guide to Light and it goes invisible against the white page background. That's the token working as shipped, not a bug in this demo.</p>
+    <div class="searchfield-demo">
+      <input type="email" placeholder="Enter your work email" aria-label="Work email">
+      <span class="btn btn-cta" style="padding:10px 20px;font-size:14px;">Request a demo</span>
     </div>
   </section>
 
@@ -195,7 +282,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     <h2>Customers Page Components</h2>
     <p class="sg-desc">Added for the Customers page — proof stats, the quote slider, case study cards, the product tour play affordance, and the disabled icon-button state.</p>
 
-    <p style="font-size:13px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin:0 0 12px;">Proof stat</p>
+    <h3 class="sg-sub">Proof stat</h3>
     <div class="comp-row">
       <div class="proof-demo" style="border-left:none;padding-left:0;">
         <div class="proof-demo-value">30%</div>
@@ -209,7 +296,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
       </div>
     </div>
 
-    <p style="font-size:13px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin:32px 0 12px;">Quote card (voices slider)</p>
+    <h3 class="sg-sub">Quote card (voices slider)</h3>
     <p class="sg-desc" style="margin-bottom:16px;">Same <code>surface-dark</code> card as testimonials, but the avatar renders at 44px here (testimonials use 46px) — check the component you're referencing before assuming a shared size.</p>
     <div class="comp-row">
       <div class="voices-demo-card">
@@ -222,7 +309,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
       </div>
     </div>
 
-    <p style="font-size:13px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin:32px 0 12px;">Case study card</p>
+    <h3 class="sg-sub">Case study card</h3>
     <div class="comp-row">
       <div class="case-demo-card">
         <div class="case-demo-logo">Halendza Materials</div>
@@ -235,53 +322,106 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
       </div>
     </div>
 
-    <p style="font-size:13px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin:32px 0 12px;">Product tour play</p>
+    <h3 class="sg-sub">Product tour play</h3>
     <div class="comp-row">
       <div class="tour-demo-frame">
-        <span class="tour-demo-play"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg></span>
+        <span class="tour-demo-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg></span>
         <span>Watch the tour &middot; 3 min</span>
       </div>
     </div>
 
-    <p style="font-size:13px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin:32px 0 12px;">Icon button — enabled / disabled</p>
+    <h3 class="sg-sub">Icon button — enabled / disabled</h3>
     <div class="comp-row">
-      <button class="icon-btn-demo">&larr;</button>
-      <button class="icon-btn-demo" disabled>&larr;</button>
-      <button class="icon-btn-demo">&rarr;</button>
-      <button class="icon-btn-demo" disabled>&rarr;</button>
+      <button class="icon-btn-demo" aria-label="Previous">&larr;</button>
+      <button class="icon-btn-demo" aria-label="Previous, disabled" disabled>&larr;</button>
+      <button class="icon-btn-demo" aria-label="Next">&rarr;</button>
+      <button class="icon-btn-demo" aria-label="Next, disabled" disabled>&rarr;</button>
     </div>
   </section>
 
 </div>
 
 <script>
-const BRAND = [
-  ['--u-navy', '#020D4C'], ['--u-blue-900', '#01318F'], ['--u-blue-600', '#046CDE'],
-  ['--u-cyan', '#00C7FE'], ['--u-green', '#01A955'], ['--u-orange', '#FFAF0F'], ['--u-ink', '#3C4554'],
-  ['--u-rd', '#2E9E5B'], ['--u-quality', '#232AB6'], ['--u-lifecycle', '#6C4BD8'], ['--u-ppm', '#FFAF0F'],
+const CORE = [
+  ['Midnight',   '--u-navy',     '#020D4C', 'Dark surfaces; densest text on light. 18.03:1 on white.'],
+  ['Royal Blue', '--u-blue-900', '#01318F', 'Brand headline blue on light surfaces. 11.43:1 on white.'],
+  ['Azure',      '--u-blue-600', '#046CDE', 'Primary CTA and links. 4.99:1 on white — AA with no headroom.'],
+  ['Azure 700',  '--u-blue-700', '#0356B4', 'Azure hover state (--brand-primary-hover).'],
+  ['Azure 400',  '--u-blue-400', '#2E86E8', 'Chart and illustration accent only.'],
+  ['Sky Cyan',   '--u-cyan',     '#00C7FE', 'Signature accent on dark. 9.1:1 on Midnight. Rare and precious.'],
+  ['Emerald',    '--u-green',    '#01A955', 'Success — icons and graphics, never small text.'],
+  ['Amber',      '--u-orange',   '#FFAF0F', 'Dark surfaces only — 1.8:1 on white fails even large text.'],
+  ['Plum',       '--u-plum',     '#6C4BD8', 'Product Lifecycle suite accent. Graphics and suite dots only.'],
+  ['Slate',      '--u-ink',      '#3C4554', 'Body text on light. 9.67:1 on white.'],
 ];
+const SUITE = [
+  ['R&D',                 '--u-rd',        '#01A955', 'Aliases Emerald — same hex, scoped to the R&D suite dot.'],
+  ['Quality',             '--u-quality',   '#0356B4', 'Aliases Azure 700 — same hex, scoped to the Quality suite dot.'],
+  ['Product Lifecycle',   '--u-lifecycle', '#6C4BD8', 'Aliases Plum — same hex, scoped to the Product Lifecycle suite dot.'],
+  ['Innovation & PM',     '--u-ppm',       '#FFAF0F', 'Aliases Amber — same hex, scoped to the PPM suite dot.'],
+];
+const TINTS = [
+  ['Tint Sky',     '--u-tint-cyan',    '#80E3FE', ''],
+  ['Tint Ice',     '--u-tint-cyan-2',  '#BFF1FF', ''],
+  ['Tint Mint',    '--u-tint-green',   '#80D4AA', ''],
+  ['Tint Seafoam', '--u-tint-green-2', '#BFE9D4', ''],
+];
+const GRAYS = ['--u-gray-50','--u-gray-100','--u-gray-200','--u-gray-300','--u-gray-400','--u-gray-600','--u-gray-700'];
 const SEMANTIC = [
   '--text-strong', '--text-heading', '--text-body', '--text-muted', '--text-link',
   '--surface-page', '--surface-card', '--surface-subtle', '--surface-sunken', '--surface-dark',
   '--border-subtle', '--border-default', '--border-strong',
 ];
+const GRADS = [
+  ['Hero wash',  '--grad-hero', 'Hero backgrounds. The only gradient that flips with the theme.'],
+  ['Dark band',  '--grad-dark', 'Bodie band, footer CTA, tour frame. Always add the 1px hairline.'],
+  ['Cyan sweep', '--grad-cyan', 'Avatars and small accent fills.'],
+  ['Mint wash',  '--grad-mint', 'Resource-card headers (light wash, graphics only).'],
+];
 const SPACE = [['space-1','4px'],['space-2','8px'],['space-3','12px'],['space-4','16px'],['space-5','24px'],['space-6','32px'],['space-8','48px'],['space-9','64px']];
 
-function swatchHTML(name, hex) {
-  const textColor = name.startsWith('--surface') || name === '--u-navy' || name.startsWith('--border') ? '' : hex;
-  return `<div class="swatch" title="${name}"><div class="swatch-fill" style="background:var(${name})"></div><div class="swatch-label"><b>${name}</b><span>${hex || 'computed'}</span></div></div>`;
+// Live-resolve a custom property so labels always match the rendered theme.
+function resolve(varName) {
+  const v = getComputedStyle(document.body).getPropertyValue(varName).trim();
+  const m = v.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+  if (m) return '#' + [m[1],m[2],m[3]].map(n => (+n).toString(16).padStart(2,'0')).join('').toUpperCase();
+  return v;
 }
-document.getElementById('brandSwatches').innerHTML = BRAND.map(([n,h]) => swatchHTML(n,h)).join('');
-document.getElementById('semanticSwatches').innerHTML = SEMANTIC.map(n => swatchHTML(n,'')).join('');
+function swatchHTML(name, varName, hex, note) {
+  return `<div class="swatch" title="${varName}"><div class="swatch-fill" style="background:var(${varName})"></div><div class="swatch-label">${name ? `<span class="swatch-name">${name}</span>` : ''}<b>${varName}</b><span>${hex}</span>${note ? `<span class="swatch-note">${note}</span>` : ''}</div></div>`;
+}
+function gradHTML(name, varName, note) {
+  return `<div class="swatch" title="${varName}"><div class="grad-box" style="background:var(${varName});border-radius:0;border:none;"></div><div class="swatch-label"><span class="swatch-name">${name}</span><b>${varName}</b>${note ? `<span class="swatch-note">${note}</span>` : ''}</div></div>`;
+}
+function render() {
+  document.getElementById('coreSwatches').innerHTML = CORE.map(([n,v,h,note]) => swatchHTML(n,v,h,note)).join('');
+  document.getElementById('suiteSwatches').innerHTML = SUITE.map(([n,v,h,note]) => swatchHTML(n,v,h,note)).join('');
+  document.getElementById('tintSwatches').innerHTML = TINTS.map(([n,v,h,note]) => swatchHTML(n,v,h,note)).join('');
+  document.getElementById('graySwatches').innerHTML = GRAYS.map(v => swatchHTML('', v, resolve(v), '')).join('');
+  document.getElementById('semanticSwatches').innerHTML = SEMANTIC.map(v => swatchHTML('', v, resolve(v), '')).join('');
+  document.getElementById('gradSwatches').innerHTML = GRADS.map(([n,v,note]) => gradHTML(n,v,note)).join('');
+}
+render();
 document.getElementById('spaceRows').innerHTML = SPACE.map(([n,px]) =>
   `<div class="space-row"><code>--${n}</code><div class="space-bar" style="width:${px}"></div><span style="font-size:12px;color:var(--text-muted)">${px}</span></div>`
 ).join('');
+
+// Lucide "moon" and "sun" — vector icons, no emoji. See DESIGN.md's
+// Iconography section: emoji render as a third, uncontrolled typeface
+// (different weight/style per OS) and are never brand-approved glyphs.
+const ICON_MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>';
+const ICON_SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>';
+const toggleIcon = document.getElementById('themeToggleIcon');
+const toggleLabel = document.getElementById('themeToggleLabel');
+toggleIcon.innerHTML = ICON_MOON;
 
 const toggle = document.getElementById('themeToggle');
 toggle.addEventListener('click', () => {
   const dark = document.body.getAttribute('data-theme') === 'dark';
   document.body.setAttribute('data-theme', dark ? 'light' : 'dark');
-  toggle.textContent = dark ? '☀️ Light' : '🌙 Dark';
+  toggleIcon.innerHTML = dark ? ICON_SUN : ICON_MOON;
+  toggleLabel.textContent = dark ? 'Light' : 'Dark';
+  render();
 });
 </script>
 </body>
