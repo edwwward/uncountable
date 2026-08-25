@@ -320,7 +320,10 @@ button { font-family: inherit; }
    ============================================================ */
 .announce { background: var(--u-tint-cyan); color: var(--u-navy); text-align: center; font-family: var(--font-body); font-size: 14px; padding: 9px 16px; }
 .announce strong { font-weight: 500; }
-.announce-sep { margin: 0 10px; opacity: 0.5; }
+/* 0.5 composited to #4178A5 on --u-tint-cyan = 3.22:1 and failed AA. 0.7
+   gives #284D81 = 5.81:1 and still reads clearly quieter than the navy copy
+   beside it (12.31:1), which is the whole job of a separator. */
+.announce-sep { margin: 0 10px; opacity: 0.7; }
 .announce-link { margin-left: 12px; font-weight: 500; color: var(--u-blue-700); text-decoration: none; }
 .announce-link:hover { text-decoration: underline; }
 
@@ -553,7 +556,22 @@ button { font-family: inherit; }
 .solutions-title, .resources-title { font-size: var(--text-display-lg); margin: 14px 0 0; text-transform: uppercase; }
 .carousel-controls { display: flex; gap: 12px; }
 
-.sol-track, .res-track { display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px clamp(20px,3vw,40px) 20px; scrollbar-width: none; }
+/* The tracks are full-bleed so cards can scroll off both edges, but their
+   headings sit in the 1280px container. Below 1280px viewport the two agree;
+   above it the heading indents by (100% - 1280px)/2 and the track did not,
+   so at 1600px the first card started 160px left of its own heading.
+   --track-inset reproduces the container edge, so the first card lines up at
+   every width while the track stays full-bleed.
+   scroll-padding-left matters as much as the padding: with scroll-snap-type
+   mandatory the browser was snapping straight past the inset (scrollLeft
+   settled at 40, cancelling the 40px pad and putting the card flush at x=0).
+   scroll-padding tells the snap algorithm where the start edge really is. */
+.sol-track, .res-track {
+  --track-inset: max(clamp(20px,3vw,40px), calc((100% - 1280px) / 2 + clamp(20px,3vw,40px)));
+  display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 4px var(--track-inset) 20px; scroll-padding-left: var(--track-inset);
+  scrollbar-width: none;
+}
 .sol-track::-webkit-scrollbar, .res-track::-webkit-scrollbar { display: none; }
 
 .sol-card { flex: 0 0 clamp(300px, 38vw, 420px); scroll-snap-align: start; height: 440px; display: flex; flex-direction: column; padding: 2rem; }
