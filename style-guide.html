@@ -189,6 +189,11 @@
 /* --- Theming section --------------------------------------------------- */
 
 
+/* .nav-panel ships absolutely positioned at max-height:0, so it cannot be
+   rendered in flow. This reproduces only its surface — the same card, border
+   and elevation — around the real .nav-cols content. */
+.nav-panel-static { background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); box-shadow:var(--shadow-xl); padding:28px clamp(20px,3vw,32px); max-width:640px; }
+.nav-demo-row { gap:28px; }
 .sg-table-wrap { overflow-x:auto; }
 .sg-table { width:100%; border-collapse:collapse; font-size:13px; line-height:1.5; }
 .sg-table th { text-align:left; font-family:var(--font-body); font-weight:500; font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); padding:0 16px 8px 0; border-bottom:1px solid var(--border-default); white-space:nowrap; }
@@ -674,6 +679,51 @@
       <span class="btn btn-primary">Primary</span>
       <span class="btn btn-cta">CTA</span>
     </div>
+  </section>
+
+  <section id="navigation" class="sg-section">
+    <h2>Navigation</h2>
+    <p class="sg-desc">The primary nav is a row of plain links and dropdown tabs in the 1280px container. A tab owns a panel by name: <code>data-panel="resources"</code> on the button, the same value on the panel. One delegated controller in <code>script.js</code> binds every <code>.nav-tab</code> on the page, so a new dropdown needs no JavaScript &mdash; only the matching pair.</p>
+
+    <h3 class="sg-sub">Dropdown tab</h3>
+    <p class="sg-desc">The chevron is Lucide <code>chevron-down</code> at 16px, inheriting the tab&rsquo;s colour. It rotates 180&deg; and the label takes <code>--text-link</code> when <code>aria-expanded</code> flips. These two are live &mdash; click them.</p>
+    <div class="comp-row nav-demo-row">
+      <button class="nav-tab" data-sg-toggle aria-expanded="false">Resources <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span></button>
+      <button class="nav-tab" data-sg-toggle aria-expanded="true">Resources <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span></button>
+    </div>
+
+    <h3 class="sg-sub">Panel: two-column link list</h3>
+    <p class="sg-desc">Used by the Resources dropdown. Columns are <code>.nav-cols</code>, each headed by a <code>.nav-col-head</code> eyebrow and filled with <code>.suite-links</code> &mdash; the same link component the Solutions panel uses. It carries no icon and no description, so the <code>.mega-item</code> pattern (38px icon tile, title, description) would be scaffolding around nothing. The frame below reproduces the panel&rsquo;s shipped surface; the real <code>.nav-panel</code> is absolutely positioned and collapsed to <code>max-height: 0</code>, so it cannot be shown in flow.</p>
+    <div class="nav-panel-static">
+      <div class="nav-cols">
+        <div class="nav-col">
+          <p class="nav-col-head">Resources</p>
+          <ul class="suite-links">
+            <li><a href="#navigation" class="suite-link">All Resources</a></li>
+            <li><a href="#navigation" class="suite-link">Blog</a></li>
+            <li><a href="#navigation" class="suite-link">Case Studies</a></li>
+            <li><a href="#navigation" class="suite-link">Solution Briefs</a></li>
+            <li><a href="#navigation" class="suite-link">Solution Guides &amp; Tools</a></li>
+            <li><a href="#navigation" class="suite-link">Videos</a></li>
+          </ul>
+        </div>
+        <div class="nav-col">
+          <p class="nav-col-head">Events</p>
+          <ul class="suite-links">
+            <li><a href="#navigation" class="suite-link">Webinars &amp; Podcasts</a></li>
+            <li><a href="#navigation" class="suite-link">Upcoming Events</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="sg-sub">Rules</h3>
+    <ul class="rule-list">
+      <li><b>Chevrons are Lucide, not glyphs.</b> They were <code>&amp;#9660;</code>, the Unicode down-pointing triangle, which renders from whatever fallback font the OS supplies &mdash; the same uncontrolled-typeface problem the No-Emoji Rule covers. Every mark in the nav is inline Lucide at <code>stroke-width: 1.75</code>.</li>
+      <li><b>A dropdown is a <code>&lt;button&gt;</code>, a destination is an <code>&lt;a&gt;</code>.</b> <code>.nav-tab</code> and <code>.nav-link</code> render identically on purpose; the element is chosen by what it does. Tabs carry <code>aria-expanded</code>, links do not.</li>
+      <li><b>Reuse <code>.suite-link</code> for bare lists.</b> Reach for <code>.mega-item</code> only when an entry genuinely has an icon and a description &mdash; Platform does, Resources does not.</li>
+      <li><b>Panels open on their own name.</b> The controller matches <code>data-panel</code> on the tab to <code>data-panel</code> on the panel. Nothing is indexed or hard-coded, so ordering the nav is a markup change.</li>
+    </ul>
   </section>
 
   <section id="interaction-states" class="sg-section">
@@ -1257,6 +1307,15 @@ function publishStickyHeights() {
 publishStickyHeights();
 new ResizeObserver(publishStickyHeights).observe(sgHeader);
 new ResizeObserver(publishStickyHeights).observe(document.documentElement);
+
+// The Navigation section's two tabs really toggle, so the chevron rotation and
+// the --text-link label are demonstrated rather than asserted with a static
+// aria-expanded that nothing backs.
+document.addEventListener('click', (e) => {
+  const t = e.target.closest('[data-sg-toggle]');
+  if (!t) return;
+  t.setAttribute('aria-expanded', t.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+});
 
 // Table of contents — built from the sections actually on the page, in the
 // order they appear. Add, remove, or reorder a <section id> + <h2> and this
