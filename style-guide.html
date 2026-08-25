@@ -33,6 +33,8 @@
   --radius-sm:4px; --radius-md:6px; --radius-lg:8px; --radius-xl:12px; --radius-control:6px;
   --ease-out:cubic-bezier(0.22, 1, 0.36, 1); --dur-fast:140ms; --dur-base:220ms;
   --font-display:'Poppins','Helvetica Neue',Arial,sans-serif; --font-body:'Poppins','Helvetica Neue',Arial,sans-serif; --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  /* Matches style.css exactly — not theme-dependent, so declared once. */
+  --text-display-lg:clamp(2.25rem, 3.6vw, 3.5rem); --leading-snug:1.12; --tracking-tight:-0.02em;
 }
 [data-theme="dark"] {
   --text-strong:#EDF2FA; --text-heading:#DDE8F8; --text-body:#AEBBD0; --text-muted:#7C8AA3; --text-link:#57A6F6;
@@ -48,15 +50,46 @@
 }
 * { box-sizing: border-box; }
 body { margin:0; font-family:var(--font-body); background:var(--surface-page); color:var(--text-body); transition:background .2s, color .2s; }
-h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weight:500; margin:0; }
+h1,h2,h3 { font-family:var(--font-display); color:var(--text-heading); font-weight:500; margin:0; line-height:var(--leading-snug); letter-spacing:var(--tracking-tight); }
 .sg-header { position:sticky; top:0; z-index:10; display:flex; align-items:center; justify-content:space-between; padding:18px clamp(20px,3vw,40px); background:var(--surface-card); border-bottom:1px solid var(--border-subtle); }
 .sg-header h1 { font-size:20px; }
 .sg-toggle { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-muted); cursor:pointer; background:var(--u-surface-1); border:1px solid var(--border-default); border-radius:var(--radius-control); padding:6px 12px; }
 .sg-toggle-icon { display:inline-flex; width:14px; height:14px; }
 .sg-toggle-icon svg { width:100%; height:100%; }
-.sg-wrap { max-width:1100px; margin:0 auto; padding:0 clamp(20px,3vw,40px) 80px; }
-.sg-section { padding:48px 0; border-bottom:1px solid var(--border-subtle); }
-.sg-section h2 { font-size:28px; text-transform:uppercase; letter-spacing:-0.02em; margin-bottom:8px; }
+.sg-wrap { max-width:1280px; margin:0 auto; padding:0 clamp(20px,3vw,40px) 80px; }
+.sg-section { padding:clamp(56px,8vw,112px) 0; border-bottom:1px solid var(--border-subtle); scroll-margin-top:76px; }
+
+/* Table of contents. Sidebar above 1120px — the same width the marketing
+   nav's own links collapse at (style.css: @media (max-width:1120px)),
+   reused here rather than picking a new breakpoint. Below it, a horizontal
+   scroll-snap strip: the site already ships this exact interaction for the
+   Solutions and Resources carousels (.sol-track/.res-track), so a drawer
+   (new toggle, scrim, focus trap) would add a pattern the system doesn't
+   otherwise have, where the strip adds none. */
+.sg-shell { display:flex; align-items:flex-start; }
+.sg-toc { list-style:none; margin:0; }
+.sg-toc a { display:block; color:var(--text-body); text-decoration:none; transition:color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out); }
+.sg-toc a:hover { color:var(--text-link); }
+.sg-toc a:focus-visible { outline:3px solid var(--u-blue-400); outline-offset:-2px; border-radius:var(--radius-sm); }
+.sg-toc a[aria-current="true"] { color:var(--text-link); background:var(--u-surface-1); font-weight:500; box-shadow:inset 2px 0 0 var(--text-link); }
+
+@media (min-width:1121px) {
+  .sg-toc { position:sticky; top:76px; flex:0 0 220px; width:220px; align-self:flex-start; max-height:calc(100vh - 96px); overflow-y:auto; padding:32px 8px 32px 0; }
+  .sg-toc a { padding:6px 12px; font-size:13px; line-height:1.4; border-radius:var(--radius-sm); }
+  .sg-toc a[aria-current="true"] { padding-left:10px; }
+  .sg-wrap { flex:1; min-width:0; }
+}
+@media (max-width:1120px) {
+  .sg-shell { display:block; }
+  .sg-toc { position:sticky; top:57px; z-index:9; display:flex; gap:4px; overflow-x:auto; scroll-snap-type:x proximity; scrollbar-width:none; background:var(--surface-page); border-bottom:1px solid var(--border-subtle); padding:10px clamp(20px,3vw,40px); }
+  .sg-toc::-webkit-scrollbar { display:none; }
+  .sg-toc a { flex:none; scroll-snap-align:start; padding:6px 12px; font-size:12.5px; white-space:nowrap; border-radius:999px; border:1px solid var(--border-default); }
+  .sg-toc a[aria-current="true"] { border-color:var(--text-link); box-shadow:none; }
+}
+@media (prefers-reduced-motion:no-preference) {
+  html { scroll-behavior:smooth; }
+}
+.sg-section h2 { font-size:var(--text-display-lg); text-transform:uppercase; margin-bottom:22px; }
 .sg-section h3.sg-sub { font-size:13px; font-weight:500; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.08em; margin:32px 0 12px; }
 .sg-desc { color:var(--text-muted); font-size:14px; margin-bottom:28px; max-width:640px; }
 .sg-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:16px; }
@@ -342,9 +375,12 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
   <button class="sg-toggle" id="themeToggle"><span class="sg-toggle-icon" id="themeToggleIcon" aria-hidden="true"></span><span id="themeToggleLabel">Dark</span></button>
 </div>
 
+<div class="sg-shell">
+  <nav class="sg-toc" aria-label="Table of contents" id="sgToc"></nav>
+
 <div class="sg-wrap">
 
-  <section class="sg-section">
+  <section id="core-palette" class="sg-section">
     <h2>Core Palette</h2>
     <p class="sg-desc">Raw brand hues — fixed values that do not flip between themes. Reference by variable name, never by hex. Human names match DESIGN.md so both docs speak the same language.</p>
     <div class="sg-grid" id="coreSwatches"></div>
@@ -358,19 +394,19 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     <div class="sg-grid" id="tintSwatches"></div>
   </section>
 
-  <section class="sg-section">
+  <section id="neutrals" class="sg-section">
     <h2>Neutrals</h2>
     <p class="sg-desc">The gray ramp flips with the theme: solid cool grays in light, white-alpha overlays in dark. Values below are live-resolved for the current theme.</p>
     <div class="sg-grid" id="graySwatches"></div>
   </section>
 
-  <section class="sg-section">
+  <section id="semantic-tokens" class="sg-section">
     <h2>Semantic Tokens</h2>
     <p class="sg-desc">Flip between light and dark via <code>[data-theme]</code>. Always prefer these over raw brand colors for text and surfaces. Values below are live-resolved for the current theme.</p>
     <div class="sg-grid" id="semanticSwatches"></div>
   </section>
 
-  <section class="sg-section">
+  <section id="theming" class="sg-section">
     <h2>Theming</h2>
     <p class="sg-desc">The site ships one theme. <code>style.css</code> declares a single, already-dark token set on <code>:root</code>, and <code>[data-theme="light"]</code> is a scoped override applied to individual elements so product screenshots read light on the dark page. It is not a page-level light mode, and <code>script.js</code> contains no theme logic. This guide is the one documented exception.</p>
 
@@ -464,7 +500,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     </ul>
   </section>
 
-  <section class="sg-section">
+  <section id="gradients" class="sg-section">
     <h2>Gradients</h2>
     <p class="sg-desc">Four gradients, and no fifth — everything else in the system is a flat fill, with no textures or pattern overlays. On the shipped site none of the four flip with the theme: <code>style.css</code> declares one value each under “raw, do not flip”, and the light island overrides no gradient. The light <code>--grad-hero</code> below is this page's own light-mode value and has no counterpart in the site CSS.</p>
     <ul class="rule-list">
@@ -475,7 +511,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     <div class="sg-grid" id="gradSwatches"></div>
   </section>
 
-  <section class="sg-section">
+  <section id="typography" class="sg-section">
     <h2>Typography</h2>
     <p class="sg-desc">Poppins for display/heading/body, IBM Plex Mono for data. Only the 400 and 500 faces are loaded — 500 is this system's bold. Emphasize with size, color, or tracking, never with a heavier weight.</p>
     <div class="type-row"><code>--text-display-2xl</code><span style="font-family:var(--font-display);font-weight:500;font-size:clamp(3.25rem,6.4vw,6.5rem);line-height:1.02;letter-spacing:-0.04em;color:var(--text-strong);">96.4</span></div>
@@ -487,13 +523,13 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     <div class="type-row"><code>--font-mono</code><span style="font-family:var(--font-mono);font-size:13px;color:var(--text-body);">FORM-2291 · 96.4 · +5.4</span></div>
   </section>
 
-  <section class="sg-section">
+  <section id="spacing-layout" class="sg-section">
     <h2>Spacing &amp; Layout</h2>
     <p class="sg-desc">4px base grid. Page content sits in a 1280px container (<code>.container-max</code>) with a <code>clamp(20px, 3vw, 40px)</code> gutter — the same container and gutter the Academy app uses.</p>
     <div id="spaceRows"></div>
   </section>
 
-  <section class="sg-section">
+  <section id="radii-shadows" class="sg-section">
     <h2>Radii &amp; Shadows</h2>
     <p class="sg-desc">Radii stop at 12px — nothing pill-shaped except avatars and the tour play button. Shadows are navy-tinted in light, black-based in dark; <code>--shadow-card</code> adds a 1px inset top highlight.</p>
     <div class="radius-row" style="margin-bottom:32px;">
@@ -512,7 +548,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     </div>
   </section>
 
-  <section class="sg-section">
+  <section id="motion" class="sg-section">
     <h2>Motion</h2>
     <p class="sg-desc"><code>--ease-out: cubic-bezier(0.22, 1, 0.36, 1)</code> is the system curve and covers everything except one case. Durations are split by what they animate, not by how big the element is.</p>
     <ul class="rule-list">
@@ -528,7 +564,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     <div class="motion-demo"><div class="motion-chip"></div><span style="font-size:13px;color:var(--text-muted);">Hover this panel — 220ms, ease-out, transform only.</span></div>
   </section>
 
-  <section class="sg-section sg-icons">
+  <section id="iconography" class="sg-section sg-icons">
     <h2>Iconography</h2>
     <p class="sg-desc">Inline Lucide SVG. No icon font is loaded anywhere on the site — the only webfonts are Poppins and IBM Plex Mono. Every glyph is drawn on a <code>0 0 24 24</code> viewBox with <code>fill="none"</code>, <code>stroke="currentColor"</code> and rounded caps and joins, sized in px by the component that holds it and colored by the text color it inherits. One asset serves both themes.</p>
 
@@ -592,7 +628,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     </ul>
   </section>
 
-  <section class="sg-section">
+  <section id="usage-rules" class="sg-section">
     <h2>Usage Rules</h2>
     <p class="sg-desc">The rules that keep the palette accessible. Every ratio below is computed, not eyeballed — do the same before shipping a new pairing.</p>
     <ul class="rule-list">
@@ -605,7 +641,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     </ul>
   </section>
 
-  <section class="sg-section">
+  <section id="logo" class="sg-section">
     <h2>Logo</h2>
     <p class="sg-desc">White wordmark on dark chrome (nav, footer — rendered at 26px height). Navy monogram on light surfaces and as the favicon. Never recolor, never place the navy mark on a dark ground.</p>
     <div class="comp-row">
@@ -614,7 +650,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     </div>
   </section>
 
-  <section class="sg-section">
+  <section id="buttons" class="sg-section">
     <h2>Buttons</h2>
     <p class="sg-desc">CTA is Azure and darkens to <code>--u-blue-700</code> on hover. Accent (Sky Cyan with Midnight text) is reserved for dark bands. Color/border fade over 220ms (<code>--dur-base</code>); any transform (e.g. a hover lift) runs at 140ms (<code>--dur-fast</code>) — the same split as every other hover state on the site.</p>
     <div class="comp-row">
@@ -625,7 +661,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     </div>
   </section>
 
-  <section class="sg-section">
+  <section id="interaction-states" class="sg-section">
     <h2>Interaction States</h2>
     <p class="sg-desc">Hover, press, focus, disabled. Every value below is read off <code>style.css</code> — that file is the contract. Where the Figma motion page disagrees, the shipped rule is documented and the gap is named.</p>
 
@@ -705,7 +741,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     </div>
   </section>
 
-  <section class="sg-section">
+  <section id="forms" class="sg-section">
   <h2>Forms</h2>
   <p class="sg-desc">Two patterns ship. The labelled text input carries the button's 1.5px border on the 6px control radius, so a field and the button beside it share an identical footprint. The hero search field is the one sanctioned exception — a borderless input inside a card. Both bind label and value to <code>--text-strong</code> — never a raw brand hue, which is exactly what breaks when the surface flips.</p>
 
@@ -755,7 +791,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
   </ul>
 </section>
 
-  <section class="sg-section">
+  <section id="tags-avatars" class="sg-section">
     <h2>Tags &amp; Avatars</h2>
     <div class="comp-row">
       <span class="tag">Guide</span><span class="tag">Platform</span><span class="tag">News</span>
@@ -764,7 +800,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     </div>
   </section>
 
-  <section class="sg-section">
+  <section id="cards" class="sg-section">
     <h2>Cards</h2>
     <div class="comp-row">
       <div class="card-demo">
@@ -778,7 +814,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     </div>
   </section>
 
-  <section class="sg-section" style="border-bottom:none;">
+  <section id="customers-page-components" class="sg-section" style="border-bottom:none;">
     <h2>Customers Page Components</h2>
     <p class="sg-desc">Added for the Customers page — proof stats, the quote slider, case study cards, the product tour play affordance, and the disabled icon-button state.</p>
 
@@ -839,7 +875,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     </div>
   </section>
 
-  <section class="sg-section">
+  <section id="section-recipes" class="sg-section">
     <h2>Section Recipes</h2>
     <p class="sg-desc">Every page is a stack of full-bleed bands. A band owns its background and its vertical padding; a 1280px container inside it owns the horizontal edge. The content shape barely varies — eyebrow, left-aligned display headline, then the payload.</p>
 
@@ -889,7 +925,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     </ul>
   </section>
 
-  <section class="sg-section">
+  <section id="voice-content" class="sg-section">
     <h2>Voice &amp; Content</h2>
     <p class="sg-desc">Precise, confident, technical but human. The reader is <em>you</em>; the company is <em>we</em>. We sell momentum, not features. Casing is enforced in CSS wherever it can be — type strings in sentence case and let <code>text-transform</code> uppercase them.</p>
 
@@ -926,7 +962,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     </div>
   </section>
 
-  <section class="sg-section">
+  <section id="what-we-dont-do" class="sg-section">
     <h2>What We Don&rsquo;t Do</h2>
     <p class="sg-desc">Patterns banned outright, because they read as generic template output rather than as Uncountable. If a layout only works with one of these, the layout is the problem &mdash; rework it. Every ban below was audited against <code>style.css</code>, <code>index.html</code>, <code>customers.html</code> and this guide; where a shipped exception exists it is named, not glossed.</p>
     <ul class="rule-list">
@@ -951,7 +987,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
     </ul>
   </section>
 
-  <section class="sg-section">
+  <section id="accessibility" class="sg-section">
     <h2>Accessibility</h2>
     <p class="sg-desc">Every ratio below was computed from the shipped values in <code>style.css</code> with the WCAG 2.1 relative-luminance formula — none are estimated. The bar is 4.5:1 for text and 3:1 for large text, icons, and UI boundaries. Large means 24px and up: WCAG's 18.66px allowance requires weight 700, and this system stops at 500, so 24px is the only large-text threshold that applies here. Swatches in these tables are literal hex, not tokens, so the numbers stay true when you toggle this guide.</p>
 
@@ -1068,6 +1104,7 @@ h1,h2,h3 { font-family:var(--font-display); color:var(--text-strong); font-weigh
   </section>
 
 </div>
+</div>
 
 <script>
 const CORE = [
@@ -1151,6 +1188,39 @@ toggle.addEventListener('click', () => {
   toggleLabel.textContent = dark ? 'Light' : 'Dark';
   render();
 });
+
+// Table of contents — built from the sections actually on the page, in the
+// order they appear. Add, remove, or reorder a <section id> + <h2> and this
+// list follows with no separate list to maintain.
+const tocSections = [...document.querySelectorAll('.sg-wrap > .sg-section[id]')];
+const toc = document.getElementById('sgToc');
+toc.innerHTML = tocSections.map(sec => {
+  const label = sec.querySelector('h2').textContent;
+  return `<a href="#${sec.id}">${label}</a>`;
+}).join('');
+const tocLinks = new Map([...toc.querySelectorAll('a')].map(a => [a.getAttribute('href').slice(1), a]));
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let activeId = null;
+function setActive(id) {
+  if (id === activeId) return;
+  if (activeId && tocLinks.has(activeId)) tocLinks.get(activeId).removeAttribute('aria-current');
+  activeId = id;
+  const link = tocLinks.get(id);
+  if (!link) return;
+  link.setAttribute('aria-current', 'true');
+  link.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
+}
+
+// rootMargin narrows the observation band to a horizontal slice near the top
+// of the viewport, just below the sticky header — the section crossing that
+// slice is "the one in view" even while several are partially on screen.
+const spy = new IntersectionObserver((entries) => {
+  const visible = entries.filter(e => e.isIntersecting);
+  if (visible.length) setActive(visible[0].target.id);
+}, { rootMargin: '-80px 0px -70% 0px', threshold: 0 });
+tocSections.forEach(sec => spy.observe(sec));
+setActive(tocSections[0].id);
 </script>
 </body>
 </html>
