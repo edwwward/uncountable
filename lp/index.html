@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Landing page previews | Uncountable</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap">
+<style>
+:root{
+  --u-navy:#020D4C; --u-blue-600:#046CDE; --u-ink:#3C4554;
+  --surface-1:#EAF2F9; --gray-200:#E0E5ED; --muted:#5C6575;
+  --ease-out:cubic-bezier(0.22,1,0.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--u-ink);
+  font-family:'Poppins',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:760px;margin-inline:auto;padding:clamp(3rem,8vw,6rem) clamp(1.25rem,3vw,2.5rem)}
+.eyebrow{font-size:.8125rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:14px}
+h1{font-size:clamp(1.75rem,4vw,2.5rem);font-weight:500;line-height:1.15;letter-spacing:-.02em;
+  color:var(--u-navy);margin:0 0 14px}
+.lede{color:var(--u-ink);max-width:60ch;margin:0 0 8px}
+.note{font-size:14px;color:var(--muted);max-width:62ch;margin:0 0 40px}
+ul{list-style:none;margin:0;padding:0}
+li{border-top:1px solid var(--gray-200)}
+li:last-child{border-bottom:1px solid var(--gray-200)}
+a.row{display:flex;align-items:baseline;justify-content:space-between;gap:20px;
+  padding:22px 4px;text-decoration:none;color:inherit;
+  transition:padding-left var(--dur,180ms) var(--ease-out)}
+a.row:hover{padding-left:10px}
+a.row:focus-visible{outline:2px solid var(--u-blue-600);outline-offset:3px}
+.name{font-size:1.0625rem;font-weight:500;color:var(--u-navy)}
+.slug{font-size:13px;color:var(--muted);font-family:ui-monospace,Menlo,monospace}
+footer{margin-top:44px;font-size:13px;color:var(--muted)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Preview build</div>
+  <h1>Landing page previews</h1>
+  <p class="lede">Four suite landing pages, rebuilt against the Uncountable 3.0 design system.</p>
+  <p class="note">Preview only: these are not indexed, and they are separate from the live pages on
+     get.uncountable.com. The demo form is the real HubSpot embed, so avoid submitting test entries.</p>
+  <ul>
+    <li><a class="row" href="./discrete-plm.html"><span class="name">Discrete PLM</span><span class="slug">discrete-plm</span></a></li>
+    <li><a class="row" href="./process-plm.html"><span class="name">Process-based PLM</span><span class="slug">process-plm</span></a></li>
+    <li><a class="row" href="./qc-lims.html"><span class="name">QC LIMS</span><span class="slug">qc-lims</span></a></li>
+    <li><a class="row" href="./quality-management-system.html"><span class="name">Quality Management System</span><span class="slug">quality-management-system</span></a></li>
+  </ul>
+  <footer>Uncountable &middot; internal review build</footer>
+</div>
+</body>
+</html>
