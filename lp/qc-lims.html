@@ -15,8 +15,6 @@
    ============================================================ */
 
 :root{
-  /* Height of the sticky nav; anchor targets offset from it. */
-  --nav-h:71px;
   /* Brand */
   --u-white:#fff; --u-navy:#020D4C; --u-blue-900:#01318F; --u-blue-600:#046CDE;
   --u-cyan:#00C7FE; --u-green:#01A955; --u-orange:#FFAF0F; --u-ink:#3C4554;
@@ -144,18 +142,10 @@ h3{font-size:1.25rem;color:var(--text-heading);margin-bottom:10px;line-height:1.
 .nav.scrolled{background:var(--surface-nav-scrolled);border-bottom-color:var(--border-subtle)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:32px;max-width:var(--container-max);margin-inline:auto;padding:14px var(--container-pad)}
 .nav-links{display:flex;align-items:center;gap:26px}
-.nav-links a{font-size:15px;font-weight:var(--fw-medium);color:var(--u-navy);white-space:nowrap}
+.nav-links a{font-size:15px;font-weight:var(--fw-medium);color:var(--u-navy)}
 .nav-links a:hover{color:var(--brand-primary)}
 .nav-right{display:flex;align-items:center;gap:26px}
-/* --- Mobile navigation (<=1000px). max-height is the system's sanctioned nav-panel
-   layout transition; see DESIGN.md 6 (nav mega-panel exception). --- */
-.nav-toggle{display:none;flex:none;align-items:center;justify-content:center;width:44px;height:44px;margin-right:-10px;padding:0;background:none;border:0;border-radius:var(--radius-control);color:var(--text-strong);cursor:pointer;transition:background var(--dur-base) var(--ease-out)}
-.nav-toggle:hover{background:var(--surface-subtle)}
-.nav-toggle svg{width:22px;height:22px;display:block}
-.nav-toggle .icon-close{display:none}
-.nav-toggle[aria-expanded="true"] .icon-open{display:none}
-.nav-toggle[aria-expanded="true"] .icon-close{display:block}
-@media(max-width:1000px){.nav-inner{position:relative;gap:12px}.nav-right{gap:8px}.nav-right>.btn{padding:8px 14px;font-size:13.5px}.nav-toggle{display:inline-flex}.nav-links{display:flex;flex-direction:column;align-items:stretch;gap:0;position:absolute;top:100%;left:0;right:0;background:var(--surface-page);border-bottom:1px solid var(--border-subtle);padding:0 var(--container-pad);max-height:0;overflow:hidden;transition:max-height var(--dur-slow) var(--ease-out)}.nav-links[data-open="true"]{max-height:22rem}.nav-links a{padding:15px 0;font-size:16px;border-top:1px solid var(--border-subtle)}}
+@media(max-width:900px){.nav-links{display:none}}
 
 /* ---- Hero ---- */
 .hero{background:var(--grad-hero);position:relative;overflow:hidden;padding:clamp(3.5rem,6vw,6rem) 0 clamp(3.5rem,6vw,6rem)}
@@ -238,7 +228,8 @@ h3{font-size:1.25rem;color:var(--text-heading);margin-bottom:10px;line-height:1.
 .card-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 @media(max-width:1000px){.card-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.card-grid{grid-template-columns:1fr}}
-.card{background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:26px;box-shadow:var(--shadow-card)}
+.card{background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:26px;box-shadow:var(--shadow-card);transition:transform var(--dur-base) var(--ease-out),box-shadow var(--dur-base) var(--ease-out)}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
 .card h3{font-size:1.0625rem}
 .card p{font-size:14.5px;line-height:1.6}
 .card .proof{margin-top:18px;padding-top:14px;border-top:1px solid var(--border-subtle);font-size:12.5px;color:var(--text-muted)}
@@ -267,6 +258,11 @@ h3{font-size:1.25rem;color:var(--text-heading);margin-bottom:10px;line-height:1.
 .wf-stage{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;flex:1;min-width:90px;position:relative;z-index:1}
 .wf-icon{width:60px;height:60px;border-radius:50%;background:linear-gradient(160deg,var(--u-surface-1) 0%,var(--surface-card) 100%);border:1px solid var(--u-blue-100);box-shadow:var(--shadow-sm);display:grid;place-items:center;flex:none}
 .wf-icon svg{width:32px;height:32px;overflow:visible}
+.wf-icon.wf-icon-test{background:linear-gradient(160deg,#DCEBFC 0%,var(--surface-card) 100%);border-color:#AFD1F6}
+.wf-icon.wf-icon-alert{background:linear-gradient(160deg,#FFEAB8 0%,var(--surface-card) 100%);border-color:#FFD37A}
+.wf-icon.wf-icon-investigate{background:linear-gradient(160deg,#D8F0FD 0%,var(--surface-card) 100%);border-color:#9FDFF7}
+.wf-icon.wf-icon-correct{background:linear-gradient(160deg,#D3F3E3 0%,var(--surface-card) 100%);border-color:#8FDDB4}
+.wf-icon.wf-icon-release{background:linear-gradient(160deg,#DCEBFC 0%,#EAFBFF 100%);border-color:#9FDFF7}
 .wf-stage .wf-num{font-family:var(--font-mono);font-size:10.5px;font-weight:var(--fw-medium);color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase}
 .wf-stage span.wf-label{font-size:13.5px;font-weight:var(--fw-medium);color:var(--text-heading)}
 @media(max-width:760px){.wf-stages{flex-wrap:wrap;row-gap:28px}.wf-stages::before,.wf-stages::after{display:none}.wf-stage{min-width:40%}}
@@ -368,12 +364,12 @@ details p{font-size:14.5px;margin-top:12px;max-width:74ch;line-height:1.6}
 .compare-table td.with{color:var(--text-body)}
 
 /* ---- Industries band (now nested inside Fit Check) ---- */
+.industries-inline{margin-top:clamp(2rem,3.4vw,3.25rem)}
+.industries-inline-label{text-align:center;font-size:1.0625rem;font-weight:var(--fw-medium);color:var(--text-strong);margin-bottom:20px}
 .industries-row-center{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 .chip{display:inline-flex;align-items:center;gap:7px;background:var(--surface-card);border:1px solid var(--border-subtle);color:var(--text-body);font-size:13px;padding:7px 14px;border-radius:var(--radius-control)}
 .chip svg{width:15px;height:15px;flex:none;color:var(--brand-primary)}
 .industries-row-center .chip{background:var(--surface-subtle);border-color:var(--surface-subtle);border-radius:999px;font-weight:var(--fw-medium)}
-/* On a light section the pill must not match the ground it sits on. */
-.sec-light .industries-row-center .chip{background:var(--surface-card);border-color:var(--border-subtle)}
 
 /* ---- Integrations ---- */
 .integ-row{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
@@ -397,6 +393,12 @@ details p{font-size:14.5px;margin-top:12px;max-width:74ch;line-height:1.6}
 .form-fallback strong{display:block;font-weight:var(--fw-medium);font-size:15px;color:var(--u-navy);margin-bottom:8px}
 .form-fallback p{font-size:13.5px;color:var(--text-muted);max-width:34ch;margin-inline:auto}
 
+/* ---- Section CTA (end-of-section "Get a Demo" prompt) ---- */
+.sec-cta{margin-top:clamp(2.25rem,3.6vw,3.25rem);display:flex;justify-content:center}
+.sec-cta-inner{display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:center;background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:18px 26px}
+.sec-cta-inner span{font-size:14.5px;font-weight:var(--fw-medium);color:var(--text-heading)}
+.sec-light .sec-cta-inner{background:var(--surface-card)}
+
 /* ---- Footer ---- */
 .terms{background:var(--surface-dark);color:var(--text-on-dark-muted);padding:clamp(2.5rem,4vw,3.75rem) 0;font-size:13.5px;line-height:1.7}
 .terms .wrap{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:32px}
@@ -411,10 +413,14 @@ details p{font-size:14.5px;margin-top:12px;max-width:74ch;line-height:1.6}
 .site-foot a{color:var(--text-on-dark-faint);margin-left:22px}
 .site-foot a:hover{color:var(--brand-accent)}
 
-/* Anchor targets must clear the sticky nav. */
-section[id]{scroll-margin-top:var(--nav-h)}
-/* Below 1000px the hamburger (44px) sets the bar height instead of the CTA. */
-@media(max-width:1000px){:root{--nav-h:73px}}
+/* ---- Proof card logo mark ---- */
+.proof-logo{height:22px;width:auto;max-width:130px;object-fit:contain;margin-bottom:16px;display:block}
+
+/* ---- Before/after header + x-mark colors ---- */
+.compare-table th.th-aspect{font-weight:700}
+.compare-table th.th-without{color:#C4351E}
+.compare-table th.th-with{color:var(--u-green-text)}
+.compare-table td.without .compare-row-icon svg.x-mark{color:#C4351E}
 </style>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -468,15 +474,12 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 <path d="M39.1723 18.3936H35.2502V32.8529C35.2502 36.1932 35.2818 38.4394 35.345 39.5929V39.6161C34.0065 40.5114 32.5099 41.2181 30.8552 41.7332C30.0678 41.9755 29.2834 42.1627 28.5049 42.2904C27.725 42.4195 26.918 42.4833 26.0839 42.4833C25.2498 42.4833 24.5286 42.3731 23.9218 42.1525C23.315 41.932 22.7911 41.5068 22.3499 40.8771C21.9088 40.2473 21.6889 38.8398 21.6889 36.6532V18.3907H17.7201V37.2669C17.7201 40.5158 18.2952 42.7547 19.4455 43.9837C20.0749 44.6671 20.9226 45.1648 21.9855 45.4753C23.0485 45.7859 24.2545 45.9426 25.6006 45.9426C26.9466 45.9426 28.109 45.8134 29.0861 45.5552C31.5433 44.9022 33.6933 43.84 35.5362 42.3673L36.1039 45.5784L39.624 45.3056C39.3244 42.4819 39.1754 38.5656 39.1754 33.5567V18.3921L39.1723 18.3936Z" fill="#020D4C"></path>
 </svg></a>
 <div class="nav-right">
-<nav class="nav-links" id="nav-links">
+<nav class="nav-links">
 <a href="#wedge">Product</a>
-<a href="#integrations">Integrations</a>
 <a href="#differentiators">Why Uncountable</a>
 <a href="#fit-check">Is this for you?</a>
-<a href="#industries">Industries</a>
 </nav>
 <a href="#demo" class="btn btn-primary btn-sm">Request a Demo</a>
-<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu"><span class="icon-open"><svg class="lucide lucide-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h16"></path></svg></span><span class="icon-close"><svg class="lucide lucide-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></span></button>
 </div>
 </div>
 </header>
@@ -672,16 +675,24 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 <div class="card-grid">
 <div class="card">
 <div class="card-illustration"><svg viewbox="0 0 220 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<rect class="illo-fill-primary" x="14" y="14" width="66" height="72" rx="6" opacity="0.08"></rect>
 <rect class="illo-line illo-primary" x="14" y="14" width="66" height="72" rx="6"></rect>
+<path class="illo-line illo-primary" d="M28 26h16v6h-16z"></path>
 <path class="illo-line illo-primary" d="M30 30h18v16h14v16H30z"></path>
 <circle class="illo-fill-primary" cx="36" cy="36" r="2"></circle>
 <circle class="illo-fill-primary" cx="56" cy="56" r="2"></circle>
+<path class="illo-grid" d="M24 70h32" fill="none"></path>
+<rect class="illo-fill-accent" x="140" y="14" width="66" height="72" rx="6" opacity="0.08"></rect>
 <rect class="illo-line illo-accent" x="140" y="14" width="66" height="72" rx="6"></rect>
 <path class="illo-grid" d="M140 32h66M140 50h66M140 68h66M173 14v72" fill="none"></path>
-<path class="illo-line illo-primary" d="M92 40c12-10 24-10 36 0" stroke-dasharray="4 5"></path>
-<path class="illo-fill-primary" d="M126 41l7-3-2 8z"></path>
-<path class="illo-line illo-accent" d="M128 62c-12 10-24 10-36 0" stroke-dasharray="4 5"></path>
-<path class="illo-fill-accent" d="M94 61l-7 3 2-8z"></path>
+<circle class="illo-fill-accent" cx="150" cy="23" r="1.6"></circle>
+<circle class="illo-fill-accent" cx="183" cy="23" r="1.6"></circle>
+<path class="illo-line illo-primary" d="M92 34c12-9 24-9 36 0" stroke-dasharray="4 5"></path>
+<path class="illo-fill-primary" d="M126 35l7-3-2 8z"></path>
+<path class="illo-line illo-accent" d="M128 68c-12 9-24 9-36 0" stroke-dasharray="4 5"></path>
+<path class="illo-fill-accent" d="M94 67l-7 3 2-8z"></path>
+<circle class="illo-line illo-primary" cx="110" cy="51" r="9" stroke-dasharray="3 4" opacity="0.5"></circle>
+<path class="illo-line illo-primary" d="M105 51h10M110 46v10" opacity="0.5"></path>
 <circle class="illo-line illo-warn" cx="196" cy="24" r="7"></circle>
 <path class="illo-line illo-warn" d="M196 20v5"></path>
 <circle class="illo-fill-warn" cx="196" cy="28" r="1"></circle>
@@ -691,29 +702,45 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 </div>
 <div class="card">
 <div class="card-illustration"><svg viewbox="0 0 220 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<rect class="illo-fill-primary" x="60" y="24" width="100" height="60" rx="6" opacity="0.07"></rect>
 <rect class="illo-line illo-primary" x="60" y="24" width="100" height="60" rx="6"></rect>
 <path class="illo-line illo-primary" d="M60 30l50 34 50-34"></path>
-<rect class="illo-line illo-accent" x="92" y="8" width="34" height="22" rx="3"></rect>
-<path class="illo-grid" d="M98 15h22M98 21h16" fill="none"></path>
+<rect class="illo-line illo-accent" x="92" y="4" width="34" height="24" rx="3"></rect>
+<rect class="illo-line illo-accent" x="88" y="8" width="34" height="24" rx="3" fill="#fff"></rect>
+<path class="illo-grid" d="M94 15h22M94 21h16M94 27h10" fill="none"></path>
+<circle class="illo-fill-warn" cx="118" cy="10" r="3"></circle>
+<path d="M118 8.4v1.8M118 12h.01" stroke="#fff" stroke-width="1" stroke-linecap="round"></path>
 <path class="illo-line illo-accent" d="M16 34h30a6 6 0 0 1 6 6v10a6 6 0 0 1-6 6H30l-9 8v-8h-5a6 6 0 0 1-6-6V40a6 6 0 0 1 6-6z"></path>
+<path class="illo-grid" d="M20 44h20M20 50h14" fill="none" stroke="#ffffff" opacity="0.6"></path>
+<path class="illo-line illo-primary" d="M64 60c8 6 14 6 20 10" stroke-dasharray="3 5" opacity="0.55"></path>
+<path class="illo-fill-primary" d="M83 71l4 3-6 2z" opacity="0.55"></path>
 <circle class="illo-line illo-warn" cx="196" cy="66" r="14"></circle>
+<circle class="illo-fill-warn" cx="196" cy="66" r="14" opacity="0.1"></circle>
 <path class="illo-line illo-warn" d="M196 58v8l6 4"></path>
+<path class="illo-grid" d="M172 78h16M172 84h10" fill="none"></path>
 </svg></div>
 <h3>Root cause starts as a document hunt</h3>
 <p>An out-of-spec result means emailing the lab for raw material COAs and waiting on R&amp;D to confirm what changed, while the line stays on hold.</p>
 </div>
 <div class="card">
 <div class="card-illustration"><svg viewbox="0 0 220 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<path class="illo-line illo-primary" d="M14 82V48l13-9v9l13-9v9l13-9v43z"></path>
-<rect class="illo-line illo-primary" x="14" y="82" width="52" height="6"></rect>
-<circle class="illo-fill-primary" cx="24" cy="62" r="2"></circle>
-<circle class="illo-fill-primary" cx="37" cy="62" r="2"></circle>
+<rect class="illo-fill-primary" x="10" y="14" width="70" height="68" rx="6" opacity="0.06"></rect>
+<rect class="illo-line illo-primary" x="10" y="14" width="70" height="68" rx="6"></rect>
+<path class="illo-grid" d="M18 30h54M18 46h54M18 62h54" fill="none"></path>
+<path class="illo-line illo-primary" d="M18 58l10-4 8 8 10-16 9 6 9-12" fill="none"></path>
+<circle class="illo-fill-warn" cx="55" cy="46" r="3"></circle>
+<circle class="illo-line illo-warn" cx="55" cy="46" r="6" opacity="0.5"></circle>
 <path class="illo-line illo-accent" d="M84 82h58" stroke-dasharray="1 8"></path>
-<rect class="illo-line illo-accent" x="92" y="70" width="16" height="12" rx="2"></rect>
+<rect class="illo-line illo-accent" x="92" y="66" width="16" height="16" rx="2"></rect>
+<path class="illo-grid" d="M96 70h8M96 74h8" fill="none"></path>
 <rect class="illo-line illo-accent" x="114" y="70" width="16" height="12" rx="2"></rect>
+<circle class="illo-fill-accent" cx="122" cy="76" r="1.6"></circle>
+<rect class="illo-fill-primary" x="160" y="12" width="46" height="60" rx="4" opacity="0.06"></rect>
 <rect class="illo-line illo-primary" x="160" y="12" width="46" height="60" rx="4"></rect>
 <path class="illo-grid" d="M168 26h30M168 37h30M168 48h20" fill="none"></path>
+<path class="illo-line illo-primary" d="M168 60h22" opacity="0.4"></path>
 <circle class="illo-line illo-warn" cx="196" cy="18" r="7"></circle>
+<circle class="illo-fill-warn" cx="196" cy="18" r="7" opacity="0.12"></circle>
 <path class="illo-line illo-warn" d="M196 14v5"></path>
 <circle class="illo-fill-warn" cx="196" cy="22" r="1"></circle>
 </svg></div>
@@ -722,19 +749,30 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 </div>
 <div class="card">
 <div class="card-illustration"><svg viewbox="0 0 220 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<rect class="illo-fill-primary" x="16" y="46" width="36" height="36" rx="4" opacity="0.08"></rect>
 <rect class="illo-line illo-primary" x="16" y="46" width="36" height="36" rx="4"></rect>
 <path class="illo-line illo-primary" d="M16 46l18-15 18 15"></path>
+<path class="illo-grid" d="M24 58h20M24 64h20M24 70h12" fill="none"></path>
+<rect class="illo-fill-accent" x="92" y="16" width="36" height="36" rx="4" opacity="0.08"></rect>
 <rect class="illo-line illo-accent" x="92" y="16" width="36" height="36" rx="4"></rect>
 <path class="illo-line illo-accent" d="M92 16l18-15 18 15"></path>
+<path class="illo-grid" d="M100 28h20M100 34h20M100 40h12" fill="none"></path>
+<rect class="illo-fill-primary" x="168" y="50" width="36" height="36" rx="4" opacity="0.08"></rect>
 <rect class="illo-line illo-primary" x="168" y="50" width="36" height="36" rx="4"></rect>
 <path class="illo-line illo-primary" d="M168 50l18-15 18 15"></path>
+<path class="illo-grid" d="M176 62h20M176 68h20M176 74h12" fill="none"></path>
 <path class="illo-line illo-warn" d="M52 60h36" stroke-dasharray="4 6"></path>
+<circle class="illo-line illo-warn" cx="70" cy="60" r="7" fill="#fff"></circle>
+<path class="illo-line illo-warn" d="M66 56l8 8M74 56l-8 8"></path>
 <path class="illo-line illo-warn" d="M128 40h36" stroke-dasharray="4 6"></path>
+<circle class="illo-line illo-warn" cx="146" cy="40" r="7" fill="#fff"></circle>
+<path class="illo-line illo-warn" d="M142 36l8 8M150 36l-8 8"></path>
 </svg></div>
 <h3>ERP was never built to capture quality history</h3>
 <p>Release decisions, deviations, and corrective actions get bolted onto a system designed for transactions, not for holding a batch's full quality record.</p>
 </div>
 </div>
+<div class="sec-cta"><div class="sec-cta-inner"><span>Ready to see it connected?</span><a href="#demo" class="btn btn-primary btn-sm">Get a Demo</a></div></div>
 </div>
 </section>
 
@@ -749,48 +787,58 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 <div class="workflow-infographic">
 <div class="wf-stages">
 <div class="wf-stage">
-<div class="wf-icon"><svg viewbox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<div class="wf-icon wf-icon-test"><svg viewbox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path class="illo-fill-primary" d="M10 22h16l3 6a3 3 0 0 1-3 4H10a3 3 0 0 1-3-4z" opacity="0.85"></path>
 <path class="illo-line illo-primary" d="M14 4h8M15 4v8l-7 14a3 3 0 0 0 3 4h14a3 3 0 0 0 3-4l-7-14V4"></path>
-<path class="illo-fill-accent" d="M10 22h16l3 6a3 3 0 0 1-3 4H10a3 3 0 0 1-3-4z" opacity="0.3"></path>
-<circle class="illo-fill-primary" cx="18" cy="17" r="1.4"></circle>
+<circle class="illo-fill-warn" cx="22" cy="15" r="1.6"></circle>
+<circle cx="18" cy="19" r="1.1" fill="#ffffff"></circle>
+<circle cx="15" cy="24" r="1.1" fill="#ffffff"></circle>
 </svg></div>
 <span class="wf-num">Step 1</span>
 <span class="wf-label">Test</span>
 </div>
 <div class="wf-stage">
-<div class="wf-icon"><svg viewbox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<div class="wf-icon wf-icon-alert"><svg viewbox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path class="illo-fill-warn" d="M18 6a7 7 0 0 1 7 7v5l3 5H8l3-5v-5a7 7 0 0 1 7-7Z" opacity="0.85"></path>
 <path class="illo-line illo-warn" d="M18 6a7 7 0 0 1 7 7v5l3 5H8l3-5v-5a7 7 0 0 1 7-7Z"></path>
 <path class="illo-line illo-warn" d="M15 27a3 3 0 0 0 6 0"></path>
-<circle class="illo-fill-warn" cx="27" cy="9" r="2.4"></circle>
+<circle class="illo-fill-primary" cx="27" cy="9" r="2.6"></circle>
+<path d="M27 7.4v1.8M27 10.6h.01" stroke="#fff" stroke-width="1.4" stroke-linecap="round"></path>
 </svg></div>
 <span class="wf-num">Step 2</span>
 <span class="wf-label">Alert</span>
 </div>
 <div class="wf-stage">
-<div class="wf-icon"><svg viewbox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<rect class="illo-grid" x="6" y="6" width="16" height="20" rx="2" fill="none"></rect>
+<div class="wf-icon wf-icon-investigate"><svg viewbox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<rect class="illo-fill-accent" x="6" y="6" width="16" height="20" rx="2" opacity="0.18"></rect>
+<rect class="illo-line illo-accent" x="6" y="6" width="16" height="20" rx="2" fill="none"></rect>
 <path class="illo-grid" d="M9 12h10M9 17h10M9 22h6" fill="none"></path>
 <circle class="illo-line illo-primary" cx="23" cy="23" r="7"></circle>
+<circle class="illo-fill-primary" cx="23" cy="23" r="7" opacity="0.12"></circle>
 <path class="illo-line illo-primary" d="M28 28l5 5"></path>
 </svg></div>
 <span class="wf-num">Step 3</span>
 <span class="wf-label">Investigate</span>
 </div>
 <div class="wf-stage">
-<div class="wf-icon"><svg viewbox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<rect class="illo-line illo-primary" x="8" y="6" width="20" height="26" rx="3"></rect>
-<rect class="illo-line illo-primary" x="13" y="3" width="10" height="6" rx="2"></rect>
-<path class="illo-line illo-accent" d="M13 20l5 5 9-10"></path>
+<div class="wf-icon wf-icon-correct"><svg viewbox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<rect class="illo-line illo-primary" x="8" y="6" width="20" height="26" rx="3" fill="#ffffff"></rect>
+<rect class="illo-fill-primary" x="13" y="3" width="10" height="6" rx="2"></rect>
+<circle cx="18" cy="20" r="8" fill="#01A955" opacity="0.16"></circle>
+<path stroke="#01A955" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M13 20l5 5 9-10"></path>
 </svg></div>
 <span class="wf-num">Step 4</span>
 <span class="wf-label">Correct (CAPA)</span>
 </div>
 <div class="wf-stage">
-<div class="wf-icon"><svg viewbox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<div class="wf-icon wf-icon-release"><svg viewbox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path class="illo-fill-accent" d="M6 12l12-6 12 6-12 6z" opacity="0.9"></path>
 <path class="illo-line illo-primary" d="M6 12l12-6 12 6-12 6z"></path>
+<path class="illo-fill-primary" d="M6 12v12l12 6 12-6V12" opacity="0.12"></path>
 <path class="illo-line illo-primary" d="M6 12v12l12 6 12-6V12"></path>
 <path class="illo-line illo-primary" d="M18 18v12"></path>
-<path class="illo-line illo-accent" d="M14 21l3 3 6-6"></path>
+<circle cx="18" cy="22" r="6" fill="#01A955" opacity="0.18"></circle>
+<path stroke="#01A955" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M14.5 22l2.5 2.5 5-5"></path>
 </svg></div>
 <span class="wf-num">Step 5</span>
 <span class="wf-label">Release</span>
@@ -798,6 +846,7 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 </div>
 </div>
 <p class="workflow-note">Connected by one system. Updated in real time. Traceable at every step.</p>
+<div class="sec-cta"><div class="sec-cta-inner"><span>Want to walk through this on your own batches?</span><a href="#demo" class="btn btn-primary btn-sm">Get a Demo</a></div></div>
 </div>
 </section>
 
@@ -929,21 +978,22 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 </div>
 <div class="proof-grid cols-3">
 <div class="proof-card">
-<span class="tag">Lubrizol</span>
+<img class="proof-logo" src="https://cdn.prod.website-files.com/5dd1e506c5a7edfbd95f37e2/68c04482dc5e2508c9b76972_Lubrizol_Logo_FullColor_RGB_1.png" alt="Lubrizol logo">
 <h4>5 labs</h4>
 <p class="desc">Running one connected QC LIMS across every site instead of five disconnected ones.</p>
 </div>
 <div class="proof-card">
-<span class="tag">Lubrizol</span>
+<img class="proof-logo" src="https://cdn.prod.website-files.com/5dd1e506c5a7edfbd95f37e2/68c04482dc5e2508c9b76972_Lubrizol_Logo_FullColor_RGB_1.png" alt="Lubrizol logo">
 <h4>1,000+ users</h4>
 <p class="desc">Every QC operator working from the same live records, with role-based access.</p>
 </div>
 <div class="proof-card">
-<span class="tag">Lubrizol</span>
+<img class="proof-logo" src="https://cdn.prod.website-files.com/5dd1e506c5a7edfbd95f37e2/68c04482dc5e2508c9b76972_Lubrizol_Logo_FullColor_RGB_1.png" alt="Lubrizol logo">
 <h4>300+ batches a day</h4>
 <p class="desc">Tested, released, and synced to SAP without manual re-entry.</p>
 </div>
 </div>
+<div class="sec-cta"><div class="sec-cta-inner"><span>Curious how this could look at your sites?</span><a href="#demo" class="btn btn-primary btn-sm">Get a Demo</a></div></div>
 </div>
 </section>
 
@@ -957,31 +1007,32 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 </div>
 <div class="compare-table-wrap">
 <table class="compare-table">
-<thead><tr><th>Aspect</th><th>Without a connected QC LIMS</th><th>With Uncountable</th></tr></thead>
+<thead><tr><th class="th-aspect">Aspect</th><th class="th-without">Without a connected QC LIMS</th><th class="th-with">With Uncountable</th></tr></thead>
 <tbody>
 <tr>
 <td class="activity">Quality data</td>
-<td class="without"><span class="compare-row-icon"><svg class="lucide lucide-x" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>Living apart from R&amp;D and formulation</span></td>
+<td class="without"><span class="compare-row-icon"><svg class="lucide lucide-x x-mark" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>Living apart from R&amp;D and formulation</span></td>
 <td class="with"><span class="compare-row-icon"><svg class="lucide lucide-check" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Connected to formulation and batch data</span></td>
 </tr>
 <tr>
 <td class="activity">Root cause</td>
-<td class="without"><span class="compare-row-icon"><svg class="lucide lucide-x" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>A document hunt across systems</span></td>
+<td class="without"><span class="compare-row-icon"><svg class="lucide lucide-x x-mark" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>A document hunt across systems</span></td>
 <td class="with"><span class="compare-row-icon"><svg class="lucide lucide-check" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Root-cause investigation at production scale</span></td>
 </tr>
 <tr>
 <td class="activity">SPC</td>
-<td class="without"><span class="compare-row-icon"><svg class="lucide lucide-x" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>Exported monthly, after the fact</span></td>
+<td class="without"><span class="compare-row-icon"><svg class="lucide lucide-x x-mark" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>Exported monthly, after the fact</span></td>
 <td class="with"><span class="compare-row-icon"><svg class="lucide lucide-check" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Live, with real-time out-of-spec alerts</span></td>
 </tr>
 <tr>
 <td class="activity">ERP</td>
-<td class="without"><span class="compare-row-icon"><svg class="lucide lucide-x" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>Can't capture quality history</span></td>
+<td class="without"><span class="compare-row-icon"><svg class="lucide lucide-x x-mark" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>Can't capture quality history</span></td>
 <td class="with"><span class="compare-row-icon"><svg class="lucide lucide-check" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Bidirectional SAP and instrument integration</span></td>
 </tr>
 </tbody>
 </table>
 </div>
+<div class="sec-cta"><div class="sec-cta-inner"><span>See the "after" on your own data</span><a href="#demo" class="btn btn-primary btn-sm">Get a Demo</a></div></div>
 </div>
 </section>
 
@@ -1001,6 +1052,7 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 <div class="integ-chip"><svg class="lucide lucide-shield-check" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>QMS</div>
 <div class="integ-chip"><svg class="lucide lucide-files" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7h-3a2 2 0 0 1-2-2V2"></path><path d="M9 18a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h7l4 4v10a2 2 0 0 1-2 2Z"></path><path d="M3 7.6v12.8A1.6 1.6 0 0 0 4.6 22h9.8"></path></svg>Document Stores</div>
 </div>
+<div class="sec-cta"><div class="sec-cta-inner"><span>Ask us about your specific stack</span><a href="#demo" class="btn btn-primary btn-sm">Get a Demo</a></div></div>
 </div>
 </section>
 <!-- ================= DIFFERENTIATORS ================= -->
@@ -1088,6 +1140,7 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 <div class="proof">AI applied to structured quality and formulation data.</div>
 </div>
 </div>
+<div class="sec-cta"><div class="sec-cta-inner"><span>See what makes Uncountable different</span><a href="#demo" class="btn btn-primary btn-sm">Get a Demo</a></div></div>
 </div>
 </section>
 
@@ -1136,6 +1189,7 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 </div>
 </div>
 </div>
+<div class="sec-cta"><div class="sec-cta-inner"><span>Talk through the ROI for your team</span><a href="#demo" class="btn btn-primary btn-sm">Get a Demo</a></div></div>
 </div>
 </section>
 
@@ -1188,33 +1242,26 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 </div>
 </div>
 </div>
-</div>
-</section>
-
-<!-- ================= INDUSTRIES ================= -->
-<section class="sec-light" id="industries">
-<div class="wrap">
-<div class="sec-head center">
-<div class="eyebrow">Where it's deployed</div>
-<h2>Common industries using Uncountable's QC LIMS</h2>
-</div>
+<div class="industries-inline" id="industries">
+<h3 class="industries-inline-label">Common industries using Uncountable's QC LIMS</h3>
 <div class="industries-row-center">
-<span class="chip">Chemicals</span>
-<span class="chip">Coatings &amp; Adhesives</span>
-<span class="chip">Food &amp; Beverage</span>
-<span class="chip">Personal Care &amp; Cosmetics</span>
-<span class="chip">Agrochemicals</span>
-<span class="chip">Pharmaceuticals</span>
-<span class="chip">Specialty Materials</span>
-<span class="chip">Oil &amp; Gas</span>
-<span class="chip">Paints &amp; Pigments</span>
-<span class="chip">Industrial Manufacturing</span>
+<span class="chip"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"></path><path d="M6.453 15h11.094"></path><path d="M8.5 2h7"></path></svg>Chemicals</span>
+<span class="chip"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.5-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"></path></svg>Coatings &amp; Adhesives</span>
+<span class="chip"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path><path d="M7 2v20"></path><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path></svg>Food &amp; Beverage</span>
+<span class="chip"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path></svg>Personal Care &amp; Cosmetics</span>
+<span class="chip"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg>Agrochemicals</span>
+<span class="chip"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path><path d="m8.5 8.5 7 7"></path></svg>Pharmaceuticals</span>
+<span class="chip"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg>Specialty Materials</span>
+<span class="chip"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>Oil &amp; Gas</span>
+<span class="chip"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle></svg>Paints &amp; Pigments</span>
+<span class="chip"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16h.01"></path><path d="M16 16h.01"></path><path d="M3 19a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z"></path><path d="M17 18v-3.4a1 1 0 0 1 .4-.8l2.2-1.6a1 1 0 0 1 1.6.8V18"></path><path d="M7 18v-6.3a1 1 0 0 1 .4-.8l3.2-2.4a1 1 0 0 1 1.2 0l3.2 2.4a1 1 0 0 1 .4.8V18"></path><path d="M7 18h10"></path></svg>Industrial Manufacturing</span>
+</div>
 </div>
 </div>
 </section>
 
 <!-- ================= FINAL CTA / DEMO FORM ================= -->
-<section class="cta-final" id="demo">
+<section class="cta-final sec-light" id="demo">
 <div class="wrap">
 <div>
 <div class="eyebrow">Request a demo</div>
@@ -1278,9 +1325,7 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 <div>
 <h4>Product</h4>
 <ul>
-<li><a href="#wedge">Overview</a></li>
-<li><a href="#wedge">Change Control</a></li>
-<li><a href="#integrations">Integrations</a></li>
+<li><a href="https://www.uncountable.com/">Overview</a></li>
 </ul>
 </div>
 <div>
@@ -1288,6 +1333,7 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 <ul>
 <li><a href="https://www.uncountable.com/company">About</a></li>
 <li><a href="https://www.uncountable.com/customers">Customers</a></li>
+<li><a href="https://www.uncountable.com/careers">Careers</a></li>
 </ul>
 </div>
 <div>
@@ -1295,14 +1341,14 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 <ul>
 <li><a href="https://www.uncountable.com/blog">Blog</a></li>
 <li><a href="https://www.uncountable.com/solution-guides">Guides</a></li>
+<li><a href="https://www.uncountable.com/contact-us">Support</a></li>
 </ul>
-</div>
-</div>
+</div></div>
 </div>
 <footer class="site-foot">
 <div class="wrap">
-<span>© 2026 Uncountable. All rights reserved.</span>
-<span><a href="https://www.uncountable.com/privacy">Privacy</a></span>
+<span>&copy; 2026 Uncountable. All rights reserved.</span>
+<span><a href="https://www.uncountable.com/privacy">Privacy</a><a href="https://www.uncountable.com/terms-of-use">Terms</a></span>
 </div>
 </footer>
 
@@ -1310,32 +1356,6 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
   const nav = document.getElementById('nav');
   const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
   onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
-</script>
-<script>
-  (function () {
-    var toggle = document.querySelector('.nav-toggle');
-    var links  = document.querySelector('.nav-links');
-    if (!toggle || !links) return;
-    function setOpen(open) {
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-      links.setAttribute('data-open', open ? 'true' : 'false');
-    }
-    toggle.addEventListener('click', function () {
-      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
-    });
-    links.addEventListener('click', function (e) {
-      if (e.target.closest('a')) setOpen(false);
-    });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
-        setOpen(false); toggle.focus();
-      }
-    });
-    var wide = window.matchMedia('(min-width:1001px)');
-    var onWide = function (e) { if (e.matches) setOpen(false); };
-    if (wide.addEventListener) wide.addEventListener('change', onWide); else wide.addListener(onWide);
-  })();
 </script>
 
 </body></html>
