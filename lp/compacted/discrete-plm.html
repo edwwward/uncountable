@@ -394,7 +394,7 @@ details p{font-size:14.5px;margin-top:12px;max-width:74ch;line-height:1.6}
 /* ---- Product record mock (Production Ramp replacement) ---- */
 .pr-stepper{display:flex;align-items:center;gap:0;padding:12px 20px;border-bottom:1px solid var(--border-subtle);overflow-x:auto}
 .pr-stepper .step{font-family:var(--font-mono);font-size:10.5px;font-weight:var(--fw-medium);letter-spacing:0.03em;padding:6px 12px;border-radius:4px;white-space:nowrap;color:var(--text-muted);background:transparent}
-.pr-stepper .step.active{background:var(--status-success);color:#fff}
+.pr-stepper .step.active{background:var(--u-green-text);color:#fff}
 .pr-tabs{display:flex;gap:16px;padding:0 20px;border-bottom:1px solid var(--border-subtle);overflow-x:auto}
 .pr-tabs span{font-size:11.5px;font-weight:var(--fw-medium);color:var(--text-muted);padding:9px 0;white-space:nowrap;border-bottom:2px solid transparent}
 .pr-tabs span.active{color:var(--u-navy);border-bottom-color:var(--brand-primary)}
@@ -403,7 +403,7 @@ details p{font-size:14.5px;margin-top:12px;max-width:74ch;line-height:1.6}
 .pr-field .lbl{font-size:10.5px;font-weight:var(--fw-medium);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px}
 .pr-field .val{font-size:13px;color:var(--text-heading);font-weight:var(--fw-medium)}
 .pr-field .val.link{color:var(--brand-primary)}
-.pr-field .val.empty{color:var(--u-gray-400);font-weight:var(--fw-regular);font-style:italic;border:1px dashed var(--border-default);border-radius:4px;padding:4px 8px;display:inline-block}
+.pr-field .val.empty{color:var(--text-muted);font-weight:var(--fw-regular);font-style:italic;border:1px dashed var(--border-default);border-radius:4px;padding:4px 8px;display:inline-block}
 
 /* ---- Parts + CAD split mock ---- */
 .parts-cad{display:grid;grid-template-columns:1.15fr 1fr}
@@ -459,6 +459,63 @@ details p{font-size:14.5px;margin-top:12px;max-width:74ch;line-height:1.6}
 }
 /* Anchor targets must clear the sticky nav. */
 section[id]{scroll-margin-top:var(--nav-h)}
+
+/* ============================================================
+   MOBILE POLISH
+   Grid children default to min-width:auto, so they refuse to shrink
+   below their content. The mock UIs are wide, which blew the single
+   mobile column out past the viewport (up to 314px on the product
+   record). Letting them shrink, then scrolling the genuinely wide
+   parts inside their own card, is the fix.
+   ============================================================ */
+
+/* 1. Let grid children shrink. Applies at every width: the bug is
+      latent on desktop too, it just has room to hide. */
+.wedge-row > *,
+.fit > *,
+.parts-cad > *,
+.cta-final .wrap > *{min-width:0}
+
+/* 2. Wide mock internals scroll inside their own card instead of
+      clipping. .mock-card is overflow:hidden, which cropped them. */
+@media(max-width:720px){
+  .phase-flow{overflow-x:auto;justify-content:flex-start;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .phase-flow::-webkit-scrollbar{display:none}
+  .mock-card .mock-table{display:block;overflow-x:auto;white-space:nowrap;
+    -webkit-overflow-scrolling:touch}
+  /* 13 spec fields two-up is unreadable on a phone */
+  .pr-fields{grid-template-columns:1fr}
+  /* mock chrome was 10-10.5px; still small, but legible */
+  .phase-flow .pf-time{font-size:11px}
+  .mock-table th{font-size:11px}
+  .pr-stepper .step,.pr-tabs span{font-size:11.5px}
+  .phase-flow .pf-pill{font-size:11px}
+  .gantt-stats .stat .lbl{font-size:11px}
+  .gantt-group-label{font-size:11px}
+  .pr-field .lbl{font-size:11px}
+}
+
+/* 2b. The gantt track's bars are absolutely positioned with percentage
+       widths; at narrow widths they round a few px past the track. The
+       track is a rounded pill, so clipping to its own shape is correct. */
+.gantt-track{overflow:hidden}
+@media(max-width:720px){
+  .gantt-row{grid-template-columns:92px minmax(0,1fr);gap:10px}
+  .gantt-stats .stat{min-width:96px}
+}
+
+/* 3. Footer links were 19px tall. Give them a real touch target
+      without changing how the columns look. */
+@media(max-width:760px){
+  .terms ul{gap:0}
+  .terms ul li a{display:inline-block;padding:14px 0;line-height:1.2}
+  .site-foot .wrap{gap:10px}
+  .site-foot a{display:inline-block;padding:13px 0}
+  /* nav CTA sat at 39px and the logo link at 26px; both are primary taps */
+  .nav-right>.btn{padding-top:12px;padding-bottom:12px}
+  .nav-inner>a[aria-label]{display:inline-flex;align-items:center;min-height:44px}
+}
 </style>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -534,7 +591,7 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 <p class="lede">Uncountable connects engineering, quality, regulatory, and manufacturing on a single platform, so specs, BOMs, and compliance data stay in sync automatically. No more syncing eBOMs by hand, chasing change control through email, or building off a spec that's already out of date.</p>
 <div class="hero-cta">
 <a href="#demo" class="btn btn-primary btn-lg">Request a Demo</a>
-<a href="#platform" class="btn btn-outline btn-lg">See how change control works</a>
+<a href="#challenge" class="btn btn-outline btn-lg">Learn More</a>
 </div>
 <p class="hero-trust">Deployed by global engineering and materials-driven manufacturers</p>
 </div>

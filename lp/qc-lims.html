@@ -15,6 +15,8 @@
    ============================================================ */
 
 :root{
+  /* Height of the sticky nav; anchor targets offset from it. */
+  --nav-h:71px;
   /* Brand */
   --u-white:#fff; --u-navy:#020D4C; --u-blue-900:#01318F; --u-blue-600:#046CDE;
   --u-cyan:#00C7FE; --u-green:#01A955; --u-orange:#FFAF0F; --u-ink:#3C4554;
@@ -421,6 +423,9 @@ details p{font-size:14.5px;margin-top:12px;max-width:74ch;line-height:1.6}
 .compare-table th.th-without{color:#C4351E}
 .compare-table th.th-with{color:var(--u-green-text)}
 .compare-table td.without .compare-row-icon svg.x-mark{color:#C4351E}
+
+/* Anchor targets must clear the sticky nav. */
+section[id]{scroll-margin-top:var(--nav-h)}
 </style>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -493,7 +498,7 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 <p class="lede">Uncountable's QC LIMS owns testing, release, live SPC, and out-of-spec deviations, with root-cause investigation connected to the R&amp;D and formulation data behind every batch. No more hunting across systems to explain why a batch is on hold.</p>
 <div class="hero-cta">
 <a href="#demo" class="btn btn-primary btn-lg">Request a Demo</a>
-<a href="#wedge" class="btn btn-outline btn-lg">See how root cause investigation works</a>
+<a href="#challenge" class="btn btn-outline btn-lg">Learn More</a>
 </div>
 <p class="hero-trust">Proven at Lubrizol: QC LIMS across 5 labs, 1,000+ users, and 300+ batches a day</p>
 </div>
@@ -665,7 +670,7 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 </section>
 
 <!-- ================= PROBLEM ================= -->
-<section class="sec-light">
+<section class="sec-light" id="challenge">
 <div class="wrap">
 <div class="sec-head center">
 <div class="eyebrow">THE COMMON CHALLENGE</div>

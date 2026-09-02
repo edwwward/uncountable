@@ -15,6 +15,8 @@
    ============================================================ */
 
 :root{
+  /* Height of the sticky nav; anchor targets offset from it. */
+  --nav-h:71px;
   /* Brand */
   --u-white:#fff; --u-navy:#020D4C; --u-blue-900:#01318F; --u-blue-600:#046CDE;
   --u-cyan:#00C7FE; --u-green:#01A955; --u-orange:#FFAF0F; --u-ink:#3C4554;
@@ -420,6 +422,9 @@ details p{font-size:14.5px;margin-top:12px;max-width:74ch;line-height:1.6}
 
 /* ---- Section-level "Get a Demo" CTAs ---- */
 .section-cta{display:flex;justify-content:center;margin-top:clamp(2.25rem,3.4vw,3.25rem)}
+
+/* Anchor targets must clear the sticky nav. */
+section[id]{scroll-margin-top:var(--nav-h)}
 </style>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -492,7 +497,7 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 <p class="lede">Uncountable connects engineering, quality, regulatory, and manufacturing on a single platform, so specs, BOMs, and compliance data stay in sync automatically. No more syncing eBOMs by hand, chasing change control through email, or building off a spec that's already out of date.</p>
 <div class="hero-cta">
 <a href="#demo" class="btn btn-primary btn-lg">Request a Demo</a>
-<a href="#wedge" class="btn btn-outline btn-lg">See how change control works</a>
+<a href="#challenge" class="btn btn-outline btn-lg">Learn More</a>
 </div>
 <p class="hero-trust">Deployed by global engineering and materials-driven manufacturers</p>
 </div>
@@ -664,7 +669,7 @@ a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-b
 </section>
 
 <!-- ================= PROBLEM ================= -->
-<section class="sec-light">
+<section class="sec-light" id="challenge">
 <div class="wrap">
 <div class="sec-head center">
 <div class="eyebrow">THE COMMON CHALLENGE</div>
