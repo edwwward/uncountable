@@ -115,6 +115,13 @@ h3{font-size:1.25rem;color:var(--text-heading);margin-bottom:10px;line-height:1.
 .sec-head{max-width:60ch;margin-bottom:clamp(2rem,3.4vw,3.25rem)}
 .sec-head.center{margin-left:auto;margin-right:auto;text-align:center}
 .sec-head.center .lede{margin-inline:auto}
+/* A merged section carries a second heading block; it needs the section's own
+   vertical rhythm above it, since .sec-head only supplies margin-bottom. */
+.sec-head:not(:first-child){margin-top:var(--section-y)}
+/* Removing the second heading left the callout flush against the fit cards.
+   Give it the same rhythm, unless a heading above it already owns that space. */
+.callout:not(:first-child){margin-top:var(--section-y)}
+.sec-head + .callout{margin-top:0}
 
 /* ---- Buttons ---- */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-body);font-weight:var(--fw-medium);font-size:15px;padding:12px 24px;border:1.5px solid transparent;border-radius:var(--radius-control);cursor:pointer;white-space:nowrap;transition:background var(--dur-base) var(--ease-out),color var(--dur-base),border-color var(--dur-base),transform var(--dur-fast)}

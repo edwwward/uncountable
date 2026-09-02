@@ -27,13 +27,17 @@ h1{font-size:clamp(1.75rem,4vw,2.5rem);font-weight:500;line-height:1.15;letter-s
 ul{list-style:none;margin:0;padding:0}
 li{border-top:1px solid var(--gray-200)}
 li:last-child{border-bottom:1px solid var(--gray-200)}
-a.row{display:flex;align-items:baseline;justify-content:space-between;gap:20px;
-  padding:22px 4px;text-decoration:none;color:inherit;
-  transition:padding-left var(--dur,180ms) var(--ease-out)}
-a.row:hover{padding-left:10px}
+a.row{display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:22px 4px;text-decoration:none;color:inherit}
 a.row:focus-visible{outline:2px solid var(--u-blue-600);outline-offset:3px}
-.name{font-size:1.0625rem;font-weight:500;color:var(--u-navy)}
-.slug{font-size:13px;color:var(--muted);font-family:ui-monospace,Menlo,monospace}
+.name{font-size:1.0625rem;font-weight:500;color:var(--u-navy);
+  display:inline-flex;align-items:center;gap:9px}
+.arw{width:17px;height:17px;flex:none;color:var(--u-blue-600);
+  transition:transform 180ms var(--ease-out)}
+a.row:hover .arw{transform:translateX(5px)}
+.size{font-size:13px;color:var(--muted);font-family:ui-monospace,Menlo,monospace;
+  white-space:nowrap;text-align:right}
+.save{color:var(--u-blue-600)}
 footer{margin-top:44px;font-size:13px;color:var(--muted)}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -45,23 +49,23 @@ footer{margin-top:44px;font-size:13px;color:var(--muted)}
   <p class="lede">Three suite landing pages, matching the current live versions on get.uncountable.com.</p>
   <p class="note">Preview only: these are not indexed, and they are separate from the live pages on
      get.uncountable.com. The demo form is the real HubSpot embed, so avoid submitting test entries.
-     The QMS page is not included yet.</p>
+     The QMS page is not included yet. Heights are full page height measured at 1440 &times; 900.</p>
   <ul>
-    <li><a class="row" href="./discrete-plm.html"><span class="name">Discrete PLM</span><span class="slug">discrete-plm</span></a></li>
-    <li><a class="row" href="./process-plm.html"><span class="name">Process-based PLM</span><span class="slug">process-plm</span></a></li>
-    <li><a class="row" href="./qc-lims.html"><span class="name">QC LIMS</span><span class="slug">qc-lims</span></a></li>
+    <li><a class="row" href="./discrete-plm.html"><span class="name">Discrete PLM<svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span><span class="size">11,192px</span></a></li>
+    <li><a class="row" href="./process-plm.html"><span class="name">Process-based PLM<svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span><span class="size">10,752px</span></a></li>
+    <li><a class="row" href="./qc-lims.html"><span class="name">QC LIMS<svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span><span class="size">11,704px</span></a></li>
   </ul>
 
   <p class="eyebrow" style="margin-top:44px">Proposals</p>
   <ul>
-    <li><a class="row" href="./compacted/discrete-plm.html"><span class="name">Discrete PLM &mdash; compacted</span><span class="slug">8.1 screens</span></a></li>
-    <li><a class="row" href="./optimized/discrete-plm.html"><span class="name">Discrete PLM &mdash; conversion-optimized</span><span class="slug">7.2 screens</span></a></li>
+    <li><a class="row" href="./compacted/discrete-plm.html"><span class="name">Discrete PLM &mdash; compacted<svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span><span class="size">7,505px <span class="save">33% shorter</span></span></a></li>
+    <li><a class="row" href="./optimized/discrete-plm.html"><span class="name">Discrete PLM &mdash; conversion-optimized<svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span><span class="size">6,677px <span class="save">40% shorter</span></span></a></li>
   </ul>
   <p class="note" style="margin-top:16px">Two directions from the same source. <b>Compacted</b> keeps every claim and
      restructures: the four feature rows become tabs and three pairs of sections merge, so every section fits in the
-     top nav (12.4 screens of scroll down to 8.1). <b>Conversion-optimized</b> goes further and reorders for a single
+     top nav (11,192px of scroll down to 7,505px). <b>Conversion-optimized</b> goes further and reorders for a single
      goal, the demo request: the problem section is reframed from pain to outcome, integrations fold into the platform
-     block, and the business-outcome grid drops to one item each for cost, revenue, and risk (down to 7.2 screens).</p>
+     block, and the business-outcome grid drops to one item each for cost, revenue, and risk (down to 6,677px).</p>
   <footer>Uncountable &middot; internal review build</footer>
 </div>
 </body>
